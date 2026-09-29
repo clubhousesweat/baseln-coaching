@@ -1,0 +1,437 @@
+BASELN Website Blueprint
+
+Private Coaching Website Build and Copy Specification
+
+29 September 2026
+
+Table of Contents
+
+Executive decision
+
+Build a new BASELN coaching website around a single paid relationship: private online coaching with Aian McLennan. A new client starts with BASELN / 6, a six-week coached first phase. Training toward the client’s objective begins when their individual prescription is ready. Week six brings a substantial review, not the first chance to see progress. Clients who want to continue move into ongoing private coaching, subject to the agreed commercial terms.
+
+The site must make three points quickly: what clients can work toward; what they actually receive from Aian; how they begin. The design should feel assured and editorial. Copy should be energetic, specific and human. The site should never imply all clients receive one programme, every client must pursue all goals, or the first six weeks are spent waiting to train.
+
+The working public promise is: Aian sets the priorities, builds the training, coaches its execution, helps with food and habits, and stays involved as the person progresses. His breadth—from high-level performers to everyday people—is evidence of range, not a signal that beginners must train like athletes.
+
+This document is the new source of truth for design and copy. It replaces earlier competing headlines, the five- and eight-week offers, and the sprawling page outlines. It is a build specification; the current Manus previews have not been changed by this document.
+
+1. Offer and language rules
+
+1.1 Commercial architecture
+
+Layer
+
+Public name
+
+Meaning
+
+Brand
+
+BASELN
+
+The private coaching business
+
+Service
+
+Private Coaching
+
+Individual training, appropriate nutrition guidance, direct coaching and review
+
+Starting phase
+
+BASELN / 6
+
+Six weeks of private coaching from an individually assessed starting point
+
+Continuation
+
+Ongoing Private Coaching
+
+Subsequent blocks based on progress and the client’s next objective
+
+Member environment
+
+Training Room
+
+Browser-first, phone-friendly space for the current block, sessions, calendar, progress and coach communication
+
+Do not add separate goal programmes, tiers or a challenge funnel. BASELN / 6 is a defined timeframe and service experience, while the training, food strategy, habits, measures and decisions differ between clients. The application is a conversation starter, not an automatic sale or a comprehensive health-screening form.
+
+1.2 What differentiates BASELN
+
+The differentiator is not the word personalised. It is Aian’s judgement applied repeatedly: which goal takes priority; which training methods serve it; how much structure a client needs; what the completed work reveals; when to progress; what to do after a missed week; and what the next block should target. A good client knows why the work is there and has a person to ask when the plan meets real life.
+
+The proof must be visible: a real Aian coaching image, a sample brief, one concrete technique or programming explanation, the review process and verified experience. Do not replace proof with ‘industry-leading’, ‘cutting edge’ or ‘methods found nowhere else’. The level of service can feel exceptional without claims that cannot be substantiated.
+
+1.3 Copy boundaries
+
+Use programme for a client’s individual training prescription. Never say ‘one programme’ or ‘one plan’ to describe every client.
+
+Use you for the visitor, Aian when promising direct coaching, and we sparingly. The site should not imply an undisclosed coaching team.
+
+Say the client can pursue fat loss, muscle, strength, fitness, sport/event performance or a return to training. Several goals may coexist, but they have priorities.
+
+Nutrition can range from habits and meal structure to detailed targets when appropriate. Do not promise a universal meal plan.
+
+Accountability means agreed actions, coach review, feedback and follow-up; not 24-hour monitoring or shaming.
+
+‘Any age, any level’ should be expressed as ‘different ages and starting points’. Do not imply specialised medical, rehabilitation or clinical care.
+
+The Clubhouse is evidence of Aian’s coaching and business history. This is a BASELN site, not a Clubhouse relaunch.
+
+Avoid ‘journey’, ‘transformation’, ‘best version of yourself’, ‘unlock your potential’, ‘holistic’, ‘no excuses’, ‘no templates’ repeated as a manifesto, and performative swearing.
+
+1.4 Voice hierarchy
+
+One memorable brand statement: NOT MADE FOR EVERYONE. Made for you. The meaning is that the work is individually prescribed; it does not mean only already-fit people belong. Follow it immediately with plain evidence of the offer. Other headings must do a job, not compete to become slogans.
+
+Approved calls to action: Explore private coaching; Apply to work with Aian; See how it works; Meet Aian; Start your application. Use one primary action per section. Avoid six versions of the same CTA.
+
+2. Information architecture and content ownership
+
+Global navigation: Coaching / How it works / About / Field Notes. Right-side utility: Member login and the single filled Apply for coaching button. On phones: wordmark, labelled Menu button and one accessible path to Apply inside the menu. Field Notes enters navigation only when real articles exist. Member login remains only if authentication works.
+
+Page
+
+Its single job
+
+Unique content
+
+Do not duplicate
+
+Home
+
+Create immediate understanding and desire
+
+Offer overview, condensed benefits, Aian proof, BASELN / 6 teaser
+
+Full inclusions and week-by-week process
+
+Coaching
+
+Help a person decide to apply
+
+Goal range, exact inclusions, six-week start, nutrition, accountability, terms and FAQ
+
+Aian biography or Method essays
+
+How it works
+
+Demonstrate coaching judgement
+
+Realistic decisions, technique example and review logic
+
+Benefits checklist
+
+About
+
+Establish trust in Aian
+
+Verified career facts, Clubhouse heritage and personal coaching point of view
+
+Another sales-page inclusion list
+
+Field Notes
+
+Demonstrate useful expertise
+
+Finished practical articles
+
+Promotional filler
+
+Apply
+
+Start a qualified conversation
+
+Short enquiry and clear next step
+
+Full onboarding questionnaire
+
+Training Room
+
+Help a member act today
+
+Current objective, session, calendar, coach and review
+
+Marketing claims or a crowded dashboard
+
+The full inclusion list appears once, on Coaching. Home uses a shorter, more visual preview. The goal range appears in full on Coaching and is mentioned only briefly elsewhere. Aian’s high-profile experience is substantiated on About, with one short pointer on Home. Do not put the same statement in three large sections.
+
+3. Design system
+
+3.1 Art direction
+
+Keep the BASELN wordmark, washed black/charcoal backgrounds, off-white text, restrained smoke-blue accent, genuine training photographs and editorial display typography. The site should feel sharp and lived-in, not luxurious for its own sake. Directional light should reveal faces, hands, effort, equipment and coaching interaction; avoid images so dark that the subject disappears. Preserve natural skin texture and tattoos. Do not use synthetic-looking bodies, anonymous stock models or repeated close-ups of shirtless athletes to represent the whole audience.
+
+Photography roles: Home hero shows Aian coaching a person; Coaching uses one session-level coaching image and one readable Training Room sample; How it works shows technique observation; About has genuine portraits and Clubhouse-era evidence where rights allow. A good proof image shows Aian doing the coaching, rather than a model performing alone. For mobile, prepare distinct focal crops. Obtain consent for identifiable clients and permission for high-profile client references.
+
+3.2 Typography and spacing
+
+Use the selected BASELN editorial serif for H1/H2 only; one clean sans serif for body, controls and labels. Do not set long descriptions in large italic serif. Suggested starting values, to tune against the actual font: desktop H1 64–80 px with line-height 0.98–1.08; phone H1 38–48 px, line-height 1.05–1.15. Desktop H2 42–56 px; phone H2 30–38 px. Body 17–19 px desktop and 16–18 px phone, line-height 1.5–1.65. Small labels 12–13 px minimum with adequate contrast, not faint 10 px tracking.
+
+Content max width 1160–1200 px; prose measure around 620–740 px. Desktop outer gutters 32–48 px, tablet 24–32 px, phone 16–20 px. Section spacing generally 88–128 px desktop, 64–88 px tablet and 52–76 px phone. These are ranges, not compulsory full-screen heights. A section with two sentences should not occupy 800 px merely to look editorial. Maintain a consistent spacing scale, e.g. 8, 12, 16, 24, 32, 48, 64, 96, rather than arbitrary one-off gaps.
+
+3.3 Responsive layout
+
+Desktop split compositions are allowed when text and image both stay readable. Collapse to one column before either column is cramped, often around 900–1024 px. At phone widths, keep headline, explanatory sentence and primary action together before a large image. No horizontal goal carousel, tiny side-by-side benefit cards or sideways six-week timeline. Lists become stacked rows with visible dividers. Buttons have at least 44 × 44 px targets and enough contrast. Test actual 320, 375, 390, 430, 768, 1024 and 1440 px widths, both orientations where relevant, enlarged text and 200% zoom. Remove any viewport maximum-scale restriction. Support reduced-motion preferences.
+
+3.4 Interaction rules
+
+Navigation and Apply must work with keyboard and touch. Menu opens and closes predictably, returns focus on close, does not hide page content behind an overlay, and does not trap the user when the viewport changes. FAQ rows are full-width buttons with visible expanded state. Anchor links account for a sticky header. Forms use actual labels, field-specific errors, success and failure messages, autocomplete where suitable, and no disappearing placeholder-only instructions. Focus styles must be obvious. Never add a decorative control that looks clickable but is not.
+
+4. Home page — exact build
+
+Target: six content sections after navigation, with no duplicate ending. The first phone viewport should identify the service, person and primary action. No full-page carousel, six-card goal selector or giant slogan followed by tiny explanatory copy.
+
+H1 hero: the service in one glance
+
+Eyebrow: BASELN / PRIVATE ONLINE COACHING
+
+H1: NOT MADE FOR EVERYONE. Made for you.
+
+Body copy: Private coaching with Aian McLennan. Tell him what you want to change. He’ll set the priorities, build the training, help with food and habits, and stay involved while you do the work. Strength, body composition, fitness or a specific event—your starting point determines what happens next.
+
+Small offer line: Start with BASELN / 6: six weeks of private coaching, with training toward your goal from your first block.
+
+Primary CTA: Explore private coaching. Secondary text link: Apply to work with Aian.
+
+Visual: One genuine Aian-coaching image, with copy in a stable contrast zone. Desktop may use left copy/right photograph; mobile text first, then a controlled portrait crop. Do not let ‘Not made for everyone’ alone fill the phone screen before a visitor learns what is being sold.
+
+Section 2: benefits preview
+
+Eyebrow: THE SERVICE
+
+H2: YOUR TRAINING IS BUILT. YOUR COACH IS INVOLVED.
+
+Intro: Aian does more than write sessions. He teaches the work, checks how you are responding and helps make the next decision. Here is what that means when you join.
+
+Display six concise rows in two columns desktop and one column mobile:
+
+Training written for you. A programme shaped by your objective, ability, schedule and equipment.
+
+Direct coaching. Questions, technique footage and feedback go to Aian, the person guiding the work.
+
+Accountability that acts. Agreed actions are reviewed. If momentum drops, you address it together.
+
+Nutrition that fits life. The right amount of structure for your goal, with room for restaurants, travel and weekends.
+
+Methods you understand. Learn how to perform, progress and adapt the training instead of merely completing it.
+
+A clear next move. Aian reviews what is working and sets the next priority.
+
+CTA: See everything coaching includes. Do not place the earlier eight-item list elsewhere on Home. The longer version belongs on Coaching; this preview replaces the old giant ‘The difference’ section, the three empty-outline boxes and adjacent redundant slogans.
+
+Section 3: recognition of different objectives
+
+H2: WHAT ARE YOU WORKING TOWARD?
+
+Body: Getting leaner and stronger. Building muscle without losing fitness. Training for a race. Finding your way back after years away. You can bring several things to the conversation. Aian helps decide what matters first and what can progress alongside it.
+
+Visual treatment: Three paired examples as short editorial text, not product cards. One link to the full goal section on Coaching. Do not claim all outcomes advance equally or that a new client must choose only one category.
+
+Section 4: BASELN / 6 teaser
+
+Eyebrow: HOW YOU BEGIN
+
+H2: SIX WEEKS. PROPERLY COACHED.
+
+Body: First, Aian learns your objective, history and actual week. Then he builds your training and an appropriate food strategy. You start working toward the result as soon as your programme is ready. Across the six weeks, he gives feedback, reviews your response and refines what needs refining. At the end, you receive a clear review and recommendation for what comes next.
+
+Short proof line: The six-week structure is shared. The prescription is yours.
+
+CTA: How BASELN / 6 works. Do not publish a five- or eight-week version on any live page.
+
+Section 5: Aian proof
+
+H2: WORK DIRECTLY WITH AIAN.
+
+Body: Aian has coached across strength and conditioning, body composition and athletic performance, while building a training culture at The Clubhouse that kept people involved in the work. His experience spans high-level performers and everyday clients with jobs, families and very different starting points. At BASELN, he is the person assessing, programming, giving feedback and reviewing your progress.
+
+Verification before publication: Hollywood film and Australia’s leading-athlete claims can appear here only after exact wording and disclosure rights are confirmed. A factual About paragraph carries the detail. No celebrity images or implied endorsements without permission.
+
+Photo: Aian in a real coaching interaction. CTA: Meet Aian.
+
+Section 6: one close
+
+H2: TELL AIAN WHAT YOU WANT TO CHANGE.
+
+Body: You do not need to arrive fit, organised or certain which goal to choose. Tell him where you are, what you want to achieve and what has been getting in the way. Your application starts a conversation.
+
+CTA: Apply for coaching. No second closing panel after this.
+
+5. Coaching page — the complete offer
+
+Target: seven chapters with meaningful substance, not fifteen separate full-screen bands. This is the only page with a full inclusion list and commercial details. Headings are plain and strong; supporting text carries the nuance. Keep a primary CTA in the opening viewport and at the end.
+
+Chapter 1: service hero
+
+Eyebrow: BASELN / PRIVATE COACHING
+
+H1: YOUR OBJECTIVE SETS THE WORK.
+
+Body: Train directly with Aian McLennan. Your programme, food strategy and coaching priorities are chosen for your goal and starting point. He stays involved as you train: teaching technique, reviewing progress, keeping you accountable and deciding what needs to happen next.
+
+CTA: Apply to work with Aian. Secondary: See what coaching includes. Show Aian coaching one person rather than a generic physique montage.
+
+Chapter 2: goal range
+
+H2: WHAT CAN YOU WORK ON?
+
+Six visible categories: Lose body fat; Build muscle; Get stronger; Improve fitness and conditioning; Prepare for an event or sport; Return to training. Each has one useful sentence about its training demand. Then: ‘Your goal may cross several of these. Aian helps set the order of priorities.’ They are examples, not separate paid programmes. A client who wants to lose body fat, regain strength and run a 5 km has a legitimate brief; the work is sequenced intelligently.
+
+Design: Compact typographic grid or six stacked rows, never a three-goal carousel. Phone: one column. No Apply button repeated on each category.
+
+Chapter 3: exactly what clients receive
+
+H2: PRIVATE COACHING. THE FULL EXPERIENCE.
+
+Intro: You bring the goal. Aian builds the work, teaches you how to do it, helps you get your food and habits working for you, and stays involved through the first block and beyond.
+
+01 / TRAINING WRITTEN FOR YOU. A programme built around your objective, experience, ability, equipment and available week. Strength, muscle, conditioning and event work appear where they serve the brief.
+
+02 / DIRECT ACCESS TO AIAN. Ask questions, discuss the week ahead, send relevant footage and receive feedback from the person making the coaching decisions. Insert the actual contact channel, response expectations and included call format once confirmed.
+
+03 / ACCOUNTABILITY WITH FOLLOW-THROUGH. Agree on the sessions and habits that matter. Aian reviews what happened, notices patterns and helps address the reason momentum dropped. This is not a daily guilt score.
+
+04 / TECHNIQUE AND TRAINING EDUCATION. Learn how to execute, progress and understand the work. Aian can use varied strength, conditioning and performance methods appropriate to the client, rather than an exercise chosen merely because it looks novel.
+
+05 / FOOD THAT WORKS IN REAL LIFE. Get the level of nutrition structure the goal calls for: practical meal patterns, portions and protein, or detailed targets where useful. Restaurants, travel and weekends are part of the conversation.
+
+06 / TRAINING THAT CAN RESPOND. When work, family, travel or recovery changes the week, Aian helps decide what to move, shorten, modify or leave alone. Adaptation has a reason; the programme is not rewritten for show every Tuesday.
+
+07 / PROGRESS YOU UNDERSTAND. Review measures relevant to your brief. Aian explains what they reveal, what is improving, where the work is stuck and what the next block should prioritise.
+
+08 / COACHING AT YOUR LEVEL. Aian’s experience spans high-level performers and everyday people. Training standards stay high while the work changes with the person’s age, history, ability and objective.
+
+Layout: 2 × 4 editorial list at wide desktop, single-column rows on phone. Avoid eight tall image cards. One photograph or a genuine coach-note inset punctuates the list. This list appears only here, not on Home or Method.
+
+Chapter 4: how BASELN / 6 works
+
+H2: SIX WEEKS IS THE START. THE WORK BEGINS IMMEDIATELY.
+
+Introduction: BASELN / 6 is the six-week starting phase of private coaching. There is no shared start date and no shared workout. After assessment and conversation, Aian builds the first prescription; the client begins training toward the objective when it is ready. The work itself then makes the coaching more precise.
+
+Before training / Establish the brief. Application followed by a real conversation and fuller assessment: objective, history, available time, equipment, current nutrition, recovery, relevant limitations and how the client likes to be coached. Choose useful starting measures, not a universal testing battery. Sensitive health detail belongs in secure onboarding.
+
+First sessions / Get to work. The client receives a short Current Block brief: primary objective, secondary priorities, session structure, nutrition starting point, agreed habits and what will be reviewed. They train, ask questions and send feedback. Early performance and schedule friction help refine the prescription.
+
+During the block / Coach and progress. Aian reviews training, relevant food habits, technique, adherence and recovery. He progresses the work when the response supports it and changes what is not serving the objective. A disrupted week is addressed rather than treated as a character flaw.
+
+End of week six / Review and decide. Aian compares the original brief with what happened. The client receives: where they started; what changed; what worked; what held progress back; what Aian learned; and his recommendation for the next phase. Continuing clients move into ongoing private coaching based on that evidence.
+
+Visual: A short four-stage vertical sequence with a readable sample Current Block card alongside it. No rigid daily timeline, no giant arrow diagram and no promise of a specific body outcome by week six. The first session is about the client’s real goal, not five weeks of assessment.
+
+Chapter 5: the lived coaching experience
+
+H2: WHAT HAPPENS WHEN THE WEEK DOESN’T GO TO PLAN?
+
+Illustrative example: ‘You planned three sessions. Work travel wipes out two, and Thursday gives you 30 minutes. Tell Aian. He decides which work matters this week, what can move and whether a shorter session is useful. Next week builds from what you actually completed.’ Label it as an illustration, not a client case or guaranteed instant intervention.
+
+H2 within chapter: EAT WELL. ENJOY YOUR LIFE.
+
+Copy: Aian helps you identify the food habits that actually move the goal. For some clients that is protein and a reliable meal pattern; for others, more detailed targets are useful. The approach accounts for restaurants, social occasions, travel and preference. Specific goals may require periods of greater discipline, but clients understand why and can make informed choices.
+
+Accountability inset: A structured review of agreed actions and progress plus direct contact between reviews. Avoid advertising ‘once a week’ as the entire relationship, and do not imply round-the-clock replies. Publish honest communication terms.
+
+Chapter 6: the next block and fit
+
+H2: KNOW WHAT CHANGED. KNOW WHAT COMES NEXT.
+
+Copy: At the six-week review, Aian assesses the measures appropriate to the client—training performance, consistency, body composition where relevant, conditioning, event readiness, food habits and feedback. The next prescription follows what has been learned. If the client has achieved what they came for, the review can be a proper ending; if there is more to do and both sides agree, ongoing coaching continues from there.
+
+Suitability line: New to training or experienced, younger or older, the starting point affects the prescription. BASELN is for people willing to communicate and do the work, not only athletes. Health screening and referral boundaries remain appropriate.
+
+Chapter 7: terms, FAQ and final action
+
+Publish a compact At a glance block once pricing is locked: BASELN / 6 duration; fee and currency; payment schedule; what calls and contact are included; start condition; cancellation/renewal; ongoing private coaching terms. Do not hide a six-week paid commitment behind vague ‘month to month’ language. If price is deliberately omitted from Home, Coaching still needs enough commercial clarity before anyone pays.
+
+FAQ: Do I need to be fit already? Can I work on several goals? How many days will I train? Do I need a gym? How does nutrition work? How do I contact Aian and how quickly should I expect a response? What if I miss a week? What happens after six weeks? Each answer should provide new information in 40–80 words, not repeat the section above.
+
+Final H2: WHAT DO YOU WANT TO CHANGE IN THE NEXT SIX WEEKS?
+
+Body: Tell Aian where you are now, what you want to achieve and what you need help staying with. Your application begins a conversation, not an automatic checkout.
+
+CTA: Apply for BASELN / 6.
+
+6. How it works page — show the judgement
+
+Page job: demonstrate why Aian’s decisions matter. Four compact sections. Do not duplicate the Coaching inclusion list, goal grid or BASELN / 6 details.
+
+Hero H1: GOOD COACHING IS WHAT HAPPENS AFTER THE PLAN IS WRITTEN.
+
+Intro: Assessment gives Aian a sound starting point. Training gives him information that a questionnaire cannot: how the sessions fit, how you move, how you recover, what you complete and what is changing. He uses that response to decide what deserves attention next.
+
+Worked example 1 / competing goals: A person wants to get leaner, lift more confidently and finish a 5 km. Aian identifies the leading priority and builds a realistic weekly structure that develops the other goals where possible. Explain why simply adding a fat-loss plan, a strength plan and a running plan would create unnecessary work. Use a labelled illustrative brief, not invented testimonials.
+
+Worked example 2 / stalled progress: Bodyweight is flat but strength and training consistency are improving. Before cutting food or adding cardio, Aian reviews the bodyweight trend, nutrition adherence, recovery and the original brief. The decision may be to continue, adjust food structure or change the training emphasis. Show a decision grounded in the evidence, not a universal answer.
+
+Technique proof: A short genuine Aian video or photo sequence coaching one movement: what he saw, the cue he gave and why it mattered. This is where ‘training methods and techniques most people have not been shown’ becomes believable. No claim of a secret exercise system.
+
+Close: Your training should make sense to you, and the next decision should have a reason. CTA to Coaching.
+
+7. About Aian — credibility without a CV wall
+
+Hero H1: MEET THE PERSON DOING THE COACHING.
+
+Opening in first person: ‘I’ve coached people for whom physical performance is part of their profession, and people trying to find a few hours a week for themselves. Both deserve proper attention. Your starting point changes the training. It doesn’t change how seriously I take your goal.’
+
+Experience section: Present a short, chronological, verifiable account: Aian’s competitive sport background; his personal training and strength-and-conditioning work; The Clubhouse, which combined individual attention, varied programmed training and a culture of follow-through; and his wider fitness operations experience where it supports coaching credibility. Give dates, roles and qualifications only after verification. Do not publish a grid of eleven broad labels.
+
+High-profile claim: If substantiated and cleared for disclosure, use one direct sentence: ‘His clients have included Hollywood film talent and some of Australia’s leading athletes, alongside busy parents, first-time gym members and people rebuilding their fitness.’ Do not name clients, imply endorsements or show identifiable film talent without permission. Do not use ‘house mums’ in public copy; speak to parents and people carrying family responsibilities naturally.
+
+The Clubhouse paragraph: ‘At The Clubhouse, I learned that the training itself is only part of the job. You need to notice when someone disappears, understand what is getting in the way and know whether to push or change the work. BASELN lets me bring that standard of coaching to people beyond a single gym.’ Keep this one story, not a long closure narrative.
+
+What he does now: Aian assesses, writes, teaches, communicates and reviews. One genuine coaching photo and an Apply CTA. No duplicate offer grid.
+
+8. Apply — a short, working first contact
+
+H1: TELL AIAN WHAT YOU WANT TO CHANGE.
+
+Intro: A few details help Aian understand the objective and whether BASELN is the right coaching fit. This is not a fitness test or your full health assessment.
+
+Fields, in order: Name; email; country/time zone; optional phone; main objective (one selection plus Other); ‘What else would you like to improve?’ (free text); ‘What would you like to be different after six weeks?’ (free text); current training; realistic available days; training environment/equipment; biggest obstacle; preferred start date. Limit required fields to what Aian actually needs for an initial reply. Collect detailed nutrition history and sensitive health information securely after the conversation and before programming.
+
+Consent: Linked, working privacy notice describing use, storage and response. Clear validation, spam protection, safe data handling and meaningful error/success states. Confirmation copy: ‘Received. Aian will review your brief and contact you about the next step.’ Include an actual response timeframe only if it is operationally reliable. Test delivery end to end before any public campaign. The previous demo form that said submissions go nowhere must not be reused.
+
+9. Field Notes and social proof
+
+Publish three substantial articles before exposing Field Notes in navigation: ‘You missed a week of training. What now?’; ‘How much training can you actually use?’; ‘When the scale stalls, what should you check first?’. Each should answer the question with specific examples, not repeat the Method page, and should link naturally to Coaching. No empty category filters or dead article cards.
+
+Use only permissioned client evidence. A useful case study shows the original brief, constraints, why Aian selected the work, what changed and the client’s own account. A result can be strength, conditioning, consistency, body composition or event performance. Do not create ‘Client 1’ placeholders or invent measurements. If evidence is not ready, the site can launch without a testimonial grid.
+
+10. Training Room — first release
+
+Public page: Minimal functional login with email, password, reset and a route back to Coaching. Do not display a simulated member portal as if operational.
+
+Authenticated mobile-first first view: Current block objective; Aian’s current note; today’s session or rest/activity instruction; one Open session action; simple weekly calendar. Secondary destinations: Training, Progress, Coach. A tap on a calendar day expands that session into a clean workout canvas with exercises, sets/reps or timed blocks, instructions, logging and relevant media. Optional warm-ups, paired work, intervals, AMRAPs and finishers appear only when Aian programmes them. Avoid displaying every possible zone on every client day.
+
+Check-in: Concise signals: sessions completed, performance, food adherence where relevant, energy/recovery, friction, wins and a question for Aian. Progress: show only the measures tied to the brief. Coach: messages and technique footage, with privacy and clear delivery status. No social feed, leaderboard, badges, generic quotes or AI impersonation of Aian at launch.
+
+Marketing copy should accurately call it a browser-based member space designed for phones unless a native app actually exists. Show a real screenshot or clearly labelled concept, with readable text and no private client data.
+
+11. Search, analytics, performance and trust
+
+Each page gets one descriptive title and meta description; headings follow a logical H1/H2/H3 hierarchy. Suggested Home title: ‘BASELN | Private Online Coaching with Aian McLennan’. Coaching title: ‘Private Online Coaching and BASELN / 6 | BASELN’. Use semantic page structure, descriptive image alt text, a sitemap, canonical URLs and correct social preview image. Do not optimise Field Notes through generic filler.
+
+Use compressed responsive images, lazy-load below-fold media, preload only critical hero assets/font subset and reserve media dimensions to avoid jumps. Motion should never delay the offer or CTA. Track anonymised events for Coaching views, Apply clicks, form starts and successful enquiries; do not collect sensitive form answers in analytics. Obtain consent where required and publish a working privacy policy and terms. Verify the business email, Instagram identity and all footer links. The retreat account should not accidentally be presented as a dedicated coaching feed if it is not.
+
+12. Build and launch sequence
+
+Confirm factual and commercial terms: BASELN / 6 fee, currency, payment and renewal; what one-to-one calls are included; actual communication channel and response window; nutrition boundaries; privacy; high-profile client claims and photo rights.
+
+Build the design system: wordmark, type scale, colour tokens, buttons, navigation, photo crops, content widths and responsive section components. Approve a desktop and phone hero before building every page.
+
+Build Home and Coaching with the exact content hierarchy above. Cut rather than append. Verify that the first phone screen makes the offer clear and Coaching contains one full inclusions list.
+
+Build How it works, About, Apply and legal pages. Publish Field Notes only with finished articles. Hide member login if the portal is not ready.
+
+Connect the application. Test success, failure, validation, confirmation, email/CRM delivery, privacy and follow-up using non-sensitive test data.
+
+Test devices and accessibility: 320, 375, 390, 430, 768, 1024 and 1440 px, landscape, 200% zoom, keyboard, screen reader labels, reduced motion and slow connection. Inspect every page’s heading wrap, contrast, image crop, menu, FAQ, form, footer and CTA.
+
+Final content QA: one brand line, one full offer list, one goals grid, accurate six-week terms, no five/eight-week remnants, no generic-programme implication, no unverified endorsement and no dead links.
+
+Acceptance test
+
+A person arriving on a phone should understand within the first screen: this is private online coaching with Aian, it can address their physical goal, and they can explore or apply. Within the Coaching page they should see precisely what they receive, how BASELN / 6 begins, how Aian stays involved, what happens at review and what it costs or commits them to. The application must reach a real person. Every public promise must match the actual coaching service.

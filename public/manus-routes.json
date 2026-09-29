@@ -1,0 +1,13 @@
+{
+  "routes": [
+    { "path": "/", "title": "Home" },
+    { "path": "/coaching", "title": "Coaching" },
+    { "path": "/how-it-works", "title": "How It Works" },
+    { "path": "/about", "title": "About Aian" },
+    { "path": "/field-notes", "title": "Field Notes" },
+    { "path": "/apply", "title": "Apply for Coaching" },
+    { "path": "/training-room", "title": "Training Room" },
+    { "path": "/privacy", "title": "Privacy Notice" },
+    { "path": "/terms", "title": "Terms of Service" }
+  ]
+}
