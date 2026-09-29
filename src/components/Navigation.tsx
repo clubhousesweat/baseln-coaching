@@ -44,7 +44,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
         {/* Brand wordmark */}
         <button
           onClick={() => handleNav('/')}
-          className="group flex items-center gap-3 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-smoke-500 rounded-sm py-1"
+          className="group flex items-center text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-smoke-500 rounded-sm py-1"
           aria-label="BASELN home"
         >
           <img
@@ -52,9 +52,6 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
             alt="BASELN"
             className="h-5 sm:h-6 w-auto object-contain invert brightness-200 group-hover:brightness-250 transition-all"
           />
-          <span className="hidden lg:inline-block text-[10px] tracking-widest text-smoke-400 font-mono pl-2 border-l border-white/10 uppercase">
-            Private Online Coaching
-          </span>
         </button>
 
         {/* Desktop Navigation */}
