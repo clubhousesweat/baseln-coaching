@@ -58,3 +58,22 @@ The stack is a clean, modern, ultra-fast Vite + React + TypeScript + Tailwind CS
 - Route manifest generated at `/public/manus-routes.json`.
 - Static build output in `dist/`.
 - Platform configuration: static build configured with `pnpm build` and output directory `dist`.
+
+
+## 5. Launch Refinement Pass — 29 September 2026
+The pre-launch review is accepted as the source of truth for this refinement. The static Vite/React architecture, route manifest and cache policy remain unchanged.
+
+### Content and conversion
+- **Homepage:** Use the approved shorter invitation in the first screen; remove the early BASELN / 6 explanation; bring the six coaching benefits immediately below; replace awkward language; remove unverifiable scarcity phrasing.
+- **Coaching:** Reduce the page materially by retaining the offer, six plain-language goal categories, six core inclusions, a concise four-step BASELN / 6 explanation, commercial clarity and buyer FAQs. Move detailed decision logic to `How It Works`.
+- **How It Works:** Keep all worked examples visibly hypothetical. Explain the decision a coach may make without invented outcomes, measurements, diagnoses or implied client case studies.
+- **Commercial clarity:** Do not manufacture a price. State that the six-week investment and continuation options are confirmed after a short fit conversation, before the client decides, because coaching scope is matched to the client’s actual week.
+- **Application:** Reduce the initial enquiry to contact details, main objective, biggest obstacle, realistic availability and preferred start. Start both menus with blank placeholder choices; defer equipment and detailed history to onboarding.
+- **Evidence:** Continue using authentic supplied images, label all programme/workspace demonstrations as illustrative, and do not present generated sample client data or quotes as permissioned outcomes. Permissioned testimonials, actual client outcomes, or a real training-room screenshot can replace illustrative material only after supply and approval.
+
+### Visual refinements
+- Increase video presence and warmth in the homepage hero while maintaining a readable left-side contrast zone.
+- Reduce oversized desktop headings and remove excessive technical or defensive sales language. Preserve the dark editorial BASELN direction but create more visual breathing room.
+
+### Verification
+- Rebuild TypeScript/Vite output, use targeted desktop and mobile screenshots because mobile layout sign-off is explicitly open, and run the required read-only independent validator before publishing.

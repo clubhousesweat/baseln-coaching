@@ -16,7 +16,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
             <span className="text-xs font-mono uppercase tracking-widest text-smoke-400 block">
               COACH PROFILE & BACKGROUND
             </span>
-            <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-light text-white tracking-tight leading-[1.05]">
+            <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-light text-white tracking-tight leading-[1.05]">
               <span className="block">MEET THE PERSON</span><span className="block text-smoke-300 italic font-normal">DOING THE COACHING.</span>
             </h1>
 
@@ -77,7 +77,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
                 {
                   period: 'BASELN Private Coaching',
                   role: 'Online Coaching with Aian McLennan',
-                  detail: 'Translating hands-on coaching acumen into a browser-first private coaching experience, bringing individual prescription and active follow-through to clients globally.',
+                  detail: 'Bringing hands-on coaching experience into private online coaching, with individual prescription and active follow-through for clients globally.',
                 },
               ].map((item, idx) => (
                 <div
