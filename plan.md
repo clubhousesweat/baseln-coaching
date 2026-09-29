@@ -77,3 +77,19 @@ The pre-launch review is accepted as the source of truth for this refinement. Th
 
 ### Verification
 - Rebuild TypeScript/Vite output, use targeted desktop and mobile screenshots because mobile layout sign-off is explicitly open, and run the required read-only independent validator before publishing.
+
+
+## 6. Information Architecture Refinement — 30 September 2026
+This pass makes each public page responsible for a distinct buyer question while preserving the approved dark editorial direction, responsive behaviour, static serving contract and authentic supplied imagery.
+
+### Homepage
+The first screen remains unchanged. The existing service grid and separate goals section are replaced by one full-width service section titled **“Train for what matters to you.”** It introduces the goal range once, presents the six objectives as a compact band and states that they are starting points rather than separate programmes. A fine divider then separates the eight definitive private-coaching inclusions: Training built for you; Aian, directly; Technique coaching; Food guidance for real life; Accountability with follow-through; Training that can adapt; Progress reviews; and Your private Training Room. BASELN / 6 follows as a short starting-period and week-six review teaser with no repeated inclusion list. The Aian section uses a concise, verifiable The Clubhouse and coaching background statement. The final section offers one direct application action only.
+
+### Coaching page
+The page removes duplicate goal cards and inclusions. Its role becomes a serious buyer’s explanation of delivery: the private offer; what happens before the first session; the six-week working rhythm; an explicitly illustrative Training Room glimpse linked to the public preview; the week-six review and continuation choice; commercial clarity; FAQs; and application. A short goal-range sentence near the hero keeps orientation without repeating the homepage grid.
+
+### Supporting pages
+How It Works retains two clearly hypothetical decision examples and a short technique-feedback explanation, but removes service-list and six-week selling repetition. About replaces self-certifying or broad, unsubstantiated claims with plain, supportable background details. Field Notes adopts a reader-first introduction and moves its scale-stall topic away from How It Works to a practical food-consistency topic.
+
+### Verification
+The TypeScript/Vite build, registered diagnostics, targeted desktop/mobile screenshot review (explicitly requested through feedback about formatting) and one independent read-only validator establish the refinement outcome before checkpoint and publication.
