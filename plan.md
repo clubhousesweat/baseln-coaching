@@ -93,3 +93,24 @@ How It Works retains two clearly hypothetical decision examples and a short tech
 
 ### Verification
 The TypeScript/Vite build, registered diagnostics, targeted desktop/mobile screenshot review (explicitly requested through feedback about formatting) and one independent read-only validator establish the refinement outcome before checkpoint and publication.
+
+
+## 7. Proof and Conversion Refinement — 30 September 2026
+This refinement keeps the existing structure but gives the homepage service section more visual hierarchy and shifts the Coaching page to the practical question a serious buyer asks after applying.
+
+### Homepage
+The goal range changes from button-like pills to an editorial typographic grid with no implied filter behaviour. The supporting line becomes: **“Your goals can overlap. Aian decides what needs attention first and builds from there.”** The first three buying reasons—Training built for you, Aian directly, and Accountability with follow-through—receive a visually prominent three-card treatment. The remaining five inclusions become quieter supporting rows. A clearly labelled illustrative feedback pattern may remain until a supplied, permissioned Aian coaching cue, missed-week response or anonymised Training Room block can replace it; no fictional proof will be presented as genuine.
+
+### Coaching
+The hero leads with **“Your first six weeks, properly coached.”** Its opening explains the practical sequence: application, fit conversation, assessment, first training block, communication and review. The communication section moves the existing personal 24–48-business-hour response expectation beside questions and footage. The exact structured review cadence is not invented; it will be stated once the owner supplies the genuine operating standard. Likewise, the bottom-of-page price presentation will move from opaque wording to the supplied fixed price, starting price/range, or a transparent scope-based explanation.
+
+### Verification and constraints
+The refinement uses only authenticated project material and existing response-expectation copy. It needs owner-supplied facts before the final public release: review cadence, communication channel/process, price presentation and any permissioned proof artifact. No price, cadence or client outcome may be guessed.
+
+
+## 8. Confirmed Coaching Operating Model — 30 September 2026
+The owner has supplied the factual standard for the public Coaching page. During BASELN / 6, every client receives a **structured weekly review** alongside communication throughout the week. Aian reviews training records, questions and relevant footage as the work happens; coaching is not confined to the weekly review. The opening block closes with a fuller six-week assessment and recommendation.
+
+The private BASELN Training Room is the home for the programme, session records, progress and coaching feedback. Clients communicate directly with Aian there and use **WhatsApp** for timely questions and updates. Scheduled **Zoom** conversations are used for dedicated one-to-one discussion and deeper reviews. Technique footage can be submitted via the Training Room or WhatsApp according to portal capability at launch.
+
+No price is being inferred. The approved public wording is: **“The six-week investment and ongoing coaching terms are explained before you decide to begin. Sending an enquiry does not commit you or take payment.”** No real client proof asset is approved; feedback examples remain explicitly illustrative and must not be framed as a conversation, result or testimonial.
