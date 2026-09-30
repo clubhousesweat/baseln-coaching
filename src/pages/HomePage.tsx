@@ -27,17 +27,17 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
     <div className="pt-20">
       <section className="relative min-h-[84vh] sm:min-h-[760px] flex items-center overflow-hidden border-b border-white/10">
         <div className="absolute inset-0 z-0 overflow-hidden bg-charcoal-950">
-          <video autoPlay loop muted playsInline poster="/media/Header_Banner_Background_c72ecdc900_c5b08867.jpg" className="w-full h-full object-cover object-center opacity-65 brightness-110 contrast-105 saturate-75">
+          <video autoPlay loop muted playsInline preload="auto" poster="/media/Header_Banner_Background_c72ecdc900_c5b08867.jpg" className="w-full h-full object-cover object-[44%_center] sm:object-center opacity-100 sm:opacity-65 brightness-110 contrast-105 saturate-75">
             <source src="/media/OC_Header_Vid_homepage_720p_981b8c77ec_3de4323d.mp4" type="video/mp4" />
           </video>
-          <div className="absolute inset-0 bg-gradient-to-r from-charcoal-950/95 via-charcoal-950/72 to-charcoal-950/20" />
-          <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950/75 via-transparent to-charcoal-950/25" />
+          <div className="absolute inset-0 bg-gradient-to-b from-charcoal-950/18 via-charcoal-950/28 to-charcoal-950/84 sm:bg-gradient-to-r sm:from-charcoal-950/95 sm:via-charcoal-950/72 sm:to-charcoal-950/20" />
+          <div className="hidden sm:block absolute inset-0 bg-gradient-to-t from-charcoal-950/75 via-transparent to-charcoal-950/25" />
         </div>
         <div className="relative z-10 max-w-[1200px] mx-auto px-5 sm:px-8 py-16 sm:py-24 w-full">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2.5 px-3 py-1 bg-white/10 border border-white/10 rounded-full mb-6"><span className="w-2 h-2 rounded-full bg-smoke-400 animate-pulse" /><span className="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-paper-200">BASELN / PRIVATE ONLINE COACHING</span></div>
-            <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-[64px] leading-[1.04] font-light text-paper-50 mb-5"><span className="block">NOT MADE FOR EVERYONE.</span><span className="italic font-normal text-smoke-300 block">Made for you.</span></h1>
-            <p className="text-base sm:text-lg md:text-xl text-paper-200 font-light leading-relaxed mb-8 max-w-xl">Private online coaching with Aian McLennan. Training built for your goal, guidance on food and habits, and a coach who checks in, teaches the work and keeps you moving when life gets in the way.</p>
+            <div className="inline-flex items-center gap-2.5 px-3 py-1 bg-charcoal-950/70 border border-white/15 rounded-full mb-6 backdrop-blur-[2px]"><span className="w-2 h-2 rounded-full bg-smoke-400 animate-pulse" /><span className="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-paper-100">BASELN / PRIVATE ONLINE COACHING</span></div>
+            <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-[64px] leading-[1.04] font-light text-white mb-5 drop-shadow-[0_2px_14px_rgba(0,0,0,0.85)]"><span className="block">NOT MADE FOR EVERYONE.</span><span className="italic font-normal text-smoke-300 block">Made for you.</span></h1>
+            <p className="text-base sm:text-lg md:text-xl text-paper-100 font-normal leading-relaxed mb-8 max-w-xl drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">Private online coaching with Aian McLennan. Training built for your goal, guidance on food and habits, and a coach who checks in, teaches the work and keeps you moving when life gets in the way.</p>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3"><button onClick={() => { onNavigate('/coaching'); window.scrollTo(0, 0); }} className="inline-flex items-center justify-center gap-3 text-xs sm:text-sm uppercase tracking-widest font-semibold bg-smoke-500 hover:bg-smoke-400 text-charcoal-950 px-7 py-4 rounded-sm shadow-xl transition-all active:scale-[0.99]"><span>Explore private coaching</span><ArrowRight size={16} /></button><button onClick={() => { onNavigate('/apply'); window.scrollTo(0, 0); }} className="inline-flex items-center justify-center gap-2 text-xs sm:text-sm uppercase tracking-widest font-semibold text-paper-100 hover:text-white px-6 py-4 transition-colors"><span>Apply to work with Aian</span><ChevronRight size={16} className="text-smoke-300" /></button></div>
           </div>
         </div>
