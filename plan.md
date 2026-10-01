@@ -152,3 +152,14 @@ The goal carousel remains in place. The numbered cards, giant figures, individua
 Desktop uses an approximately 35% left column for the heading and tightly cropped monochrome coaching image, and a 65% right column for the scannable list. The inclusion list is organised in two generous columns, with three light group labels: Training; Food & Lifestyle; Coaching & Support. Individual items use small smoke-blue ticks and warm-white sans-serif text. Coaching & Support spans the second row of the right-side layout while retaining two columns for fast scanning.
 
 Mobile presents the heading first, then all three text groups in a single column, followed by a shallow landscape crop of the photograph. It keeps 16–18px checklist text, 12px list spacing, 28–32px inter-group spacing, 20–24px side gutters and no fixed-height empty panels. A fine rule beneath the heading, generous outer space and one **“Explore private coaching”** link finish the section.
+
+
+## 13. Concise Coaching Page Simplification — 2 October 2026
+The Coaching page is simplified to four parts to prevent repetition of the same benefits in panels, communication explanations and process components. The supplied BASELN team photograph replaces the prior boxing image in the hero.
+
+1. **Short opening:** retained heading **“Private coaching. The full experience.”**, one exact sentence—**“Individually designed training, practical nutrition guidance and direct support from Aian McLennan.”**—and **“Apply to work with Aian”**. No extra benefit line.
+2. **One What’s Included checklist:** flat, open checklist using the existing approved inclusion wording from the homepage. It contains no categories, numbered cards, coloured boxes, descriptions or additional photo. It is two columns on desktop and one on mobile, with small smoke-blue ticks, one clean text style and the exact delivery line: **“Stay in contact through your private Training Room, WhatsApp and scheduled Zoom conversations.”**
+3. **Compact BASELN / 6 explanation:** one fine rule and short passage under **“How you start”** only; removes giant /6, process boxes and repeated paragraphs. Exact approved copy: **“Begin with a conversation and assessment, then start your individual training programme. Your first coaching block runs for six weeks, with regular feedback and reviews. At the end, you and Aian review your progress and discuss the next block.”**
+4. **Questions and application:** heading **“Questions?”**, no introductory paragraph, retained accordion and one immediate **“Apply to work with Aian”** button. The former long closing section is removed.
+
+The page uses one consistent content width, serif headings, clean sans-serif checklists and explanations, 40–48px mobile section padding and 64–80px desktop section padding. Visual rhythm comes from the supplied image and typography, not more card components.
