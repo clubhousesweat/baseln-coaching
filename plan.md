@@ -114,3 +114,17 @@ The owner has supplied the factual standard for the public Coaching page. During
 The private BASELN Training Room is the home for the programme, session records, progress and coaching feedback. Clients communicate directly with Aian there and use **WhatsApp** for timely questions and updates. Scheduled **Zoom** conversations are used for dedicated one-to-one discussion and deeper reviews. Technique footage can be submitted via the Training Room or WhatsApp according to portal capability at launch.
 
 No price is being inferred. The approved public wording is: **“The six-week investment and ongoing coaching terms are explained before you decide to begin. Sending an enquiry does not commit you or take payment.”** No real client proof asset is approved; feedback examples remain explicitly illustrative and must not be framed as a conversation, result or testimonial.
+
+
+## 9. Mobile Hero Visibility Correction — 30 September 2026
+The hero MP4 is confirmed healthy: H.264/AVC, yuv420p, 1280×720, a 24 fps rate, `moov` atom at the start of the file (fast start), served as `video/mp4` over HTTPS. It therefore has no delivery or iPhone codec defect. The weak mobile appearance was created by the visual stack: video opacity at 65%, a 95% charcoal side gradient, and a 75% top gradient compounded over the same footage.
+
+The correction preserves the desktop treatment and applies a distinct mobile treatment: full-opacity video positioned for the athlete within a narrow portrait crop; a lighter vertical overlay for content legibility; and a dark lower fade only where it protects CTA reading. The original static poster remains the fallback for autoplay-constrained conditions. The video already carries `autoplay`, `muted`, `loop`, and `playsinline`; `preload="auto"` is added as a low-cost extra reliability hint for the 1.8 MB asset.
+
+
+## 10. Goal Image Carousel — 2 October 2026
+The static six-goal typography grid on the homepage will be replaced by a visual, non-salesy goal carousel informed by the supplied One Coach references but designed for BASELN’s dark editorial identity. It preserves the six existing labels exactly: Lose body fat; Build muscle; Get stronger; Improve fitness; Prepare for an event; Return to training.
+
+Six original 2:3 photographic assets will be generated as an aligned campaign set: real-feeling training environments, athletic adult subjects, charcoal/graphite colour treatment, restrained slate-blue accents and cinematic but credible lighting. Each image contains no generated text, logo or watermark. The website supplies the exact goal text as a high-contrast overlay, plus a small supporting editorial line.
+
+The component is a responsive horizontal scroll-snap carousel: approximately three vertical cards visible at desktop, one focused card on mobile, touch/trackpad scrolling, compact previous/next controls and accessible numbered slide controls. It has no dead “filter” interaction and does not imply that the six goals are isolated packages. The existing overlap statement remains below the carousel. The primary-coaching-inclusions hierarchy below the goal block remains unchanged.
