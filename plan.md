@@ -142,3 +142,13 @@ The Coaching page moves from an onboarding-process explanation to a premium expl
 
 ### Layout and responsive rules
 The existing dark BASELN direction remains, with fewer hard borders and labels, larger readable body copy (16–18px on mobile), 24–28px panel headings, approximately 20–24px mobile side gutters and content-led card height. The page follows a varied rhythm of photograph/headline → benefits → working-with-Aian explanation → compact start → FAQs and application.
+
+
+## 12. Homepage Inclusion Section Redesign — 2 October 2026
+The standalone **“Work directly with Aian”** profile section is removed from the homepage. Its supplied coaching photograph is repurposed as credible, monochrome visual proof within the new private-coaching inclusion section—not as a second biography or a competing conversion point.
+
+The goal carousel remains in place. The numbered cards, giant figures, individual boxes and explanatory inclusion paragraphs are replaced with a lighter-charcoal, photograph-led inclusion area titled **“Private coaching. The full experience.”** A small smoke-blue label reads **“What’s included”** beneath the heading.
+
+Desktop uses an approximately 35% left column for the heading and tightly cropped monochrome coaching image, and a 65% right column for the scannable list. The inclusion list is organised in two generous columns, with three light group labels: Training; Food & Lifestyle; Coaching & Support. Individual items use small smoke-blue ticks and warm-white sans-serif text. Coaching & Support spans the second row of the right-side layout while retaining two columns for fast scanning.
+
+Mobile presents the heading first, then all three text groups in a single column, followed by a shallow landscape crop of the photograph. It keeps 16–18px checklist text, 12px list spacing, 28–32px inter-group spacing, 20–24px side gutters and no fixed-height empty panels. A fine rule beneath the heading, generous outer space and one **“Explore private coaching”** link finish the section.
