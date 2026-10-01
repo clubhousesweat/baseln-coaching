@@ -128,3 +128,17 @@ The static six-goal typography grid on the homepage will be replaced by a visual
 Six original 2:3 photographic assets will be generated as an aligned campaign set: real-feeling training environments, athletic adult subjects, charcoal/graphite colour treatment, restrained slate-blue accents and cinematic but credible lighting. Each image contains no generated text, logo or watermark. The website supplies the exact goal text as a high-contrast overlay, plus a small supporting editorial line.
 
 The component is a responsive horizontal scroll-snap carousel: approximately three vertical cards visible at desktop, one focused card on mobile, touch/trackpad scrolling, compact previous/next controls and accessible numbered slide controls. It has no dead “filter” interaction and does not imply that the six goals are isolated packages. The existing overlap statement remains below the carousel. The primary-coaching-inclusions hierarchy below the goal block remains unchanged.
+
+
+## 11. Coaching Page Offer-First Redesign — 2 October 2026
+The Coaching page moves from an onboarding-process explanation to a premium explanation of what working with Aian delivers. It retains only factual operating details already confirmed: weekly structured reviews, Training Room programme and records, WhatsApp for timely questions and updates, Zoom for scheduled one-to-one discussion, and the existing no-commitment investment wording.
+
+### New page sequence
+1. **Complete offer hero:** a roughly equal desktop split between copy and the supplied genuine coaching photograph. Headline: **“Private coaching. The full experience.”** followed by the approved offer sentence, four concise inclusions and one consistent CTA: **“Apply to work with Aian.”** Mobile places the copy and CTA before a restrained landscape image crop.
+2. **Four substantial benefits:** visible, asymmetric panels—not accordions—with the supplied detail under Training Design, Direct Access, Accountability and Nutrition. Smoke-blue is reserved for Direct Access to commercially emphasise Aian’s personal involvement. No invented training prescription, demonstration or client evidence is shown.
+3. **Guidance in practice:** replaces the long duplicate communication section and removes the text-only Training Room sample. It uses the approved heading **“Train with guidance. Keep learning as you go.”**, direct explanation, three compact rows for Training Room/WhatsApp/Zoom and the supplied weekly-review sentence.
+4. **How you start:** compact explanation of coaching conversation, assessment, six-week opening block, review and continuation, followed by only Speak with Aian → Get your programme → Begin coaching.
+5. **Reassurance and invitation:** FAQs are renamed **“A few things you might want to know”**, limited to the supplied practical questions; response timeframe moves to the application close. The final CTA is consistently **“Apply to work with Aian.”**
+
+### Layout and responsive rules
+The existing dark BASELN direction remains, with fewer hard borders and labels, larger readable body copy (16–18px on mobile), 24–28px panel headings, approximately 20–24px mobile side gutters and content-led card height. The page follows a varied rhythm of photograph/headline → benefits → working-with-Aian explanation → compact start → FAQs and application.
