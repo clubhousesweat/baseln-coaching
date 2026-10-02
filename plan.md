@@ -193,3 +193,8 @@ The existing genuine dedication photograph becomes the sole large documentary br
 
 ### Verification
 Validate the complete route in desktop and 375px mobile compositions. Confirm the timeline’s reading order, text contrast, layout responsiveness, CTA navigation, no horizontal overflow, no remaining hypothetical/fictional claims and no duplicate primary image assignment across About and How It Works. Preserve static Vite/React serving and current routes.
+
+## 16. Homepage and Footer Compaction — 3 October 2026
+The homepage now keeps the cinematic hero, the goal carousel and authentic coaching imagery while removing duplicated explanation. The hero uses the approved short proposition, retains only **Explore private coaching**, and relies on the persistent header **Apply** action rather than a second hero link. The goal carousel keeps its heading and imagery but loses the redundant introductory paragraph. The standalone **“Private coaching starts here”** BASELN / 6 explanation is removed entirely because six-week detail now belongs only on How It Works. The final invitation becomes **“READY TO GET STARTED?”** with its approved two-sentence invitation and one application CTA; surrounding vertical space and the secondary process label are removed.
+
+The global footer is a compact shared utility strip on every page: wordmark left; shorter Coaching, About Aian and Field Notes utilities together with Member Login and email right; legal links in a lean bottom row. Repeated service copy, the repeated slogan, the large application button, redundant Training Room link and excess vertical padding are removed.
