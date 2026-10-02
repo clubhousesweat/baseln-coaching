@@ -163,3 +163,16 @@ The Coaching page is simplified to four parts to prevent repetition of the same 
 4. **Questions and application:** heading **“Questions?”**, no introductory paragraph, retained accordion and one immediate **“Apply to work with Aian”** button. The former long closing section is removed.
 
 The page uses one consistent content width, serif headings, clean sans-serif checklists and explanations, 40–48px mobile section padding and 64–80px desktop section padding. Visual rhythm comes from the supplied image and typography, not more card components.
+
+
+## 14. Editorial Coaching Map — 2 October 2026
+The homepage inclusion section is no longer treated as a safe left-image/right-list grid. It becomes a custom **Editorial Coaching Map**: an asymmetric, magazine-style composition showing how the three parts of private coaching work together across a client’s week.
+
+### Design direction
+- **Layout paradigm:** a wide desktop canvas, not repeated horizontal bands. The heading enters as a masthead; Training, Food & Lifestyle, and Coaching & Support become three deliberately offset information zones connected by a subtle smoke-blue route line. Authentic BASELN training photographs crop into the map as physical evidence, rather than sitting below text as decoration.
+- **Signature elements:** sequential editorial markers (`01 / 02 / 03`), a thin continuous route line with smoke-blue waypoints, and tall/landscape monochrome photo cut-outs with restrained overlap.
+- **Typography and hierarchy:** the serif is reserved for the masthead and compact supporting phrase. The group titles, item lists and CTA use the clean sans-serif/micro-mono system. Individual inclusions remain unchanged and are fast to scan with smoke-blue ticks.
+- **Interactivity:** each desktop zone gains a quiet background lift and image brightness increase on hover; the section stays fully useful without hover or motion. `prefers-reduced-motion` remains respected by the current global motion approach.
+- **Responsive behaviour:** desktop is intentionally non-linear across a fixed visual canvas; at mobile/tablet widths it resolves into a clear vertical editorial sequence—masthead, Training, Food & Lifestyle, Coaching & Support—interrupted by two shallow authentic photo bands. This avoids overlap, preserves content order and stays purposeful rather than attempting to miniaturise the desktop composition.
+
+The same approved inclusion text and one **“Explore private coaching”** action remain. The former left-column boxing image / right-side three-group grid is removed. The supplied authentic bent-over-row, front-squat and gym-floor images are added to project media and used only in this section.

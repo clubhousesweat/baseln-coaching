@@ -17,9 +17,12 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({ onNavigate }) =>
     <div className="pt-24">
       <section className="py-14 sm:py-20 bg-charcoal-950 border-b border-white/10">
         <div className="max-w-[1200px] mx-auto px-5 sm:px-8"><div className="max-w-3xl space-y-5">
-          <span className="text-xs font-mono uppercase tracking-widest text-smoke-400 block">COACHING JUDGEMENT IN ACTION</span>
-          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-light text-white leading-[1.04]"><span className="block">GOOD COACHING IS WHAT HAPPENS</span><span className="block text-smoke-300 italic font-normal">AFTER THE PLAN IS WRITTEN.</span></h1>
-          <p className="text-base sm:text-lg md:text-xl text-paper-300 font-light leading-relaxed">Assessment gives Aian a sensible starting point. The training then provides the information a questionnaire cannot: how the sessions fit, how you move, how you recover and what you actually complete. That context guides the next decision.</p>
+          <span className="text-xs font-mono uppercase tracking-widest text-smoke-400 block">WORK DIRECTLY WITH AIAN.</span>
+          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-light text-white leading-[1.04]">
+            <span className="block">EXPERTISE IN YOUR TRAINING.</span>
+            <span className="block text-smoke-300 italic font-normal">ACCOUNTABILITY IN YOUR WEEK.</span>
+          </h1>
+          <p className="text-base sm:text-lg md:text-xl text-paper-300 font-light leading-relaxed">Aian designs your training, teaches the techniques and keeps you accountable to the goals you’ve set. With direct contact, video feedback and regular reviews, you get practical answers, personal attention and clear guidance on how to progress.</p>
         </div></div>
       </section>
 
