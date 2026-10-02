@@ -176,3 +176,20 @@ The homepage inclusion section is no longer treated as a safe left-image/right-l
 - **Responsive behaviour:** desktop is intentionally non-linear across a fixed visual canvas; at mobile/tablet widths it resolves into a clear vertical editorial sequence—masthead, Training, Food & Lifestyle, Coaching & Support—interrupted by two shallow authentic photo bands. This avoids overlap, preserves content order and stays purposeful rather than attempting to miniaturise the desktop composition.
 
 The same approved inclusion text and one **“Explore private coaching”** action remain. The former left-column boxing image / right-side three-group grid is removed. The supplied authentic bent-over-row, front-squat and gym-floor images are added to project media and used only in this section.
+
+
+## 15. BASELN Design Constitution and How It Works Rebuild — 2 October 2026
+The supplied **BASELN Online Training — Complete Website Direction** is now the definitive creative and commercial standard for all future public-page changes. BASELN will be designed as a dark, tactile private-performance-coaching campaign—not a generic premium fitness site, an exercise library or an app demonstration. Each section must work as a distinct scene, editorial spread or campaign frame with one clear conversion decision; photography is evidence, never filler.
+
+### Permanent design rules
+The palette remains near-black/charcoal with bone/off-white type and smoke blue used only as an editorial signal. Playfair carries major statements, Newsreader italic is rare and expressive rather than a repeated heading formula, Inter carries practical copy and IBM Plex Mono carries short technical labels and section indices. Fine rules, field marks, coordinates and a bespoke directional line are punctuation, not decoration. Pages will vary density and composition, use deliberate asymmetry within a shared content rail, avoid generic card grids, avoid repeated image-left/text-right layouts, assign each primary photograph to one public-page role, and recompose—not merely compress—on mobile.
+
+### How It Works: new job and structure
+`/how-it-works` is rebuilt around the client question **“I like this. What happens if I sign up?”** It removes all hypothetical examples, methodology disclaimers, illustrative technique critique and defensive research-paper language. It becomes an eight-scene journey: (1) BASELN / 6 hero, (2) baseline before Week 01, (3) prescription, (4) six-week timeline, (5) coaching throughout the block, (6) practical nutrition, (7) review and the phase after six weeks, and (8) concrete value plus application.
+
+The page begins with **“START WITH SIX WEEKS. SEE WHAT WE CAN CHANGE.”**, introduces BASELN / 6 precisely, and carries the approved statement **“SIX WEEKS IS THE TIMEFRAME. NOT THE TEMPLATE.”** Its centrepiece is a six-part editorial journey rail: Establish, Refine, Progress, Develop, Advance and Review. Desktop uses an alternating route through the page instead of six SaaS cards; mobile resolves into a readable, in-flow numbered rail.
+
+The existing genuine dedication photograph becomes the sole large documentary break for this page—captioned **“COACHING / NOT CONTENT”**—and is removed from About so that primary public imagery is not reused. About receives the unused authentic boxing-coaching photograph as its smaller evidence image. Each major section uses only factual coaching capabilities already confirmed: individual assessment, training/nutrition prescription, weekly reviews, direct Training Room and WhatsApp communication, scheduled Zoom conversations, relevant technique footage, six-week review and optional continuation.
+
+### Verification
+Validate the complete route in desktop and 375px mobile compositions. Confirm the timeline’s reading order, text contrast, layout responsiveness, CTA navigation, no horizontal overflow, no remaining hypothetical/fictional claims and no duplicate primary image assignment across About and How It Works. Preserve static Vite/React serving and current routes.
