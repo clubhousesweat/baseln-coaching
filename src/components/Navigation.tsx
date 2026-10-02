@@ -35,7 +35,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
+        isScrolled || mobileMenuOpen
           ? 'bg-charcoal-900/95 backdrop-blur-md border-b border-white/5 py-4 shadow-xl'
           : 'bg-gradient-to-b from-charcoal-950/80 to-transparent py-5'
       }`}
@@ -112,7 +112,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
 
       {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-x-0 top-full bg-charcoal-900/98 backdrop-blur-xl border-b border-white/10 px-6 py-8 flex flex-col gap-6 shadow-2xl animate-in slide-in-from-top-4 duration-200">
+        <div className="md:hidden absolute inset-x-0 top-full z-[60] max-h-[calc(100svh-4.75rem)] overflow-y-auto overscroll-contain bg-charcoal-900/98 backdrop-blur-xl border-b border-white/10 px-6 py-7 flex flex-col gap-6 shadow-2xl animate-in slide-in-from-top-4 duration-200">
           <div className="flex flex-col gap-4 text-base font-medium tracking-wider">
             {navLinks.map((link) => (
               <button
