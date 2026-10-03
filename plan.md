@@ -225,3 +225,24 @@ The About page now removes all references to **The Clubhouse**, hospitality, rem
 The replacement is a concise three-section profile with a more decisive editorial rhythm. **Meet Your Coach** introduces Aian McLennan as Founder & Coach, using the owner-approved background in personal training, strength and conditioning, athletic performance, and founding and operating fitness facilities in Australia. The photographic treatment moves away from the earlier generic full-height boxing portrait: an authentic documentary portrait is now cropped within an asymmetric editorial field, with the typography and image deliberately overlapping on desktop and resolving into a coherent portrait-plus-manifesto sequence on mobile.
 
 **Experience That Shapes Your Training** carries the approved experience paragraph in an open typography-led composition rather than numbered cards. It acknowledges actors, elite Australian athletes, busy parents, everyday gym members and beginners only as the owner-supplied factual range that demonstrates Aian’s breadth of coaching experience. **High Standards. Personal Attention.** closes the page with the approved practical coaching language and one unambiguous application action. This keeps About focused on who Aian is and how he coaches, while coaching mechanics remain on the Coaching page.
+
+
+## 20. About Page Visual Correction — 3 October 2026
+The owner rejected the first portrait treatment because the cropped shirtless image reads as fitness-model imagery rather than evidence of coaching, and the layered `Documentary field note` badge, `A.` card, crop edge and bottom caption produce visual clutter on mobile. The composition is corrected rather than iterated cosmetically.
+
+The supplied **front-squat coaching photograph** replaces the shirtless portrait. It shows active coaching—Aian positioned behind a client under a loaded bar—and is placed as a simple, full-bleed 4:3 image field with no overlay labels, floating brand card, clip path or image-caption collision. The first section becomes a clean coach introduction with a consistent reading order at every width: `Meet your coach` → `Aian McLennan` → `Founder & Coach` → approved biographical copy → image. A single restrained caption beneath the image is optional only on desktop, not a mobile overlay.
+
+The remaining two approved sections retain the owner’s exact meaning but are simplified into typographic editorial spreads: one fine rule, one chapter index and open copy. The final invitation uses no background coaching image, avoiding repeated visual claims and leaving the practical close clear. Mobile uses one spacing system, one uninterrupted content rail, no absolute decorative elements below the photo, and 16–18px readable body copy.
+
+
+## 21. Field Notes Editorial Reading Room — 3 October 2026
+The existing Field Notes page is rejected as a conventional blog index: it has a sparse header followed by three visually identical outlined cards, repeated category pills, repeated metadata rows and an unbroken downward stack. It does not meet the BASELN direction of a dark, tactile private-performance campaign with varied scenes and deliberate asymmetry.
+
+The page is rebuilt as **The BASELN Reading Room**. Its cover introduces `FIELD NOTES` as an editorial publication rather than a generic blog page: an oversized masthead, issue data, an asymmetric side column and a restrained horizon image create a purposeful first frame. The article list is removed entirely.
+
+The three existing articles become three distinct visual chapters using real BASELN photography only where it contributes meaning:
+- **Note 01 / Consistency:** a large documentary crop from the actual bent-over-row coaching image, paired with the missed-week article as a reset note. It is an open photo/text spread rather than an outlined card.
+- **Note 02 / Training Dose:** a mineral smoke-blue editorial sheet with a huge typographic index and a narrow training-floor photograph inserted as evidence. It carries the volume/recovery question without a generic panel.
+- **Note 03 / Food & Routine:** an almost black reading spread with a measured sidebar and expansive type, avoiding an unrelated food stock image.
+
+Desktop uses offset magazine spreads and changes the dominant mass of every chapter. Mobile re-composes as three full-width editorial scenes with a consistent 20px rail, but never three boxed cards: every scene has a distinct field, image treatment, type scale and reading rhythm. Article expansion remains accessible and in-flow behind an `Open note` action, with no page navigation or invented claims. The final action is a compact editorial sign-off rather than a typical CTA card.
