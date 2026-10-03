@@ -1,26 +1,37 @@
 import React, { useState } from 'react';
-import { ArrowRight, Check, ChevronDown } from 'lucide-react';
+import { ArrowRight, ChevronDown } from 'lucide-react';
 import { PageRoute } from '../types';
 
 interface CoachingPageProps {
   onNavigate: (path: PageRoute) => void;
 }
 
-const inclusions = [
-  'Individual programming',
-  'Home or gym',
-  'Demonstrations and technique',
-  'Progress tracking',
-  'Personal nutrition structure',
-  'Flexible food choices',
-  'Shopping and eating-out guidance',
-  'Food and habit tracking',
-  'Sleep, stress and recovery',
+const baselineFields = [
+  { title: 'YOUR OBJECTIVE', copy: 'What do you actually want to change?' },
+  { title: 'YOUR TRAINING', copy: 'Experience, current ability, strengths, weaknesses and training history.' },
+  { title: 'YOUR WEEK', copy: 'Work, family, travel, available days and realistic session duration.' },
+  { title: 'YOUR BODY', copy: 'Relevant measurements, photographs, injuries, limitations and starting markers.' },
+  { title: 'YOUR NUTRITION', copy: 'Current habits, preferences, previous approaches and what needs attention.' },
+  { title: 'YOUR COACHING', copy: 'Where you need direction, accountability, technical help or simply somebody making better decisions.' },
+];
+
+const baseSixIncludes = [
+  'Detailed starting assessment',
+  'Individual training prescription',
+  'Strength programming',
+  'Conditioning programming',
+  'Body-composition strategy',
+  'Nutrition coaching',
   'Direct access to Aian',
-  'Accountability',
-  'Progress reviews',
-  'Zoom conversations',
-  'Training Room and community',
+  'Training technique feedback',
+  'Video analysis',
+  'Progress monitoring',
+  'Regular coaching review',
+  'Programme adjustments',
+  'Lifestyle and habit guidance',
+  'Event/sport integration where relevant',
+  'Private Training Room access',
+  'Six-week progress review',
 ];
 
 export const CoachingPage: React.FC<CoachingPageProps> = ({ onNavigate }) => {
@@ -76,13 +87,36 @@ export const CoachingPage: React.FC<CoachingPageProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      <section className="bg-charcoal-900 border-b border-white/5">
-        <div className="max-w-[1080px] mx-auto px-5 sm:px-8 py-12 sm:py-16 lg:py-20">
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-[44px] font-light text-white leading-tight">WHAT’S INCLUDED</h2>
-          <div className="mt-8 pt-8 border-t border-white/10 grid grid-cols-1 md:grid-cols-2 gap-x-14 gap-y-3 sm:gap-y-4">
-            {inclusions.map((item) => <div key={item} className="flex items-start gap-3 text-base sm:text-[17px] text-paper-100 font-normal leading-snug"><Check size={16} strokeWidth={2} className="text-smoke-400 shrink-0 mt-0.5" aria-hidden="true" /><span>{item}</span></div>)}
+      <section className="bg-charcoal-900 border-b border-white/5 py-14 sm:py-16 lg:py-20">
+        <div className="max-w-[1080px] mx-auto px-5 sm:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-10 lg:gap-x-16">
+            <div className="lg:col-span-4 lg:sticky lg:top-28 h-fit">
+              <span className="text-xs font-mono uppercase tracking-[0.2em] text-smoke-400 block mb-4">BEFORE WEEK 01</span>
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-[48px] font-light text-white leading-[1.02]">FIRST, WE NEED TO KNOW WHAT WE’RE WORKING WITH.</h2>
+            </div>
+            <div className="lg:col-span-8">
+              <div className="max-w-2xl text-base sm:text-lg text-paper-200 font-light leading-relaxed space-y-4"><p>Before your first training week, Aian establishes your starting point properly.</p><p>Not just your age, weight and how many days you can train.</p><p>We look at what you want to achieve, what you’ve done before, how you’re currently training, what your week realistically allows, where you train, how you eat, how you recover and anything likely to influence the result.</p></div>
+              <div className="mt-10 border-t border-white/15 grid grid-cols-1 sm:grid-cols-2">
+                {baselineFields.map((field, index) => <div key={field.title} className={`py-6 pr-4 ${index % 2 === 0 ? 'sm:pr-10' : 'sm:pl-10'} border-b border-white/10`}><span className="text-[11px] font-mono uppercase tracking-[0.18em] text-smoke-400 block mb-2">{field.title}</span><p className="text-base text-paper-100 leading-relaxed">{field.copy}</p></div>)}
+              </div>
+              <p className="mt-9 max-w-2xl font-serif text-xl sm:text-2xl text-paper-100 leading-relaxed">We don’t collect information to make onboarding look impressive. <span className="text-smoke-300 italic">We collect what helps us coach you better.</span></p>
+            </div>
           </div>
-          <p className="mt-8 sm:mt-10 text-base sm:text-lg text-paper-300 font-light leading-relaxed">Stay in contact through your private Training Room, WhatsApp and scheduled Zoom conversations.</p>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden bg-[#C7D5D7] text-charcoal-950 border-b border-charcoal-950/15 py-14 sm:py-16 lg:py-20">
+        <div className="absolute -right-4 bottom-[-4rem] font-serif text-[220px] sm:text-[320px] leading-none text-charcoal-950/[0.07] select-none pointer-events-none">/ 6</div>
+        <div className="relative max-w-[1080px] mx-auto px-5 sm:px-8">
+          <span className="text-xs font-mono uppercase tracking-[0.2em] text-charcoal-950/65 block mb-4">BASELN / 6</span>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-9 lg:gap-x-14 items-end">
+            <div className="lg:col-span-7"><h2 className="font-serif text-4xl sm:text-5xl md:text-[60px] font-light leading-[0.95]">SIX WEEKS OF ACTUAL COACHING.</h2></div>
+            <p className="lg:col-span-5 text-base sm:text-lg text-charcoal-950/75 leading-relaxed">A clear starting point, direct responsibility for the work, and a review of what changed before the next decision is made.</p>
+          </div>
+          <div className="mt-10 sm:mt-14 grid grid-cols-1 sm:grid-cols-2 gap-x-14 border-t border-charcoal-950/20 pt-6 sm:pt-8">
+            {baseSixIncludes.map((item, index) => <div key={item} className="flex items-start gap-3 py-2.5 text-base sm:text-lg leading-snug"><span className="font-mono text-xs text-charcoal-950/55 pt-1">{String(index + 1).padStart(2, '0')}</span><span>{item}</span></div>)}
+          </div>
+          <p className="mt-9 max-w-2xl text-base sm:text-lg leading-relaxed text-charcoal-950/75">Your programme, records, questions and feedback live in your private Training Room, with WhatsApp for timely questions and scheduled Zoom conversations.</p>
         </div>
       </section>
 
@@ -90,7 +124,7 @@ export const CoachingPage: React.FC<CoachingPageProps> = ({ onNavigate }) => {
         <div className="max-w-[1080px] mx-auto px-5 sm:px-8 py-12 sm:py-16 lg:py-20">
           <div className="max-w-3xl border-t border-white/10 pt-8 sm:pt-10">
             <span className="text-xs font-mono uppercase tracking-widest text-smoke-400 block mb-3">HOW YOU START</span>
-            <p className="text-base sm:text-lg text-paper-200 font-light leading-relaxed">Begin with a conversation and assessment, then start your individual training programme. Your first coaching block runs for six weeks, with regular feedback and reviews. At the end, you and Aian review your progress and discuss the next block.</p>
+            <p className="text-base sm:text-lg text-paper-200 font-light leading-relaxed">Once the baseline is clear, your individual training programme goes live. Your first coaching block runs for six weeks, with regular feedback and reviews. At the end, you and Aian review your progress and discuss the next block.</p>
           </div>
         </div>
       </section>

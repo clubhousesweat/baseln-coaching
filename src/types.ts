@@ -1,7 +1,6 @@
-export type PageRoute = 
+export type PageRoute =
   | '/'
   | '/coaching'
-  | '/how-it-works'
   | '/about'
   | '/field-notes'
   | '/apply'
