@@ -206,3 +206,14 @@ The screenshot confirms that the prior mobile menu still shares a stacking conte
 `/how-it-works` is removed from public navigation, route manifest, application rendering and route type definitions. Existing direct requests to `/how-it-works` are redirected client-side to `/coaching`, preserving a useful visitor path rather than rendering a blank page. The standalone source file is removed.
 
 The useful operational material from the removed page moves into `/coaching` in a buyer-relevant order: after the offer hero, **Before Week 01 / First, we need to know what we’re working with** establishes the baseline via the six fields (objective, training, week, body, nutrition and coaching). The current broad inclusions list is replaced with a pale mineral BASELN / 6 field titled **Six weeks of actual coaching**, carrying the concrete 16-item service record. The compact How You Start explanation remains only where it connects that baseline to the first individual programme and the six-week block; FAQs and direct application stay at the end.
+
+
+## 18. Clubhouse Scene Redesign & Mobile Footer Bounds — 3 October 2026
+The mobile screenshot shows two clear issues:
+1. **Dead space below the footer on iPhone/mobile Safari**: caused by default mobile browser rubber-banding beyond page bounds when html/body background and viewport dynamic units are unanchored, and where short pages or fixed overlay siblings create extra scroll height. `html` and `body` are explicitly set to `min-h-full h-auto bg-charcoal-950`, the main root wrapper is styled with `min-h-dvh flex flex-col bg-charcoal-950`, and the footer is styled as a clear boundary with zero bottom bleed and natural document termination.
+2. **Creative redesign of The Clubhouse coaching section on `/about`**: replaces the conventional stacked 50/50 card (monochrome box on left, text on right) with a bespoke, asymmetric editorial composition. Instead of a single generic boxing crop, it creates a tactile multi-element scene:
+   - An architectural masthead with location coordinates and heritage index (`EST. DARWIN / BOTANICAL & WATERFRONT ROOTS`).
+   - An asymmetric photo duo featuring authentic coaching footage: a tall portrait documentary crop of Aian coaching on the pads layered alongside an offset training-floor detail frame (`/media/baseln-gym-floor.png`), bound by fine editorial rules and a smoke-blue coordinate marker.
+   - Distinctive typography using the serif display headline with an expressive italic accent, paired with IBM Plex Mono micro-captions and generous white space.
+   - An integrated pull-quote treatment with deliberate horizontal stagger rather than standard card borders.
+   - On mobile, it recomposes as a cohesive visual editorial sequence—masthead, layered documentary photograph with frame overlap, Clubhouse standard notes, and direct invitation—avoiding stacked repetition.

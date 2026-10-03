@@ -45,9 +45,9 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-charcoal-900 text-paper-200 flex flex-col font-sans selection:bg-smoke-500 selection:text-charcoal-950">
+    <div className="min-h-[100dvh] w-full bg-charcoal-950 text-paper-200 flex flex-col font-sans selection:bg-smoke-500 selection:text-charcoal-950">
       <Header currentPath={currentPath} onNavigate={handleNavigate} />
-      <main className="flex-1">
+      <main className="flex-1 w-full bg-charcoal-900">
         {currentPath === '/' && <HomePage onNavigate={handleNavigate} />}
         {currentPath === '/coaching' && <CoachingPage onNavigate={handleNavigate} />}
         {currentPath === '/about' && <AboutPage onNavigate={handleNavigate} />}
