@@ -217,3 +217,11 @@ The mobile screenshot shows two clear issues:
    - Distinctive typography using the serif display headline with an expressive italic accent, paired with IBM Plex Mono micro-captions and generous white space.
    - An integrated pull-quote treatment with deliberate horizontal stagger rather than standard card borders.
    - On mobile, it recomposes as a cohesive visual editorial sequence—masthead, layered documentary photograph with frame overlap, Clubhouse standard notes, and direct invitation—avoiding stacked repetition.
+
+
+## 19. Fact-Led Aian Profile — 3 October 2026
+The About page now removes all references to **The Clubhouse**, hospitality, remote-site operations and general operational leadership. It also removes the four numbered experience cards, the Clubhouse quote, the enquiry/programme/feedback bullets and any duplicated delivery detail already explained on Coaching.
+
+The replacement is a concise three-section profile with a more decisive editorial rhythm. **Meet Your Coach** introduces Aian McLennan as Founder & Coach, using the owner-approved background in personal training, strength and conditioning, athletic performance, and founding and operating fitness facilities in Australia. The photographic treatment moves away from the earlier generic full-height boxing portrait: an authentic documentary portrait is now cropped within an asymmetric editorial field, with the typography and image deliberately overlapping on desktop and resolving into a coherent portrait-plus-manifesto sequence on mobile.
+
+**Experience That Shapes Your Training** carries the approved experience paragraph in an open typography-led composition rather than numbered cards. It acknowledges actors, elite Australian athletes, busy parents, everyday gym members and beginners only as the owner-supplied factual range that demonstrates Aian’s breadth of coaching experience. **High Standards. Personal Attention.** closes the page with the approved practical coaching language and one unambiguous application action. This keeps About focused on who Aian is and how he coaches, while coaching mechanics remain on the Coaching page.
