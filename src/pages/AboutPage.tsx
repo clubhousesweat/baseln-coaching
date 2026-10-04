@@ -64,11 +64,11 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
             </div>
             <div className="lg:col-span-7 lg:pt-1 space-y-7">
               <p className="font-serif text-2xl sm:text-3xl font-light leading-relaxed">
-                Aian has designed individual programmes, developed coaches and led private and group training environments.
+                Aian’s experience spans individual coaching, coach development, and founding and operating fitness facilities in Australia.
               </p>
               <div className="border-l-2 border-charcoal-950/70 pl-6 sm:pl-8 space-y-6 text-base sm:text-lg text-charcoal-950/80 font-light leading-relaxed">
-                <p>His experience includes coaching Hollywood actors and some of Australia’s top athletes, alongside busy parents, everyday gym members and people starting from scratch. That range has shaped his ability to coach different bodies, ambitions and levels of experience.</p>
-                <p>Whether you want to lose body fat, build muscle, improve fitness or prepare for an event, Aian sets the priorities and explains how your training will get you working towards them.</p>
+                <p>He has coached elite Australian athletes and actors working in film and television, alongside busy parents, first-time gym members and people returning to training.</p>
+                <p>That breadth of experience informs how he coaches: clear instruction, attention to detail and an approach tailored to the person. Whatever your starting point, you receive direct guidance, practical support and the accountability to keep progressing.</p>
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-3 pt-5 border-t border-charcoal-950/20 text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.14em] text-charcoal-950/65">
                 <span>Programming</span><span>Coaching craft</span><span>Performance</span><span>Clear priorities</span>

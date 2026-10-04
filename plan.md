@@ -254,3 +254,7 @@ The **HOW YOU START** section on `/coaching` directly preceding the FAQ accordio
 - Paragraph 2: Direct work across the first six weeks for accountability, technique feedback and practical support, with Aian reviewing progress and adjusting training and nutrition.
 - Paragraph 3: Six-week joint review to agree next priorities, with seamless continuation of the same direct coaching into subsequent blocks.
 - Tested and verified on desktop and mobile viewports with clean typography and spacing.
+
+
+## 23. About Page Experience Copy — 4 October 2026
+The **Experience That Shapes Your Training** section now uses the owner-approved wording: Aian’s individual coaching, coach-development and Australian fitness-facility background; his work with elite Australian athletes, film and television actors, busy parents, first-time gym members and people returning to training; and the resulting direct, detailed, individual approach. The mineral editorial composition remains unchanged.
