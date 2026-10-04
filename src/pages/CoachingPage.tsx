@@ -124,7 +124,11 @@ export const CoachingPage: React.FC<CoachingPageProps> = ({ onNavigate }) => {
         <div className="max-w-[1080px] mx-auto px-5 sm:px-8 py-12 sm:py-16 lg:py-20">
           <div className="max-w-3xl border-t border-white/10 pt-8 sm:pt-10">
             <span className="text-xs font-mono uppercase tracking-widest text-smoke-400 block mb-3">HOW YOU START</span>
-            <p className="text-base sm:text-lg text-paper-200 font-light leading-relaxed">Once the baseline is clear, your individual training programme goes live. Your first coaching block runs for six weeks, with regular feedback and reviews. At the end, you and Aian review your progress and discuss the next block.</p>
+            <div className="space-y-5 text-base sm:text-lg text-paper-200 font-light leading-relaxed">
+              <p>Your coaching begins with a personal assessment and conversation with Aian, followed by training and nutrition guidance tailored to your goals.</p>
+              <p>Throughout your first six weeks, you work directly with him for accountability, technique feedback and practical support. Aian reviews how you’re progressing and adjusts your training and nutrition where needed.</p>
+              <p>At six weeks, you review your progress together and agree the next priorities. If you continue, the same direct coaching and support carry through into your next block.</p>
+            </div>
           </div>
         </div>
       </section>

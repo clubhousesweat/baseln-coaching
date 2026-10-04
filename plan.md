@@ -246,3 +246,11 @@ The three existing articles become three distinct visual chapters using real BAS
 - **Note 03 / Food & Routine:** an almost black reading spread with a measured sidebar and expansive type, avoiding an unrelated food stock image.
 
 Desktop uses offset magazine spreads and changes the dominant mass of every chapter. Mobile re-composes as three full-width editorial scenes with a consistent 20px rail, but never three boxed cards: every scene has a distinct field, image treatment, type scale and reading rhythm. Article expansion remains accessible and in-flow behind an `Open note` action, with no page navigation or invented claims. The final action is a compact editorial sign-off rather than a typical CTA card.
+
+
+## 22. Coaching Page How You Start Refinement — 4 October 2026
+The **HOW YOU START** section on `/coaching` directly preceding the FAQ accordion was updated with the owner-approved copy:
+- Paragraph 1: Personal assessment and conversation with Aian, followed by tailored training and nutrition guidance.
+- Paragraph 2: Direct work across the first six weeks for accountability, technique feedback and practical support, with Aian reviewing progress and adjusting training and nutrition.
+- Paragraph 3: Six-week joint review to agree next priorities, with seamless continuation of the same direct coaching into subsequent blocks.
+- Tested and verified on desktop and mobile viewports with clean typography and spacing.
