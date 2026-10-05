@@ -3,11 +3,13 @@ import React, { useEffect, useState } from 'react';
 const FASTSPRING_SCRIPT_ID = 'fsc-api';
 const FASTSPRING_TEST_STOREFRONT = 'baseln.test.onfastspring.com/popup-baseln';
 const FASTSPRING_SCRIPT_URL = 'https://sbl.onfastspring.com/sbl/1.0.9/fastspring-builder.min.js';
+const FASTSPRING_PRODUCT_PATH = 'baseln-6';
 
 type ScriptState = 'loading' | 'ready' | 'error';
 type FastSpringWindow = Window & typeof globalThis & {
   fastspring?: {
     builder?: {
+      add?: (productPath: string) => void;
       checkout?: () => void;
     };
   };
@@ -63,15 +65,18 @@ export const FastSpringTestCheckout: React.FC = () => {
       : 'Connecting to the FastSpring test checkout…';
 
   const openCheckout = () => {
-    const checkout = (window as FastSpringWindow).fastspring?.builder?.checkout;
+    const builder = (window as FastSpringWindow).fastspring?.builder;
 
-    if (!checkout) {
+    if (!builder?.add || !builder.checkout) {
       setScriptState('error');
       return;
     }
 
     try {
-      checkout();
+      // FastSpring requires an item in the current session before checkout can render.
+      // The popup checkout's linked product starts unselected, so add it explicitly.
+      builder.add(FASTSPRING_PRODUCT_PATH);
+      builder.checkout();
     } catch {
       setScriptState('error');
     }
