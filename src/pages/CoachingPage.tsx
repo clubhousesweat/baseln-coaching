@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import { PageRoute } from '../types';
+import { FastSpringTestCheckout, isFastSpringTestMode } from '../components/FastSpringTestCheckout';
 
 interface CoachingPageProps {
   onNavigate: (path: PageRoute) => void;
@@ -36,6 +37,7 @@ const baseSixIncludes = [
 
 export const CoachingPage: React.FC<CoachingPageProps> = ({ onNavigate }) => {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const isFastSpringTest = isFastSpringTestMode();
 
   const faqItems = [
     {
@@ -119,6 +121,8 @@ export const CoachingPage: React.FC<CoachingPageProps> = ({ onNavigate }) => {
           <p className="mt-9 max-w-2xl text-base sm:text-lg leading-relaxed text-charcoal-950/75">Your programme, records, questions and feedback live in your private Training Room, with WhatsApp for timely questions and scheduled Zoom conversations.</p>
         </div>
       </section>
+
+      {isFastSpringTest && <FastSpringTestCheckout />}
 
       <section className="bg-charcoal-950 border-b border-white/5">
         <div className="max-w-[1080px] mx-auto px-5 sm:px-8 py-12 sm:py-16 lg:py-20">

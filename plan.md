@@ -258,3 +258,10 @@ The **HOW YOU START** section on `/coaching` directly preceding the FAQ accordio
 
 ## 23. About Page Experience Copy — 4 October 2026
 The **Experience That Shapes Your Training** section now uses the owner-approved wording: Aian’s individual coaching, coach-development and Australian fitness-facility background; his work with elite Australian athletes, film and television actors, busy parents, first-time gym members and people returning to training; and the resulting direct, detailed, individual approach. The mineral editorial composition remains unchanged.
+
+## 24. FastSpring Popup Checkout Test Integration — 5 October 2026
+BASELN will use FastSpring’s **popup checkout** as the preferred first-release payment pattern. It retains the BASELN coaching page and its editorial sales journey, then opens FastSpring’s secure hosted payment layer over the page. A generic FastSpring web storefront is not the primary journey; the embedded iframe remains an offline technical fallback only.
+
+The initial implementation is deliberately test-gated. The Coaching page renders the FastSpring test panel only at `/coaching?fastspring=test`; it is not linked in the public navigation, header, footer or primary CTA path. The panel programmatically appends FastSpring’s Store Builder Library to the document head with the configured test storefront `baseln.test.onfastspring.com/popup-baseln` and opens the popup with the standard `data-fsc-action="Checkout"` action. The product `baseln-6` is linked in FastSpring and the BASELN staging origin is whitelisted.
+
+The public site retains its existing application-first calls to action until FastSpring confirms that coach-delivered BASELN / 6 is eligible, the store is moved from USD to AUD, the USD 0.00 configuration is removed, fulfilment is approved, and the legal refund/cancellation copy is published. Only then may the test storefront be replaced with FastSpring’s confirmed live storefront and a public purchase CTA be introduced.
