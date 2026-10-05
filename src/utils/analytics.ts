@@ -20,6 +20,8 @@ export type AnalyticsEventType =
   | 'apply_page_view'
   | 'application_start'
   | 'application_complete'
+  | 'instagram_takeover_profile_view'
+  | 'instagram_profile_click'
   | 'consultation_booking'
   | 'email_click'
   | 'call_click'
@@ -34,6 +36,12 @@ export interface AnalyticsEventPayload {
 }
 
 const STORAGE_KEY = 'baseln_attribution_v1';
+
+// @baseln_retreats is the flagship BASELN Online Coaching social account.
+export const SOCIAL_ACCOUNT = 'baseln_online_coaching';
+export const INSTAGRAM_HANDLE = '@baseln_retreats';
+export const INSTAGRAM_TAKEOVER_CAMPAIGN = 'baseln_instagram_takeover_2026q4';
+export const INSTAGRAM_TAKEOVER_CONTENT = 'takeover_profile_link';
 
 const parseUrlParams = () => {
   if (typeof window === 'undefined') return new URLSearchParams();
@@ -53,10 +61,18 @@ export const initAttribution = (): AttributionData => {
 
   const now = new Date().toISOString();
   const currentPathWithSearch = window.location.pathname + window.location.search;
+  const firstLandingOverride = sessionStorage.getItem('baseln_first_landing_override');
   const params = parseUrlParams();
-  const currentReferrer = document.referrer && !document.referrer.includes(window.location.hostname)
-    ? document.referrer
-    : 'direct';
+  const currentReferrer = (() => {
+    if (!document.referrer) return 'direct';
+    try {
+      return new URL(document.referrer).origin !== window.location.origin
+        ? document.referrer
+        : 'direct';
+    } catch {
+      return 'direct';
+    }
+  })();
 
   const hasCurrentUtm =
     params.has('utm_source') ||
@@ -83,7 +99,7 @@ export const initAttribution = (): AttributionData => {
         utm_content: params.get('utm_content') || undefined,
         utm_term: params.get('utm_term') || undefined,
         referrer: currentReferrer,
-        first_landing_page: currentPathWithSearch,
+        first_landing_page: firstLandingOverride || currentPathWithSearch,
         first_touch_at: now,
         last_touch_page: currentPathWithSearch,
         last_touch_at: now,
@@ -110,6 +126,7 @@ export const initAttribution = (): AttributionData => {
   try {
     sessionStorage.setItem(STORAGE_KEY, JSON.stringify(firstTouch));
     localStorage.setItem(STORAGE_KEY, JSON.stringify(firstTouch));
+    if (!existing && firstLandingOverride) sessionStorage.removeItem('baseln_first_landing_override');
   } catch {
     // ignore
   }
@@ -138,7 +155,9 @@ export const getAttribution = (): AttributionData => {
   return initAttribution();
 };
 
-export const captureUtmParams = getAttribution;
+// Called on every page-load. This preserves first touch, while recording later
+// non-direct UTMs as an assist rather than overwriting original attribution.
+export const captureUtmParams = initAttribution;
 
 export const trackEvent = (event: AnalyticsEventType, metadata: Record<string, unknown> = {}) => {
   if (typeof window === 'undefined') return;
@@ -166,6 +185,8 @@ export const trackEvent = (event: AnalyticsEventType, metadata: Record<string, u
       win.plausible(event, {
         props: {
           path: payload.path,
+          conversion_funnel: SOCIAL_ACCOUNT,
+          social_profile: INSTAGRAM_HANDLE,
           utm_source: attribution.utm_source || 'direct',
           utm_campaign: attribution.utm_campaign || 'none',
           last_non_direct_source: attribution.last_non_direct_source || 'direct',

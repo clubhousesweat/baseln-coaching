@@ -55,6 +55,7 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
       has_utm: Boolean(attr.utm_source),
       utm_source: attr.utm_source || 'direct',
       utm_campaign: attr.utm_campaign || 'none',
+      utm_content: attr.utm_content || 'none',
     });
   }, []);
 
@@ -65,6 +66,7 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
         form: 'private_coaching_enquiry',
         utm_source: attribution?.utm_source || 'direct',
         utm_campaign: attribution?.utm_campaign || 'none',
+        utm_content: attribution?.utm_content || 'none',
       });
     }
   };

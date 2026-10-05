@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowRight, ChevronRight, Menu, X } from 'lucide-react';
 import { PageRoute } from '../types';
-import { trackEvent } from '../utils/analytics';
+import { INSTAGRAM_HANDLE, SOCIAL_ACCOUNT, trackEvent } from '../utils/analytics';
 
 interface HeaderProps {
   currentPath: string;
@@ -141,6 +141,15 @@ export const Footer: React.FC<{ onNavigate: (path: PageRoute) => void }> = ({ on
                 <h4 className="text-[10px] font-mono uppercase tracking-[0.18em] text-paper-200 mb-3">Access</h4>
                 <div className="space-y-2 text-xs sm:text-sm flex flex-col items-end">
                   <button onClick={() => navigate('/training-room')} className="hover:text-white transition-colors">Member Login</button>
+                  <a
+                    href="https://www.instagram.com/baseln_retreats/"
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => trackEvent('instagram_profile_click', { social_account: SOCIAL_ACCOUNT, social_handle: INSTAGRAM_HANDLE, placement: 'footer' })}
+                    className="hover:text-white transition-colors"
+                  >
+                    Instagram
+                  </a>
                   <a
                     href="mailto:aian@baseln.co"
                     onClick={() => trackEvent('email_click', { recipient: 'aian@baseln.co', placement: 'footer' })}

@@ -4,6 +4,7 @@
     { "path": "/coaching", "title": "Coaching" },
     { "path": "/about", "title": "About Aian" },
     { "path": "/field-notes", "title": "Field Notes" },
+    { "path": "/go/instagram", "title": "Instagram Bio Link" },
     { "path": "/apply", "title": "Apply for Coaching" },
     { "path": "/training-room", "title": "Training Room" },
     { "path": "/privacy", "title": "Privacy Notice" },
