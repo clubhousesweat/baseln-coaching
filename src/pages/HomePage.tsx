@@ -2,6 +2,7 @@ import React from 'react';
 import { ArrowRight, Check } from 'lucide-react';
 import { PageRoute } from '../types';
 import { GoalCarousel } from '../components/GoalCarousel';
+import { trackEvent } from '../utils/analytics';
 
 interface HomePageProps {
   onNavigate: (path: PageRoute) => void;
@@ -54,6 +55,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
   };
 
   const apply = () => {
+    trackEvent('consultation_booking', { source: 'homepage_final_cta' });
     onNavigate('/apply');
     window.scrollTo(0, 0);
   };

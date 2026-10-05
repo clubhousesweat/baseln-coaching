@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowRight, ChevronRight, Menu, X } from 'lucide-react';
 import { PageRoute } from '../types';
+import { trackEvent } from '../utils/analytics';
 
 interface HeaderProps {
   currentPath: string;
@@ -31,6 +32,9 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
   ];
 
   const handleNav = (href: PageRoute) => {
+    if (href === '/apply') {
+      trackEvent('consultation_booking', { source: 'header_cta' });
+    }
     onNavigate(href);
     setMobileMenuOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -134,12 +138,18 @@ export const Footer: React.FC<{ onNavigate: (path: PageRoute) => void }> = ({ on
               </ul>
             </div>
             <div className="text-right">
-              <h4 className="text-[10px] font-mono uppercase tracking-[0.18em] text-paper-200 mb-3">Access</h4>
-              <div className="space-y-2 text-xs sm:text-sm flex flex-col items-end">
-                <button onClick={() => navigate('/training-room')} className="hover:text-white transition-colors">Member Login</button>
-                <a href="mailto:aian@baseln.co" className="text-smoke-400 hover:text-smoke-300 font-mono underline underline-offset-4 transition-colors">aian@baseln.co</a>
+                <h4 className="text-[10px] font-mono uppercase tracking-[0.18em] text-paper-200 mb-3">Access</h4>
+                <div className="space-y-2 text-xs sm:text-sm flex flex-col items-end">
+                  <button onClick={() => navigate('/training-room')} className="hover:text-white transition-colors">Member Login</button>
+                  <a
+                    href="mailto:aian@baseln.co"
+                    onClick={() => trackEvent('email_click', { recipient: 'aian@baseln.co', placement: 'footer' })}
+                    className="text-smoke-400 hover:text-smoke-300 font-mono underline underline-offset-4 transition-colors"
+                  >
+                    aian@baseln.co
+                  </a>
+                </div>
               </div>
-            </div>
           </section>
         </div>
 

@@ -7,6 +7,7 @@ import { AboutPage } from './pages/AboutPage';
 import { FieldNotesPage } from './pages/FieldNotesPage';
 import { ApplyPage, TrainingRoomPage } from './pages/ApplyPage';
 import { LegalPage } from './pages/LegalPage';
+import { captureUtmParams } from './utils/analytics';
 
 const validPaths: PageRoute[] = [
   '/',
@@ -26,12 +27,15 @@ const resolvePath = (path: string): PageRoute => {
   return validPaths.includes(path as PageRoute) ? path as PageRoute : '/';
 };
 
-export const App: React.FC = () => {
-  const [currentPath, setCurrentPath] = useState<PageRoute>(() => resolvePath(window.location.pathname));
+  export const App: React.FC = () => {
+    const [currentPath, setCurrentPath] = useState<PageRoute>(() => resolvePath(window.location.pathname));
 
-  useEffect(() => {
-    const syncPath = () => {
-      const resolvedPath = resolvePath(window.location.pathname);
+    useEffect(() => {
+      // Capture UTM parameters and natural referrer on initial visit
+      captureUtmParams();
+
+      const syncPath = () => {
+        const resolvedPath = resolvePath(window.location.pathname);
       setCurrentPath(resolvedPath);
       if (window.location.pathname !== resolvedPath) window.history.replaceState({}, '', resolvedPath);
     };

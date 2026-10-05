@@ -1,12 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ArrowRight, CheckCircle2, AlertCircle } from 'lucide-react';
 import { PageRoute } from '../types';
+import { trackEvent, getAttribution, AttributionData } from '../utils/analytics';
 
 interface ApplyPageProps {
   onNavigate: (path: PageRoute) => void;
 }
 
+export interface CoachingLeadPayload {
+  // Contact & Logistics
+  name: string;
+  email: string;
+  countryTimeZone: string;
+  phone: string;
+  mainObjective: string;
+  biggestObstacle: string;
+  availableDays: string;
+  preferredStartDate: string;
+  referralSource?: string;
+
+  // Compliance
+  privacyConsent: boolean;
+  marketingOptIn: false;
+
+  // Attribution data
+  attribution: AttributionData;
+  submittedAt: string;
+}
+
 export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
+  const [attribution, setAttribution] = useState<AttributionData | null>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -16,15 +39,50 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
     biggestObstacle: '',
     availableDays: '',
     preferredStartDate: '',
+    referralSource: '',
     privacyConsent: false,
   });
   const [submitted, setSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const [hasStarted, setHasStarted] = useState(false);
+
+  // Trigger apply_page_view on mount and capture attribution
+  useEffect(() => {
+    const attr = getAttribution();
+    setAttribution(attr);
+    trackEvent('apply_page_view', {
+      landing_page: attr.first_landing_page,
+      has_utm: Boolean(attr.utm_source),
+      utm_source: attr.utm_source || 'direct',
+      utm_campaign: attr.utm_campaign || 'none',
+    });
+  }, []);
+
+  const handleFieldFocus = () => {
+    if (!hasStarted) {
+      setHasStarted(true);
+      trackEvent('application_start', {
+        form: 'private_coaching_enquiry',
+        utm_source: attribution?.utm_source || 'direct',
+        utm_campaign: attribution?.utm_campaign || 'none',
+      });
+    }
+  };
+
+  const isSourceAmbiguous = !attribution?.utm_source || attribution.utm_source === 'direct' || attribution.utm_source === 'referral';
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name.trim() || !formData.email.trim() || !formData.countryTimeZone.trim() || !formData.mainObjective || !formData.biggestObstacle.trim() || !formData.availableDays || !formData.preferredStartDate.trim()) {
-      setErrorMsg('Please complete the required fields so Aian can understand your starting point.');
+    if (
+      !formData.name.trim() ||
+      !formData.email.trim() ||
+      !formData.countryTimeZone.trim() ||
+      !formData.mainObjective ||
+      !formData.biggestObstacle.trim() ||
+      !formData.availableDays ||
+      !formData.preferredStartDate.trim()
+    ) {
+      setErrorMsg('Please complete all required fields so Aian can understand your starting point.');
       return;
     }
     if (!formData.privacyConsent) {
@@ -32,7 +90,51 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
       return;
     }
     setErrorMsg('');
+
+    const currentAttr = getAttribution();
+
+    const leadPayload: CoachingLeadPayload = {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      countryTimeZone: formData.countryTimeZone.trim(),
+      phone: formData.phone.trim(),
+      mainObjective: formData.mainObjective,
+      biggestObstacle: formData.biggestObstacle.trim(),
+      availableDays: formData.availableDays,
+      preferredStartDate: formData.preferredStartDate.trim(),
+      referralSource: isSourceAmbiguous ? formData.referralSource.trim() || undefined : undefined,
+      privacyConsent: true,
+      marketingOptIn: false,
+      attribution: currentAttr,
+      submittedAt: new Date().toISOString(),
+    };
+
+    // Store in localStorage for lead hand-off resilience / CRM sync
+    try {
+      const existingLeads = JSON.parse(localStorage.getItem('baseln_submitted_leads') || '[]');
+      existingLeads.push(leadPayload);
+      localStorage.setItem('baseln_submitted_leads', JSON.stringify(existingLeads));
+      sessionStorage.setItem('baseln_last_lead', JSON.stringify(leadPayload));
+    } catch {
+      // ignore
+    }
+
+    // Fire application_complete with exact fields
+    trackEvent('application_complete', {
+      objective: leadPayload.mainObjective,
+      available_days: leadPayload.availableDays,
+      has_phone: Boolean(leadPayload.phone),
+      utm_source: currentAttr.utm_source || 'direct',
+      utm_medium: currentAttr.utm_medium || 'direct',
+      utm_campaign: currentAttr.utm_campaign || 'none',
+      utm_content: currentAttr.utm_content || 'none',
+      last_non_direct_source: currentAttr.last_non_direct_source || 'direct',
+      first_landing_page: currentAttr.first_landing_page,
+      referral_source_fallback: leadPayload.referralSource || 'not_requested',
+    });
+
     setSubmitted(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const fieldClass = 'w-full bg-charcoal-950 border border-white/10 rounded-sm px-4 py-3 text-sm text-white focus:outline-none focus:border-smoke-400 transition-colors';
@@ -53,8 +155,12 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
           <div className="p-8 sm:p-12 bg-charcoal-900 border border-smoke-500/30 rounded-sm space-y-6 animate-in fade-in duration-300">
             <div className="w-12 h-12 rounded-full bg-smoke-500/20 flex items-center justify-center text-smoke-300"><CheckCircle2 size={28} /></div>
             <h2 className="font-serif text-2xl sm:text-3xl text-white">Enquiry received.</h2>
-            <div className="p-5 bg-charcoal-850 border border-white/5 rounded-sm"><p className="text-sm text-paper-200 font-light leading-relaxed">“Received. Aian will review your brief and contact you about the next step.”</p></div>
-            <p className="text-xs sm:text-sm text-paper-400 font-light leading-relaxed">We review every enquiry personally within 24–48 business hours. If BASELN is a fit, Aian will explain the six-week investment and what coaching could look like before you decide whether to start.</p>
+            <div className="p-5 bg-charcoal-850 border border-white/5 rounded-sm">
+              <p className="text-sm text-paper-200 font-light leading-relaxed">“Received. Aian will review your brief and contact you about the next step.”</p>
+            </div>
+            <p className="text-xs sm:text-sm text-paper-400 font-light leading-relaxed">
+              We review every enquiry personally within 24–48 business hours. If BASELN is a fit, Aian will explain the six-week investment and what coaching could look like before you decide whether to start.
+            </p>
             <div className="pt-4 flex flex-wrap items-center gap-4">
               <button onClick={() => onNavigate('/')} className="text-xs uppercase tracking-widest font-semibold bg-white/10 hover:bg-white/15 text-white px-5 py-3 rounded-sm transition-colors">Return home</button>
               <button onClick={() => onNavigate('/coaching')} className="text-xs uppercase tracking-widest font-semibold text-smoke-400 hover:text-white">Explore coaching inclusions</button>
@@ -62,33 +168,75 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="p-6 sm:p-10 bg-charcoal-900 border border-white/10 rounded-sm space-y-7 shadow-2xl">
-            {errorMsg && <div className="p-4 bg-red-950/40 border border-red-500/30 text-red-200 text-xs sm:text-sm rounded flex items-center gap-3"><AlertCircle size={18} className="shrink-0 text-red-400" /><span>{errorMsg}</span></div>}
+            {errorMsg && (
+              <div className="p-4 bg-red-950/40 border border-red-500/30 text-red-200 text-xs sm:text-sm rounded flex items-center gap-3">
+                <AlertCircle size={18} className="shrink-0 text-red-400" />
+                <span>{errorMsg}</span>
+              </div>
+            )}
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
                 <label className={labelClass}>Your full name <span className="text-smoke-400">*</span></label>
-                <input type="text" required value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder="e.g. David Harrison" className={fieldClass} />
+                <input
+                  type="text"
+                  required
+                  onFocus={handleFieldFocus}
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  placeholder="e.g. David Harrison"
+                  className={fieldClass}
+                />
               </div>
               <div>
                 <label className={labelClass}>Email address <span className="text-smoke-400">*</span></label>
-                <input type="email" required value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder="david@example.com" className={fieldClass} />
+                <input
+                  type="email"
+                  required
+                  onFocus={handleFieldFocus}
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  placeholder="david@example.com"
+                  className={fieldClass}
+                />
               </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
                 <label className={labelClass}>Country / time zone <span className="text-smoke-400">*</span></label>
-                <input type="text" required value={formData.countryTimeZone} onChange={(e) => setFormData({ ...formData, countryTimeZone: e.target.value })} placeholder="e.g. Australia (AEST)" className={fieldClass} />
+                <input
+                  type="text"
+                  required
+                  onFocus={handleFieldFocus}
+                  value={formData.countryTimeZone}
+                  onChange={(e) => setFormData({ ...formData, countryTimeZone: e.target.value })}
+                  placeholder="e.g. Australia (AEST)"
+                  className={fieldClass}
+                />
               </div>
               <div>
                 <label className={labelClass}>Phone number <span className="text-paper-400 font-normal">(optional)</span></label>
-                <input type="tel" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} placeholder="+61 400 000 000" className={fieldClass} />
+                <input
+                  type="tel"
+                  onFocus={handleFieldFocus}
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  placeholder="+61 400 000 000"
+                  className={fieldClass}
+                />
               </div>
             </div>
 
             <div>
               <label className={labelClass}>What is your main objective? <span className="text-smoke-400">*</span></label>
-              <select required value={formData.mainObjective} onChange={(e) => setFormData({ ...formData, mainObjective: e.target.value })} className={fieldClass}>
+              <select
+                required
+                onFocus={handleFieldFocus}
+                value={formData.mainObjective}
+                onChange={(e) => setFormData({ ...formData, mainObjective: e.target.value })}
+                className={fieldClass}
+              >
                 <option value="" disabled>Select your main objective</option>
                 <option value="Lose body fat">Lose body fat</option>
                 <option value="Build muscle">Build muscle</option>
@@ -102,13 +250,27 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
 
             <div>
               <label className={labelClass}>What has been the biggest obstacle so far? <span className="text-smoke-400">*</span></label>
-              <textarea required rows={3} value={formData.biggestObstacle} onChange={(e) => setFormData({ ...formData, biggestObstacle: e.target.value })} placeholder="e.g. Work travel, an inconsistent routine, uncertainty in the gym or losing momentum after a few weeks" className={fieldClass} />
+              <textarea
+                required
+                rows={3}
+                onFocus={handleFieldFocus}
+                value={formData.biggestObstacle}
+                onChange={(e) => setFormData({ ...formData, biggestObstacle: e.target.value })}
+                placeholder="e.g. Work travel, an inconsistent routine, uncertainty in the gym or losing momentum after a few weeks"
+                className={fieldClass}
+              />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
                 <label className={labelClass}>How many days could you realistically train each week? <span className="text-smoke-400">*</span></label>
-                <select required value={formData.availableDays} onChange={(e) => setFormData({ ...formData, availableDays: e.target.value })} className={fieldClass}>
+                <select
+                  required
+                  onFocus={handleFieldFocus}
+                  value={formData.availableDays}
+                  onChange={(e) => setFormData({ ...formData, availableDays: e.target.value })}
+                  className={fieldClass}
+                >
                   <option value="" disabled>Select your available days</option>
                   <option value="1–2 days">1–2 days</option>
                   <option value="3 days">3 days</option>
@@ -119,21 +281,70 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
               </div>
               <div>
                 <label className={labelClass}>When would you like to start? <span className="text-smoke-400">*</span></label>
-                <input required type="text" value={formData.preferredStartDate} onChange={(e) => setFormData({ ...formData, preferredStartDate: e.target.value })} placeholder="e.g. Next Monday or next month" className={fieldClass} />
+                <input
+                  required
+                  type="text"
+                  onFocus={handleFieldFocus}
+                  value={formData.preferredStartDate}
+                  onChange={(e) => setFormData({ ...formData, preferredStartDate: e.target.value })}
+                  placeholder="e.g. Next Monday or next month"
+                  className={fieldClass}
+                />
               </div>
             </div>
 
+            {/* Non-marketing self-reported fallback only if source is absent/ambiguous */}
+            {isSourceAmbiguous && (
+              <div>
+                <label className={labelClass}>
+                  How did you hear about BASELN? <span className="text-paper-400 font-normal">(optional)</span>
+                </label>
+                <input
+                  type="text"
+                  onFocus={handleFieldFocus}
+                  value={formData.referralSource}
+                  onChange={(e) => setFormData({ ...formData, referralSource: e.target.value })}
+                  placeholder="e.g. Instagram reel, friend, word of mouth"
+                  className={fieldClass}
+                />
+              </div>
+            )}
+
             <div className="pt-2 border-t border-white/5">
               <div className="flex items-start gap-3">
-                <input id="legal-consent" type="checkbox" required checked={formData.privacyConsent} onChange={(e) => setFormData({ ...formData, privacyConsent: e.target.checked })} className="mt-1 h-4 w-4 rounded border-white/20 bg-charcoal-950 text-smoke-500 focus:ring-smoke-400" />
+                <input
+                  id="legal-consent"
+                  type="checkbox"
+                  required
+                  checked={formData.privacyConsent}
+                  onChange={(e) => setFormData({ ...formData, privacyConsent: e.target.checked })}
+                  className="mt-1 h-4 w-4 rounded border-white/20 bg-charcoal-950 text-smoke-500 focus:ring-smoke-400"
+                />
                 <div className="text-xs text-paper-400 font-light leading-relaxed">
-                  <label htmlFor="legal-consent" className="cursor-pointer">I confirm that I have read the Privacy Notice and Health &amp; Training Disclaimer. I consent to BASELN using the details in this enquiry to assess coaching fit and contact me about coaching. This does not subscribe me to marketing communications.</label>
-                  <p className="mt-2 text-paper-400/85">Open the <a href="/privacy" target="_blank" rel="noreferrer" className="text-smoke-400 underline underline-offset-2">Privacy Notice</a> and <a href="/training-disclaimer" target="_blank" rel="noreferrer" className="text-smoke-400 underline underline-offset-2">Health &amp; Training Disclaimer</a> in a new tab.</p>
+                  <label htmlFor="legal-consent" className="cursor-pointer">
+                    I confirm that I have read the Privacy Notice and Health &amp; Training Disclaimer. I consent to BASELN using the details in this enquiry to assess coaching fit and contact me about coaching. This does not subscribe me to marketing communications.
+                  </label>
+                  <p className="mt-2 text-paper-400/85">
+                    Open the{' '}
+                    <a href="/privacy" target="_blank" rel="noreferrer" className="text-smoke-400 underline underline-offset-2">
+                      Privacy Notice
+                    </a>{' '}
+                    and{' '}
+                    <a href="/training-disclaimer" target="_blank" rel="noreferrer" className="text-smoke-400 underline underline-offset-2">
+                      Health &amp; Training Disclaimer
+                    </a>{' '}
+                    in a new tab.
+                  </p>
                 </div>
               </div>
             </div>
 
-            <button type="submit" className="w-full py-4 text-xs sm:text-sm uppercase tracking-widest font-semibold bg-smoke-500 hover:bg-smoke-400 text-charcoal-950 rounded-sm shadow-xl transition-all">Start your enquiry</button>
+            <button
+              type="submit"
+              className="w-full py-4 text-xs sm:text-sm uppercase tracking-widest font-semibold bg-smoke-500 hover:bg-smoke-400 text-charcoal-950 rounded-sm shadow-xl transition-all"
+            >
+              Start your enquiry
+            </button>
           </form>
         )}
       </div>
