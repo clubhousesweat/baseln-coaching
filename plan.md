@@ -266,6 +266,10 @@ The initial implementation is deliberately test-gated. The Coaching page renders
 
 The public site retains its existing application-first calls to action until FastSpring confirms that coach-delivered BASELN / 6 is eligible, the store is moved from USD to AUD, the USD 0.00 configuration is removed, fulfilment is approved, and the legal refund/cancellation copy is published. Only then may the test storefront be replaced with FastSpring’s confirmed live storefront and a public purchase CTA be introduced.
 
+### Popup trigger correction — 6 October 2026
+
+FastSpring’s SBL binds declarative `data-fsc-action` controls during the browser `DOMContentLoaded` event. Because the website loads the test-only SBL dynamically after the React Coaching page renders, that event has already passed and the declarative button receives no click listener. The test panel now uses FastSpring’s documented JavaScript API (`fastspring.builder.checkout()`) directly after confirming the builder is available. This preserves the test-only gate while making the button operational; an anchor target (`#fastspring-test`) is included for direct testing.
+
 ## 25. Payment-Ready Legal Suite — 5 October 2026
 The basic Privacy and Coaching Terms pages are replaced with a complete public legal suite: Privacy Notice, Coaching Terms, Refund & Cancellation Policy and Health & Training Disclaimer. Each page is accessible from the compact global footer and declared in the route manifest. The application form retains a single required consent control, updated to confirm that an applicant has read the Privacy Notice and Health & Training Disclaimer and consents to BASELN using their enquiry details to assess coaching fit and make contact. It expressly does not opt the applicant into marketing.
 
