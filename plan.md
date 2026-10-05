@@ -272,6 +272,8 @@ FastSpring’s SBL binds declarative `data-fsc-action` controls during the brows
 
 FastSpring’s checkout endpoint confirms the linked product `baseln-6` begins in the popup homepage as an **unselected** item. Its own documentation requires at least one selected product in the current cart session before checkout can render. The test control therefore explicitly calls `fastspring.builder.add('baseln-6')` immediately before `fastspring.builder.checkout()`. The existing USD 0.00 configuration remains an external FastSpring launch hold; no transaction is to be completed.
 
+The test control must not show as ready simply because the SBL script file downloaded: its initial storefront session can still be loading. The component now registers FastSpring’s documented `data-data-callback` before inserting SBL, treats its initial session payload as the readiness signal, and waits for the `add('baseln-6')` request callback before calling `checkout()`. This removes both React dynamic-load races—action binding and product/session timing.
+
 ## 25. Payment-Ready Legal Suite — 5 October 2026
 The basic Privacy and Coaching Terms pages are replaced with a complete public legal suite: Privacy Notice, Coaching Terms, Refund & Cancellation Policy and Health & Training Disclaimer. Each page is accessible from the compact global footer and declared in the route manifest. The application form retains a single required consent control, updated to confirm that an applicant has read the Privacy Notice and Health & Training Disclaimer and consents to BASELN using their enquiry details to assess coaching fit and make contact. It expressly does not opt the applicant into marketing.
 

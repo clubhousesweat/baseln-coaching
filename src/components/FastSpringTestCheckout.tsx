@@ -4,16 +4,20 @@ const FASTSPRING_SCRIPT_ID = 'fsc-api';
 const FASTSPRING_TEST_STOREFRONT = 'baseln.test.onfastspring.com/popup-baseln';
 const FASTSPRING_SCRIPT_URL = 'https://sbl.onfastspring.com/sbl/1.0.9/fastspring-builder.min.js';
 const FASTSPRING_PRODUCT_PATH = 'baseln-6';
+const FASTSPRING_DATA_CALLBACK = '__baselnFastSpringDataCallback';
+const FASTSPRING_LOAD_TIMEOUT_MS = 12_000;
 
 type ScriptState = 'loading' | 'ready' | 'error';
 type FastSpringWindow = Window & typeof globalThis & {
   fastspring?: {
     builder?: {
-      add?: (productPath: string) => void;
+      add?: (productPath: string, callback?: () => void) => void;
       checkout?: () => void;
     };
   };
 };
+
+type CallbackWindow = Window & typeof globalThis & Record<string, unknown>;
 
 export const isFastSpringTestMode = (): boolean =>
   new URLSearchParams(window.location.search).get('fastspring') === 'test';
@@ -22,24 +26,41 @@ export const FastSpringTestCheckout: React.FC = () => {
   const [scriptState, setScriptState] = useState<ScriptState>('loading');
 
   useEffect(() => {
+    let loadTimeout: number | undefined;
+    const callbackWindow = window as CallbackWindow;
+
     const markReady = () => {
       const canOpenCheckout = Boolean((window as FastSpringWindow).fastspring?.builder?.checkout);
+      window.clearTimeout(loadTimeout);
       setScriptState(canOpenCheckout ? 'ready' : 'error');
     };
-    const markError = () => setScriptState('error');
-    const existingScript = document.getElementById(FASTSPRING_SCRIPT_ID) as HTMLScriptElement | null;
+    const markError = () => {
+      window.clearTimeout(loadTimeout);
+      setScriptState('error');
+    };
+    const clearCallback = () => {
+      if (callbackWindow[FASTSPRING_DATA_CALLBACK] === markReady) {
+        delete callbackWindow[FASTSPRING_DATA_CALLBACK];
+      }
+    };
 
+    // FastSpring returns session data only after its storefront has initialised.
+    // Loading the script alone is not enough to safely enable a React checkout trigger.
+    callbackWindow[FASTSPRING_DATA_CALLBACK] = markReady;
+
+    const existingScript = document.getElementById(FASTSPRING_SCRIPT_ID) as HTMLScriptElement | null;
     if (existingScript) {
-      if ((window as FastSpringWindow).fastspring) {
+      if ((window as FastSpringWindow).fastspring?.builder?.checkout) {
         markReady();
-        return undefined;
+      } else {
+        existingScript.addEventListener('error', markError, { once: true });
+        loadTimeout = window.setTimeout(markError, FASTSPRING_LOAD_TIMEOUT_MS);
       }
 
-      existingScript.addEventListener('load', markReady, { once: true });
-      existingScript.addEventListener('error', markError, { once: true });
       return () => {
-        existingScript.removeEventListener('load', markReady);
         existingScript.removeEventListener('error', markError);
+        window.clearTimeout(loadTimeout);
+        clearCallback();
       };
     }
 
@@ -48,13 +69,15 @@ export const FastSpringTestCheckout: React.FC = () => {
     script.src = FASTSPRING_SCRIPT_URL;
     script.type = 'text/javascript';
     script.setAttribute('data-storefront', FASTSPRING_TEST_STOREFRONT);
-    script.addEventListener('load', markReady, { once: true });
+    script.setAttribute('data-data-callback', FASTSPRING_DATA_CALLBACK);
     script.addEventListener('error', markError, { once: true });
+    loadTimeout = window.setTimeout(markError, FASTSPRING_LOAD_TIMEOUT_MS);
     document.head.appendChild(script);
 
     return () => {
-      script.removeEventListener('load', markReady);
       script.removeEventListener('error', markError);
+      window.clearTimeout(loadTimeout);
+      clearCallback();
     };
   }, []);
 
@@ -73,10 +96,15 @@ export const FastSpringTestCheckout: React.FC = () => {
     }
 
     try {
-      // FastSpring requires an item in the current session before checkout can render.
-      // The popup checkout's linked product starts unselected, so add it explicitly.
-      builder.add(FASTSPRING_PRODUCT_PATH);
-      builder.checkout();
+      // FastSpring requires an item in the active session. Its add callback fires only
+      // after the session update, avoiding a race between product selection and checkout.
+      builder.add(FASTSPRING_PRODUCT_PATH, () => {
+        try {
+          builder.checkout?.();
+        } catch {
+          setScriptState('error');
+        }
+      });
     } catch {
       setScriptState('error');
     }
