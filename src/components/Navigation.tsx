@@ -145,9 +145,11 @@ export const Footer: React.FC<{ onNavigate: (path: PageRoute) => void }> = ({ on
 
         <div className="border-t border-white/10 py-3.5 sm:py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5 text-[10px] sm:text-xs text-paper-400/75">
           <span>© {new Date().getFullYear()} BASELN. Coached by Aian McLennan.</span>
-          <div className="flex items-center gap-5 sm:gap-6">
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 sm:gap-x-6">
             <button onClick={() => navigate('/privacy')} className="hover:text-paper-200 underline underline-offset-2 transition-colors">Privacy</button>
             <button onClick={() => navigate('/terms')} className="hover:text-paper-200 underline underline-offset-2 transition-colors">Terms</button>
+            <button onClick={() => navigate('/refund-policy')} className="hover:text-paper-200 underline underline-offset-2 transition-colors">Refunds</button>
+            <button onClick={() => navigate('/training-disclaimer')} className="hover:text-paper-200 underline underline-offset-2 transition-colors">Training disclaimer</button>
           </div>
         </div>
       </div>

@@ -28,7 +28,7 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
       return;
     }
     if (!formData.privacyConsent) {
-      setErrorMsg('Please review and accept the privacy notice to proceed.');
+      setErrorMsg('Please confirm the privacy and health-training information before submitting your enquiry.');
       return;
     }
     setErrorMsg('');
@@ -124,10 +124,13 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
             </div>
 
             <div className="pt-2 border-t border-white/5">
-              <label className="flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" required checked={formData.privacyConsent} onChange={(e) => setFormData({ ...formData, privacyConsent: e.target.checked })} className="mt-1 h-4 w-4 rounded border-white/20 bg-charcoal-950 text-smoke-500 focus:ring-smoke-400" />
-                <span className="text-xs text-paper-400 font-light leading-relaxed">I agree to the <button type="button" onClick={() => onNavigate('/privacy')} className="text-smoke-400 underline underline-offset-2">Privacy Notice</button>. Information collected is used only to assess coaching fit and will not be shared.</span>
-              </label>
+              <div className="flex items-start gap-3">
+                <input id="legal-consent" type="checkbox" required checked={formData.privacyConsent} onChange={(e) => setFormData({ ...formData, privacyConsent: e.target.checked })} className="mt-1 h-4 w-4 rounded border-white/20 bg-charcoal-950 text-smoke-500 focus:ring-smoke-400" />
+                <div className="text-xs text-paper-400 font-light leading-relaxed">
+                  <label htmlFor="legal-consent" className="cursor-pointer">I confirm that I have read the Privacy Notice and Health &amp; Training Disclaimer. I consent to BASELN using the details in this enquiry to assess coaching fit and contact me about coaching. This does not subscribe me to marketing communications.</label>
+                  <p className="mt-2 text-paper-400/85">Open the <a href="/privacy" target="_blank" rel="noreferrer" className="text-smoke-400 underline underline-offset-2">Privacy Notice</a> and <a href="/training-disclaimer" target="_blank" rel="noreferrer" className="text-smoke-400 underline underline-offset-2">Health &amp; Training Disclaimer</a> in a new tab.</p>
+                </div>
+              </div>
             </div>
 
             <button type="submit" className="w-full py-4 text-xs sm:text-sm uppercase tracking-widest font-semibold bg-smoke-500 hover:bg-smoke-400 text-charcoal-950 rounded-sm shadow-xl transition-all">Start your enquiry</button>

@@ -6,7 +6,9 @@ export type PageRoute =
   | '/apply'
   | '/training-room'
   | '/privacy'
-  | '/terms';
+  | '/terms'
+  | '/refund-policy'
+  | '/training-disclaimer';
 
 export interface NavItem {
   label: string;

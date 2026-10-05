@@ -7,6 +7,8 @@
     { "path": "/apply", "title": "Apply for Coaching" },
     { "path": "/training-room", "title": "Training Room" },
     { "path": "/privacy", "title": "Privacy Notice" },
-    { "path": "/terms", "title": "Terms of Service" }
+    { "path": "/terms", "title": "Coaching Terms" },
+    { "path": "/refund-policy", "title": "Refund and Cancellation Policy" },
+    { "path": "/training-disclaimer", "title": "Health and Training Disclaimer" }
   ]
 }

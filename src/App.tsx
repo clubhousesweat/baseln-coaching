@@ -17,6 +17,8 @@ const validPaths: PageRoute[] = [
   '/training-room',
   '/privacy',
   '/terms',
+  '/refund-policy',
+  '/training-disclaimer',
 ];
 
 const resolvePath = (path: string): PageRoute => {
@@ -56,6 +58,8 @@ export const App: React.FC = () => {
         {currentPath === '/training-room' && <TrainingRoomPage onNavigate={handleNavigate} />}
         {currentPath === '/privacy' && <LegalPage type="privacy" onNavigate={handleNavigate} />}
         {currentPath === '/terms' && <LegalPage type="terms" onNavigate={handleNavigate} />}
+        {currentPath === '/refund-policy' && <LegalPage type="refund-policy" onNavigate={handleNavigate} />}
+        {currentPath === '/training-disclaimer' && <LegalPage type="training-disclaimer" onNavigate={handleNavigate} />}
       </main>
       <Footer onNavigate={handleNavigate} />
     </div>
