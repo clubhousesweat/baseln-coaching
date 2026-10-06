@@ -1,4 +1,5 @@
 export interface AttributionData {
+  cta?: string;
   utm_source?: string;
   utm_medium?: string;
   utm_campaign?: string;
@@ -24,8 +25,7 @@ export type AnalyticsEventType =
   | 'instagram_profile_click'
   | 'consultation_booking'
   | 'email_click'
-  | 'call_click'
-  | 'checkout_handoff';
+  | 'call_click';
 
 export interface AnalyticsEventPayload {
   event: AnalyticsEventType;
@@ -94,6 +94,7 @@ export const initAttribution = (): AttributionData => {
     ? { ...existing }
     : {
         utm_source: params.get('utm_source') || (currentReferrer !== 'direct' ? new URL(currentReferrer).hostname : undefined),
+        cta: params.get('cta') || undefined,
         utm_medium: params.get('utm_medium') || (currentReferrer !== 'direct' ? 'referral' : undefined),
         utm_campaign: params.get('utm_campaign') || undefined,
         utm_content: params.get('utm_content') || undefined,

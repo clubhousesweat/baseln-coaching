@@ -8,7 +8,6 @@ interface ApplyPageProps {
 }
 
 export interface CoachingLeadPayload {
-  // Contact & Logistics
   name: string;
   email: string;
   countryTimeZone: string;
@@ -18,14 +17,15 @@ export interface CoachingLeadPayload {
   availableDays: string;
   preferredStartDate: string;
   referralSource?: string;
-
-  // Compliance
-  privacyConsent: boolean;
+  privacyConsent: true;
+  healthTrainingAcknowledgement: true;
   marketingOptIn: false;
-
-  // Attribution data
   attribution: AttributionData;
-  submittedAt: string;
+}
+
+interface LeadReceipt {
+  leadId: string;
+  receivedAt: string;
 }
 
 export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
@@ -43,15 +43,17 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
     privacyConsent: false,
   });
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [hasStarted, setHasStarted] = useState(false);
 
-  // Trigger apply_page_view on mount and capture attribution
+  // Record application view with first touch preserved and later non-direct visits retained as assists.
   useEffect(() => {
     const attr = getAttribution();
     setAttribution(attr);
     trackEvent('apply_page_view', {
       landing_page: attr.first_landing_page,
+      cta: attr.cta || 'not_set',
       has_utm: Boolean(attr.utm_source),
       utm_source: attr.utm_source || 'direct',
       utm_campaign: attr.utm_campaign || 'none',
@@ -64,6 +66,7 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
       setHasStarted(true);
       trackEvent('application_start', {
         form: 'private_coaching_enquiry',
+        cta: attribution?.cta || 'not_set',
         utm_source: attribution?.utm_source || 'direct',
         utm_campaign: attribution?.utm_campaign || 'none',
         utm_content: attribution?.utm_content || 'none',
@@ -73,7 +76,7 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
 
   const isSourceAmbiguous = !attribution?.utm_source || attribution.utm_source === 'direct' || attribution.utm_source === 'referral';
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (
       !formData.name.trim() ||
@@ -91,11 +94,10 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
       setErrorMsg('Please confirm the privacy and health-training information before submitting your enquiry.');
       return;
     }
-    setErrorMsg('');
 
     const currentAttr = getAttribution();
-
-    const leadPayload: CoachingLeadPayload = {
+    const form = new FormData(e.currentTarget);
+    const leadPayload: CoachingLeadPayload & { website: string } = {
       name: formData.name.trim(),
       email: formData.email.trim(),
       countryTimeZone: formData.countryTimeZone.trim(),
@@ -106,37 +108,58 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
       preferredStartDate: formData.preferredStartDate.trim(),
       referralSource: isSourceAmbiguous ? formData.referralSource.trim() || undefined : undefined,
       privacyConsent: true,
+      healthTrainingAcknowledgement: true,
       marketingOptIn: false,
       attribution: currentAttr,
-      submittedAt: new Date().toISOString(),
+      website: String(form.get('website') || ''),
     };
 
-    // Store in localStorage for lead hand-off resilience / CRM sync
+    setErrorMsg('');
+    setIsSubmitting(true);
+
     try {
-      const existingLeads = JSON.parse(localStorage.getItem('baseln_submitted_leads') || '[]');
-      existingLeads.push(leadPayload);
-      localStorage.setItem('baseln_submitted_leads', JSON.stringify(existingLeads));
-      sessionStorage.setItem('baseln_last_lead', JSON.stringify(leadPayload));
-    } catch {
-      // ignore
+      const response = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(leadPayload),
+      });
+      const receipt = (await response.json().catch(() => null)) as LeadReceipt | { error?: string } | null;
+      if (!response.ok || !receipt || !('leadId' in receipt)) {
+        const message = receipt && 'error' in receipt && receipt.error
+          ? receipt.error
+          : 'We could not receive your enquiry just now. Please try again shortly or email aian@baseln.co.';
+        throw new Error(message);
+      }
+
+      // A browser receipt ID is harmless to retain; personal form data is not stored in the browser.
+      try {
+        sessionStorage.setItem('baseln_last_lead_receipt', JSON.stringify(receipt));
+      } catch {
+        // Receipt persistence is optional; the server record is authoritative.
+      }
+
+      trackEvent('application_complete', {
+        lead_id: receipt.leadId,
+        objective: leadPayload.mainObjective,
+        available_days: leadPayload.availableDays,
+        has_phone: Boolean(leadPayload.phone),
+        cta: currentAttr.cta || 'not_set',
+        utm_source: currentAttr.utm_source || 'direct',
+        utm_medium: currentAttr.utm_medium || 'direct',
+        utm_campaign: currentAttr.utm_campaign || 'none',
+        utm_content: currentAttr.utm_content || 'none',
+        last_non_direct_source: currentAttr.last_non_direct_source || 'direct',
+        first_landing_page: currentAttr.first_landing_page,
+        referral_source_fallback: leadPayload.referralSource || 'not_requested',
+      });
+
+      setSubmitted(true);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (error) {
+      setErrorMsg(error instanceof Error ? error.message : 'We could not receive your enquiry just now. Please try again shortly.');
+    } finally {
+      setIsSubmitting(false);
     }
-
-    // Fire application_complete with exact fields
-    trackEvent('application_complete', {
-      objective: leadPayload.mainObjective,
-      available_days: leadPayload.availableDays,
-      has_phone: Boolean(leadPayload.phone),
-      utm_source: currentAttr.utm_source || 'direct',
-      utm_medium: currentAttr.utm_medium || 'direct',
-      utm_campaign: currentAttr.utm_campaign || 'none',
-      utm_content: currentAttr.utm_content || 'none',
-      last_non_direct_source: currentAttr.last_non_direct_source || 'direct',
-      first_landing_page: currentAttr.first_landing_page,
-      referral_source_fallback: leadPayload.referralSource || 'not_requested',
-    });
-
-    setSubmitted(true);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const fieldClass = 'w-full bg-charcoal-950 border border-white/10 rounded-sm px-4 py-3 text-sm text-white focus:outline-none focus:border-smoke-400 transition-colors';
@@ -169,7 +192,11 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
             </div>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="p-6 sm:p-10 bg-charcoal-900 border border-white/10 rounded-sm space-y-7 shadow-2xl">
+          <form onSubmit={handleSubmit} className="p-6 sm:p-10 bg-charcoal-900 border border-white/10 rounded-sm space-y-7 shadow-2xl" aria-busy={isSubmitting}>
+            <div className="hidden" aria-hidden="true">
+              <label htmlFor="website">Website</label>
+              <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+            </div>
             {errorMsg && (
               <div className="p-4 bg-red-950/40 border border-red-500/30 text-red-200 text-xs sm:text-sm rounded flex items-center gap-3">
                 <AlertCircle size={18} className="shrink-0 text-red-400" />
@@ -343,9 +370,10 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
 
             <button
               type="submit"
-              className="w-full py-4 text-xs sm:text-sm uppercase tracking-widest font-semibold bg-smoke-500 hover:bg-smoke-400 text-charcoal-950 rounded-sm shadow-xl transition-all"
+              disabled={isSubmitting}
+              className="w-full py-4 text-xs sm:text-sm uppercase tracking-widest font-semibold bg-smoke-500 hover:bg-smoke-400 disabled:bg-smoke-500/60 disabled:cursor-wait text-charcoal-950 rounded-sm shadow-xl transition-all"
             >
-              Start your enquiry
+              {isSubmitting ? 'Sending your enquiry…' : 'Start your enquiry'}
             </button>
           </form>
         )}
@@ -418,7 +446,7 @@ export const TrainingRoomPage: React.FC<{ onNavigate: (path: PageRoute) => void 
           <div className="p-6 bg-charcoal-900 border border-white/10 rounded-sm space-y-4"><h3 className="font-serif text-xl text-white mb-2">Illustrative feedback format</h3><div className="p-4 bg-charcoal-850 rounded-sm border border-white/5 space-y-2 text-xs font-sans"><div className="flex items-center justify-between font-mono text-[11px] text-smoke-400"><span>Aian McLennan (Coach)</span><span>Example only</span></div><p className="text-paper-200 text-sm leading-relaxed">“I watched the clip. Let’s keep the weight where it is for now and make the next set smoother. Send another angle after your next session and we will decide whether it is ready to progress.”</p></div><p className="text-xs text-paper-400">Actual coach feedback responds to the client’s movement, programme and current week.</p></div>
         )}
 
-        <div className="mt-8 text-center"><p className="text-xs text-paper-400 font-light mb-4">A clear workspace is useful because coaching can stay close to the work, not buried in a generic app.</p><button onClick={() => onNavigate('/apply')} className="text-xs uppercase tracking-widest font-semibold text-smoke-400 hover:text-white underline underline-offset-4">Ready to talk with Aian? Start your enquiry →</button></div>
+        <div className="mt-8 text-center"><p className="text-xs text-paper-400 font-light mb-4">A clear workspace is useful because coaching can stay close to the work, not buried in a generic app.</p><button onClick={() => onNavigate('/online/register')} className="text-xs uppercase tracking-widest font-semibold text-smoke-400 hover:text-white underline underline-offset-4">Ready to talk with Aian? Start your enquiry →</button></div>
       </div>
     </div>
   );

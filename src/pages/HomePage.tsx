@@ -22,7 +22,7 @@ const inclusionGroups = [
   {
     marker: '03',
     title: 'COACHING & SUPPORT',
-    items: ['Direct access to Aian', 'Accountability', 'Progress reviews', 'Zoom conversations', 'Training Room and community'],
+    items: ['Direct access to Aian', 'Accountability', 'Progress reviews', 'One on One Interactions', 'Training Room and community'],
   },
 ];
 
@@ -56,7 +56,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
 
   const apply = () => {
     trackEvent('consultation_booking', { source: 'homepage_final_cta' });
-    onNavigate('/apply');
+    onNavigate('/online/register');
     window.scrollTo(0, 0);
   };
 

@@ -30,7 +30,7 @@ const privacySections: LegalSection[] = [
   },
   {
     heading: '4. Payments and service providers',
-    body: <>Where an online payment is offered, payment details are handled by the payment provider, FastSpring. BASELN does not receive or store full card details. We may also use carefully selected service providers for email, website hosting, programme delivery, communications and administration. Those providers may process information on our behalf only as needed to provide their service.</>,
+    body: <>Where an online payment is offered, payment details are handled by the approved payment provider. BASELN does not receive or store full card details. We may also use carefully selected service providers for email, website hosting, programme delivery, communications and administration. Those providers may process information on our behalf only as needed to provide their service.</>,
   },
   {
     heading: '5. Overseas processing',
@@ -61,7 +61,7 @@ const termsSections: LegalSection[] = [
   },
   {
     heading: '4. Fees and payments',
-    body: <>The applicable coaching fee, payment timing and what is included are confirmed before you decide to proceed. Where payment is available online, FastSpring processes the transaction as BASELN’s payment provider. A payment does not create an ongoing coaching commitment beyond the agreed coaching period unless you and BASELN agree otherwise in writing.</>,
+    body: <>The applicable coaching fee, payment timing and what is included are confirmed before you decide to proceed. Where payment is available online, the approved payment provider processes the transaction. A payment does not create an ongoing coaching commitment beyond the agreed coaching period unless you and BASELN agree otherwise in writing.</>,
   },
   {
     heading: '5. Cancellation and refunds',
@@ -170,7 +170,7 @@ export const LegalPage: React.FC<LegalPageProps> = ({ type, onNavigate }) => {
 
         <div className="mt-8 pt-7 border-t border-white/10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <button onClick={() => onNavigate('/')} className="w-fit text-xs uppercase tracking-widest font-semibold text-smoke-400 hover:text-white transition-colors">← Back to Home</button>
-          <button onClick={() => onNavigate('/apply')} className="w-fit text-xs uppercase tracking-widest font-semibold bg-smoke-500 hover:bg-smoke-400 text-charcoal-950 px-5 py-3 rounded-sm transition-colors">Start Coaching Enquiry</button>
+          <button onClick={() => onNavigate('/online/register')} className="w-fit text-xs uppercase tracking-widest font-semibold bg-smoke-500 hover:bg-smoke-400 text-charcoal-950 px-5 py-3 rounded-sm transition-colors">Start Coaching Enquiry</button>
         </div>
       </div>
     </div>

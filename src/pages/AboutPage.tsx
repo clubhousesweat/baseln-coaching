@@ -8,7 +8,7 @@ interface AboutPageProps {
 
 export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
   const apply = () => {
-    onNavigate('/apply');
+    onNavigate('/online/register');
     window.scrollTo(0, 0);
   };
 

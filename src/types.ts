@@ -3,7 +3,7 @@ export type PageRoute =
   | '/coaching'
   | '/about'
   | '/field-notes'
-  | '/apply'
+  | '/online/register'
   | '/training-room'
   | '/privacy'
   | '/terms'

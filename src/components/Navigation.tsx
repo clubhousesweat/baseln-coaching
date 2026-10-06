@@ -32,7 +32,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
   ];
 
   const handleNav = (href: PageRoute) => {
-    if (href === '/apply') {
+    if (href === '/online/register') {
       trackEvent('consultation_booking', { source: 'header_cta' });
     }
     onNavigate(href);
@@ -65,11 +65,11 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
 
           <div className="hidden md:flex items-center gap-4">
             <button onClick={() => handleNav('/training-room')} className="text-[12px] tracking-wider text-paper-400 hover:text-white px-3 py-2 transition-colors uppercase font-medium">Member Login</button>
-            <button onClick={() => handleNav('/apply')} className="text-[12px] tracking-wider font-semibold uppercase bg-smoke-500 hover:bg-smoke-400 text-charcoal-950 px-4 py-2.5 rounded-sm transition-all shadow-sm active:translate-y-[1px]">Apply for Coaching</button>
+            <button onClick={() => handleNav('/online/register')} className="text-[12px] tracking-wider font-semibold uppercase bg-smoke-500 hover:bg-smoke-400 text-charcoal-950 px-4 py-2.5 rounded-sm transition-all shadow-sm active:translate-y-[1px]">Apply for Coaching</button>
           </div>
 
           <div className="flex md:hidden items-center gap-3">
-            <button onClick={() => handleNav('/apply')} className="text-[11px] tracking-wider font-semibold uppercase bg-smoke-500 text-charcoal-950 px-3 py-1.5 rounded-sm">Apply</button>
+            <button onClick={() => handleNav('/online/register')} className="text-[11px] tracking-wider font-semibold uppercase bg-smoke-500 text-charcoal-950 px-3 py-1.5 rounded-sm">Apply</button>
             <button onClick={() => setMobileMenuOpen((open) => !open)} className="p-2 text-paper-200 hover:text-white focus:outline-none focus:ring-1 focus:ring-smoke-500 rounded" aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'} aria-expanded={mobileMenuOpen}>
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -85,7 +85,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
                 <img src="/media/baseln-wordmark_ce64ccd9.png" alt="BASELN" className="h-5 w-auto object-contain invert brightness-200" />
               </button>
               <div className="flex items-center gap-3">
-                <button onClick={() => handleNav('/apply')} className="text-[11px] tracking-wider font-semibold uppercase bg-smoke-500 text-charcoal-950 px-3 py-2 rounded-sm">Apply</button>
+                <button onClick={() => handleNav('/online/register')} className="text-[11px] tracking-wider font-semibold uppercase bg-smoke-500 text-charcoal-950 px-3 py-2 rounded-sm">Apply</button>
                 <button onClick={() => setMobileMenuOpen(false)} className="p-2 text-paper-100 hover:text-smoke-300 focus:outline-none focus-visible:ring-1 focus:ring-smoke-500 rounded" aria-label="Close navigation menu"><X size={27} /></button>
               </div>
             </div>
@@ -102,7 +102,7 @@ export const Header: React.FC<HeaderProps> = ({ currentPath, onNavigate }) => {
 
             <div className="mx-5 border-t border-white/10 pt-6 pb-9 grid grid-cols-1 gap-3">
               <button onClick={() => handleNav('/training-room')} className="min-h-12 w-full text-left px-4 text-xs tracking-wider uppercase border border-white/15 text-paper-200 hover:bg-white/5 transition-colors rounded-sm">Member Login</button>
-              <button onClick={() => handleNav('/apply')} className="min-h-13 w-full inline-flex items-center justify-center gap-3 text-xs tracking-widest font-semibold uppercase bg-smoke-500 text-charcoal-950 rounded-sm shadow-md active:scale-[0.99] transition-transform"><span>Apply for Private Coaching</span><ArrowRight size={16} /></button>
+              <button onClick={() => handleNav('/online/register')} className="min-h-13 w-full inline-flex items-center justify-center gap-3 text-xs tracking-widest font-semibold uppercase bg-smoke-500 text-charcoal-950 rounded-sm shadow-md active:scale-[0.99] transition-transform"><span>Apply for Private Coaching</span><ArrowRight size={16} /></button>
             </div>
           </div>
         </div>

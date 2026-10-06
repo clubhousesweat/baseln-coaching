@@ -17,6 +17,7 @@ import {
 } from './utils/analytics';
 
 const INSTAGRAM_BIO_PATH = '/go/instagram';
+const CANONICAL_APPLICATION_PATH: PageRoute = '/online/register';
 const INSTAGRAM_BIO_EVENT_KEY = 'baseln_pending_instagram_bio_event';
 
 const validPaths: PageRoute[] = [
@@ -24,7 +25,7 @@ const validPaths: PageRoute[] = [
   '/coaching',
   '/about',
   '/field-notes',
-  '/apply',
+  CANONICAL_APPLICATION_PATH,
   '/training-room',
   '/privacy',
   '/terms',
@@ -34,29 +35,29 @@ const validPaths: PageRoute[] = [
 
 const resolvePath = (path: string): PageRoute => {
   if (path === '/how-it-works') return '/coaching';
-  if (path === INSTAGRAM_BIO_PATH) return '/apply';
+  if (path === '/apply' || path === INSTAGRAM_BIO_PATH) return CANONICAL_APPLICATION_PATH;
   return validPaths.includes(path as PageRoute) ? path as PageRoute : '/';
 };
 
 const redirectInstagramBioLink = (): boolean => {
   if (window.location.pathname !== INSTAGRAM_BIO_PATH) return false;
 
-  // Keep the social entry route available for first-touch attribution before redirecting.
+  // Preserve the original bio entry route before moving to the public registration address.
   window.sessionStorage.setItem('baseln_first_landing_override', window.location.pathname + window.location.search);
   window.sessionStorage.setItem(INSTAGRAM_BIO_EVENT_KEY, 'true');
 
   const params = new URLSearchParams(window.location.search);
+  params.set('cta', params.get('cta') || 'instagram-profile');
   params.set('utm_source', params.get('utm_source') || 'instagram');
   params.set('utm_medium', params.get('utm_medium') || 'organic_social');
   params.set('utm_campaign', params.get('utm_campaign') || INSTAGRAM_TAKEOVER_CAMPAIGN);
   params.set('utm_content', params.get('utm_content') || INSTAGRAM_TAKEOVER_CONTENT);
 
-  window.history.replaceState({}, '', `/apply?${params.toString()}`);
+  window.history.replaceState({}, '', `${CANONICAL_APPLICATION_PATH}?${params.toString()}`);
   return true;
 };
 
 const initialRoute = (): PageRoute => {
-  // This runs before the Apply page can initialise its attribution-aware form state.
   redirectInstagramBioLink();
   captureUtmParams();
   return resolvePath(window.location.pathname);
@@ -68,14 +69,12 @@ export const App: React.FC = () => {
   useEffect(() => {
     const syncPath = () => {
       const arrivedViaInstagramBio = redirectInstagramBioLink();
-
-      // Captures first-touch attribution without overwriting it; later tagged visits are assists.
       captureUtmParams();
 
       const resolvedPath = resolvePath(window.location.pathname);
       setCurrentPath(resolvedPath);
       if (window.location.pathname !== resolvedPath) {
-        window.history.replaceState({}, '', resolvedPath);
+        window.history.replaceState({}, '', `${resolvedPath}${window.location.search}`);
       }
 
       const shouldRecordBioView = arrivedViaInstagramBio || window.sessionStorage.getItem(INSTAGRAM_BIO_EVENT_KEY) === 'true';
@@ -84,7 +83,7 @@ export const App: React.FC = () => {
           social_account: SOCIAL_ACCOUNT,
           social_handle: INSTAGRAM_HANDLE,
           bio_route: INSTAGRAM_BIO_PATH,
-          destination: '/apply',
+          destination: CANONICAL_APPLICATION_PATH,
         });
         window.sessionStorage.removeItem(INSTAGRAM_BIO_EVENT_KEY);
       }
@@ -108,7 +107,7 @@ export const App: React.FC = () => {
         {currentPath === '/coaching' && <CoachingPage onNavigate={handleNavigate} />}
         {currentPath === '/about' && <AboutPage onNavigate={handleNavigate} />}
         {currentPath === '/field-notes' && <FieldNotesPage onNavigate={handleNavigate} />}
-        {currentPath === '/apply' && <ApplyPage onNavigate={handleNavigate} />}
+        {currentPath === CANONICAL_APPLICATION_PATH && <ApplyPage onNavigate={handleNavigate} />}
         {currentPath === '/training-room' && <TrainingRoomPage onNavigate={handleNavigate} />}
         {currentPath === '/privacy' && <LegalPage type="privacy" onNavigate={handleNavigate} />}
         {currentPath === '/terms' && <LegalPage type="terms" onNavigate={handleNavigate} />}

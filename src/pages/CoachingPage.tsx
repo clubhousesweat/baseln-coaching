@@ -65,7 +65,7 @@ export const CoachingPage: React.FC<CoachingPageProps> = ({ onNavigate }) => {
   ];
 
   const apply = () => {
-    onNavigate('/apply');
+    onNavigate('/online/register');
     window.scrollTo(0, 0);
   };
 

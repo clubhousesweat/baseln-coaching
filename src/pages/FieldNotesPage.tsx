@@ -216,7 +216,7 @@ export const FieldNotesPage: React.FC<FieldNotesPageProps> = ({ onNavigate }) =>
             <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-smoke-400 block mb-3">End of issue 01</span>
             <h2 className="font-serif text-3xl sm:text-4xl text-white font-light leading-tight">Want the work to fit your real week?</h2>
           </div>
-          <button onClick={() => { onNavigate('/apply'); window.scrollTo(0, 0); }} className="inline-flex items-center gap-3 text-xs uppercase tracking-[0.16em] font-semibold text-smoke-300 hover:text-white transition-colors shrink-0">
+          <button onClick={() => { onNavigate('/online/register'); window.scrollTo(0, 0); }} className="inline-flex items-center gap-3 text-xs uppercase tracking-[0.16em] font-semibold text-smoke-300 hover:text-white transition-colors shrink-0">
             <span>Apply to work with Aian</span><ArrowRight size={16} />
           </button>
         </div>
