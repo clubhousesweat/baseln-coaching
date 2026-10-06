@@ -1,0 +1,8 @@
+# BASELN Release & Domain Cutover Outcomes
+
+- [x] **Durable lead delivery via managed server and database.** The `/online/register` application form submits contact, training objective, availability, consent and first/last-touch attribution fields to `POST /api/leads`. Browser acknowledgement requires a confirmed HTTP 201 receipt with server-generated lead ID.
+- [x] **Owner-visible application queue.** Submitted applications are stored in the managed database (`coaching_leads` table) with full UTM first-touch and assist records, landing route, referrer, CTA and timestamp. Compact owner notification is attempted without exposing credentials to the client.
+- [x] **Approved canonical intake and legacy routing.** `/online/register` is the canonical application route across all site navigation. `/apply` returns a query-preserving 301 redirect to `/online/register`. Legacy site paths (`/online`, `/the-package`, `/how-it-works`, `/faq`, etc.) redirect cleanly to their new destinations.
+- [x] **Container deployment contract and health readiness.** Production Dockerfile runs `node server/server.mjs`. Live probe responds at `/_app/live` and database readiness at `/_app/ready` and `/_app/health`.
+- [x] **FastSpring and public payment hold.** Zero public checkout, Buy now, FastSpring, or A$249 references are present in frontend bundles, server code, or metadata.
+- [ ] **Published production verification and branded domain cutover.** Verify live deployed container on `manus.space`, submit controlled QA test lead through `/online/register`, then map `baseln.co` and `www.baseln.co` while retaining legacy deployment until all checks pass.

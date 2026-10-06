@@ -36,6 +36,7 @@ export interface AnalyticsEventPayload {
 }
 
 const STORAGE_KEY = 'baseln_attribution_v1';
+const ATTRIBUTION_QUERY_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'cta'];
 
 // @baseln_retreats is the flagship BASELN Online Coaching social account.
 export const SOCIAL_ACCOUNT = 'baseln_online_coaching';
@@ -46,6 +47,16 @@ export const INSTAGRAM_TAKEOVER_CONTENT = 'takeover_profile_link';
 const parseUrlParams = () => {
   if (typeof window === 'undefined') return new URLSearchParams();
   return new URLSearchParams(window.location.search);
+};
+
+const attributionPath = (path = typeof window !== 'undefined' ? window.location.pathname : '/', params = parseUrlParams()) => {
+  const allowed = new URLSearchParams();
+  ATTRIBUTION_QUERY_KEYS.forEach((key) => {
+    const value = params.get(key);
+    if (value) allowed.set(key, value.slice(0, 240));
+  });
+  const query = allowed.toString();
+  return `${path || '/'}${query ? `?${query}` : ''}`;
 };
 
 export const initAttribution = (): AttributionData => {
@@ -60,14 +71,15 @@ export const initAttribution = (): AttributionData => {
   }
 
   const now = new Date().toISOString();
-  const currentPathWithSearch = window.location.pathname + window.location.search;
+  const currentPathWithSearch = attributionPath();
   const firstLandingOverride = sessionStorage.getItem('baseln_first_landing_override');
   const params = parseUrlParams();
   const currentReferrer = (() => {
     if (!document.referrer) return 'direct';
     try {
-      return new URL(document.referrer).origin !== window.location.origin
-        ? document.referrer
+      const referrer = new URL(document.referrer);
+      return referrer.origin !== window.location.origin
+        ? `${referrer.origin}${referrer.pathname}`
         : 'direct';
     } catch {
       return 'direct';
@@ -100,7 +112,7 @@ export const initAttribution = (): AttributionData => {
         utm_content: params.get('utm_content') || undefined,
         utm_term: params.get('utm_term') || undefined,
         referrer: currentReferrer,
-        first_landing_page: firstLandingOverride || currentPathWithSearch,
+        first_landing_page: firstLandingOverride ? attributionPath(firstLandingOverride) : currentPathWithSearch,
         first_touch_at: now,
         last_touch_page: currentPathWithSearch,
         last_touch_at: now,
@@ -156,8 +168,6 @@ export const getAttribution = (): AttributionData => {
   return initAttribution();
 };
 
-// Called on every page-load. This preserves first touch, while recording later
-// non-direct UTMs as an assist rather than overwriting original attribution.
 export const captureUtmParams = initAttribution;
 
 export const trackEvent = (event: AnalyticsEventType, metadata: Record<string, unknown> = {}) => {
@@ -172,14 +182,12 @@ export const trackEvent = (event: AnalyticsEventType, metadata: Record<string, u
     timestamp: new Date().toISOString(),
   };
 
-  // 1. Custom DOM event
   try {
     window.dispatchEvent(new CustomEvent('baseln_analytics', { detail: payload }));
   } catch {
     // ignore
   }
 
-  // 2. Integration with window.plausible if available on host
   try {
     const win = window as unknown as { plausible?: (name: string, opts?: { props?: Record<string, unknown> }) => void };
     if (typeof win.plausible === 'function') {
@@ -199,7 +207,6 @@ export const trackEvent = (event: AnalyticsEventType, metadata: Record<string, u
     // ignore
   }
 
-  // 3. Integration with window.dataLayer (GTM/GA4)
   try {
     const win = window as unknown as { dataLayer?: Record<string, unknown>[] };
     if (Array.isArray(win.dataLayer)) {
@@ -211,6 +218,5 @@ export const trackEvent = (event: AnalyticsEventType, metadata: Record<string, u
     // ignore
   }
 
-  // 4. Log in console
   console.info(`[BASELN Event: ${event}]`, payload);
 };

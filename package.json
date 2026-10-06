@@ -6,10 +6,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 3000 --host 0.0.0.0",
+    "dev:api": "PORT=3001 node server/server.mjs",
     "build": "tsc && vite build",
-    "build:server": "tsc -p tsconfig.server.json",
     "preview": "vite preview --port 3000 --host 0.0.0.0",
-    "start": "node server-dist/index.js"
+    "start": "node server/server.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",

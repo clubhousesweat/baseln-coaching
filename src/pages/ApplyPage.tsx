@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ArrowRight, CheckCircle2, AlertCircle } from 'lucide-react';
+import { CheckCircle2, AlertCircle } from 'lucide-react';
 import { PageRoute } from '../types';
 import { trackEvent, getAttribution, AttributionData } from '../utils/analytics';
 
@@ -21,11 +21,7 @@ export interface CoachingLeadPayload {
   healthTrainingAcknowledgement: true;
   marketingOptIn: false;
   attribution: AttributionData;
-}
-
-interface LeadReceipt {
-  leadId: string;
-  receivedAt: string;
+  cta?: string;
 }
 
 export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
@@ -47,7 +43,6 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
   const [errorMsg, setErrorMsg] = useState('');
   const [hasStarted, setHasStarted] = useState(false);
 
-  // Record application view with first touch preserved and later non-direct visits retained as assists.
   useEffect(() => {
     const attr = getAttribution();
     setAttribution(attr);
@@ -97,7 +92,9 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
 
     const currentAttr = getAttribution();
     const form = new FormData(e.currentTarget);
-    const leadPayload: CoachingLeadPayload & { website: string } = {
+    const cta = new URLSearchParams(window.location.search).get('cta') || currentAttr.cta || 'site_apply';
+
+    const leadPayload: CoachingLeadPayload & { website?: string } = {
       name: formData.name.trim(),
       email: formData.email.trim(),
       countryTimeZone: formData.countryTimeZone.trim(),
@@ -111,6 +108,7 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
       healthTrainingAcknowledgement: true,
       marketingOptIn: false,
       attribution: currentAttr,
+      cta,
       website: String(form.get('website') || ''),
     };
 
@@ -123,27 +121,25 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(leadPayload),
       });
-      const receipt = (await response.json().catch(() => null)) as LeadReceipt | { error?: string } | null;
-      if (!response.ok || !receipt || !('leadId' in receipt)) {
-        const message = receipt && 'error' in receipt && receipt.error
-          ? receipt.error
-          : 'We could not receive your enquiry just now. Please try again shortly or email aian@baseln.co.';
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || (result.ok !== true && !result.leadId)) {
+        const message = typeof result.error === 'string' ? result.error : 'We could not securely receive your enquiry. Please try again.';
         throw new Error(message);
       }
 
-      // A browser receipt ID is harmless to retain; personal form data is not stored in the browser.
+      const leadId = result.leadId;
       try {
-        sessionStorage.setItem('baseln_last_lead_receipt', JSON.stringify(receipt));
+        sessionStorage.setItem('baseln_last_lead_receipt', JSON.stringify({ leadId, receivedAt: new Date().toISOString() }));
       } catch {
-        // Receipt persistence is optional; the server record is authoritative.
+        // optional receipt cache
       }
 
       trackEvent('application_complete', {
-        lead_id: receipt.leadId,
+        lead_id: leadId,
         objective: leadPayload.mainObjective,
         available_days: leadPayload.availableDays,
         has_phone: Boolean(leadPayload.phone),
-        cta: currentAttr.cta || 'not_set',
+        cta,
         utm_source: currentAttr.utm_source || 'direct',
         utm_medium: currentAttr.utm_medium || 'direct',
         utm_campaign: currentAttr.utm_campaign || 'none',
@@ -184,7 +180,7 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
               <p className="text-sm text-paper-200 font-light leading-relaxed">“Received. Aian will review your brief and contact you about the next step.”</p>
             </div>
             <p className="text-xs sm:text-sm text-paper-400 font-light leading-relaxed">
-              We review every enquiry personally within 24–48 business hours. If BASELN is a fit, Aian will explain the six-week investment and what coaching could look like before you decide whether to start.
+              Aian reviews every enquiry personally within one business day. If BASELN is a fit, he will explain the next appropriate step and what coaching could look like before you decide whether to start.
             </p>
             <div className="pt-4 flex flex-wrap items-center gap-4">
               <button onClick={() => onNavigate('/')} className="text-xs uppercase tracking-widest font-semibold bg-white/10 hover:bg-white/15 text-white px-5 py-3 rounded-sm transition-colors">Return home</button>
@@ -373,7 +369,7 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
               disabled={isSubmitting}
               className="w-full py-4 text-xs sm:text-sm uppercase tracking-widest font-semibold bg-smoke-500 hover:bg-smoke-400 disabled:bg-smoke-500/60 disabled:cursor-wait text-charcoal-950 rounded-sm shadow-xl transition-all"
             >
-              {isSubmitting ? 'Sending your enquiry…' : 'Start your enquiry'}
+              {isSubmitting ? 'Sending securely…' : 'Start your enquiry'}
             </button>
           </form>
         )}

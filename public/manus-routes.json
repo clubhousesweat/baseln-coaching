@@ -5,6 +5,7 @@
     { "path": "/about", "title": "About Aian" },
     { "path": "/field-notes", "title": "Field Notes" },
     { "path": "/online/register", "title": "Apply for Coaching" },
+    { "path": "/apply", "title": "Apply for Coaching Redirect" },
     { "path": "/training-room", "title": "Training Room" },
     { "path": "/privacy", "title": "Privacy Notice" },
     { "path": "/terms", "title": "Coaching Terms" },

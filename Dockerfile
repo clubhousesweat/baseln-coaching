@@ -1,23 +1,21 @@
-FROM node:22-alpine AS build
+FROM node:22-bookworm-slim AS build
+
 WORKDIR /app
-RUN corepack enable
-
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-RUN pnpm install --frozen-lockfile
-
+RUN npm install --global pnpm@11.25.0 --force && pnpm install --frozen-lockfile
 COPY . .
-RUN pnpm build && pnpm build:server
+RUN pnpm build
 
-FROM node:22-alpine AS runtime
+FROM node:22-bookworm-slim AS runtime
+
 WORKDIR /app
-RUN corepack enable
 ENV NODE_ENV=production
-
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-RUN pnpm install --frozen-lockfile --prod
-
+RUN npm install --global pnpm@11.25.0 --force && pnpm install --prod --frozen-lockfile
 COPY --from=build /app/dist ./dist
-COPY --from=build /app/server-dist ./server-dist
+COPY --from=build /app/server ./server
 
 EXPOSE 3000
-CMD ["node", "server-dist/index.js"]
+HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
+  CMD node -e "fetch('http://127.0.0.1:' + (process.env.PORT || 3000) + '/_app/ready').then((response) => process.exit(response.ok ? 0 : 1)).catch(() => process.exit(1))"
+CMD ["node", "server/server.mjs"]

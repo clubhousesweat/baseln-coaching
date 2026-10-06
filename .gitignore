@@ -1,0 +1,9 @@
+node_modules/
+dist/
+server-dist/
+.env
+.env.*
+*.pem
+*.key
+npm-debug.log*
+pnpm-debug.log*
