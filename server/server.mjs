@@ -212,6 +212,7 @@ const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (character) => (
 const renderedPageShell = (routePath) => {
   const metadata = publicMetadata[routePath] || publicMetadata['/'];
   const canonical = `${publicOrigin}${routePath}`;
+  const canonicalOgImage = `${publicOrigin}/media/baseln-front-squat-coaching.png`;
   const title = escapeHtml(metadata.title);
   const description = escapeHtml(metadata.description);
   const robots = metadata.noindex ? '<meta name="robots" content="noindex,follow" />' : '';
@@ -222,8 +223,10 @@ const renderedPageShell = (routePath) => {
     .replace(/<meta property="og:url" content="[^"]*"\s*\/>/, `<meta property="og:url" content="${canonical}" />`)
     .replace(/<meta property="og:title" content="[^"]*"\s*\/>/, `<meta property="og:title" content="${title}" />`)
     .replace(/<meta property="og:description" content="[^"]*"\s*\/>/, `<meta property="og:description" content="${description}" />`)
+    .replace(/<meta property="og:image" content="[^"]*"\s*\/>/, `<meta property="og:image" content="${canonicalOgImage}" />`)
     .replace(/<meta name="twitter:title" content="[^"]*"\s*\/>/, `<meta name="twitter:title" content="${title}" />`)
     .replace(/<meta name="twitter:description" content="[^"]*"\s*\/>/, `<meta name="twitter:description" content="${description}" />`)
+    .replace(/<meta name="twitter:image" content="[^"]*"\s*\/>/, `<meta name="twitter:image" content="${canonicalOgImage}" />`)
     .replace('</head>', `  ${robots}\n  </head>`);
 };
 
