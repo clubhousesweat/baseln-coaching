@@ -169,7 +169,7 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
           <h1 className="font-serif text-3xl sm:text-5xl font-light text-white leading-[1.04] uppercase mb-4">
             <span className="block">TELL AIAN WHAT</span><span className="block text-smoke-300 italic font-normal">YOU WANT TO CHANGE.</span>
           </h1>
-          <p className="text-sm sm:text-base text-paper-300 font-light leading-relaxed max-w-2xl">A few details are enough for a first conversation. Aian will gather training history, equipment and the finer detail during onboarding if you decide to work together.</p>
+          <p id="application-form-introduction" className="text-sm sm:text-base text-paper-300 font-light leading-relaxed max-w-2xl">A few details are enough for a first conversation. Aian will gather training history, equipment and the finer detail during onboarding if you decide to work together.</p>
         </div>
 
         {submitted ? (
@@ -188,13 +188,13 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
             </div>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="p-6 sm:p-10 bg-charcoal-900 border border-white/10 rounded-sm space-y-7 shadow-2xl" aria-busy={isSubmitting}>
+          <form id="online-registration-form" onSubmit={handleSubmit} className="p-6 sm:p-10 bg-charcoal-900 border border-white/10 rounded-sm space-y-7 shadow-2xl" aria-busy={isSubmitting} aria-describedby="application-form-introduction">
             <div className="hidden" aria-hidden="true">
               <label htmlFor="website">Website</label>
               <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
             </div>
             {errorMsg && (
-              <div className="p-4 bg-red-950/40 border border-red-500/30 text-red-200 text-xs sm:text-sm rounded flex items-center gap-3">
+              <div id="application-error" role="alert" aria-live="assertive" className="p-4 bg-red-950/40 border border-red-500/30 text-red-200 text-xs sm:text-sm rounded flex items-center gap-3">
                 <AlertCircle size={18} className="shrink-0 text-red-400" />
                 <span>{errorMsg}</span>
               </div>
@@ -202,26 +202,32 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
-                <label className={labelClass}>Your full name <span className="text-smoke-400">*</span></label>
+                <label htmlFor="apply-name" className={labelClass}>Your full name <span className="text-smoke-400">*</span></label>
                 <input
+                  id="apply-name"
+                  name="name"
                   type="text"
                   required
                   onFocus={handleFieldFocus}
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   placeholder="e.g. David Harrison"
+                  autoComplete="name"
                   className={fieldClass}
                 />
               </div>
               <div>
-                <label className={labelClass}>Email address <span className="text-smoke-400">*</span></label>
+                <label htmlFor="apply-email" className={labelClass}>Email address <span className="text-smoke-400">*</span></label>
                 <input
+                  id="apply-email"
+                  name="email"
                   type="email"
                   required
                   onFocus={handleFieldFocus}
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   placeholder="david@example.com"
+                  autoComplete="email"
                   className={fieldClass}
                 />
               </div>
@@ -229,8 +235,10 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
-                <label className={labelClass}>Country / time zone <span className="text-smoke-400">*</span></label>
+                <label htmlFor="apply-country-time-zone" className={labelClass}>Country / time zone <span className="text-smoke-400">*</span></label>
                 <input
+                  id="apply-country-time-zone"
+                  name="countryTimeZone"
                   type="text"
                   required
                   onFocus={handleFieldFocus}
@@ -241,21 +249,26 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
                 />
               </div>
               <div>
-                <label className={labelClass}>Phone number <span className="text-paper-400 font-normal">(optional)</span></label>
+                <label htmlFor="apply-phone" className={labelClass}>Phone number <span className="text-paper-400 font-normal">(optional)</span></label>
                 <input
+                  id="apply-phone"
+                  name="phone"
                   type="tel"
                   onFocus={handleFieldFocus}
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   placeholder="+61 400 000 000"
+                  autoComplete="tel"
                   className={fieldClass}
                 />
               </div>
             </div>
 
             <div>
-              <label className={labelClass}>What is your main objective? <span className="text-smoke-400">*</span></label>
+              <label htmlFor="apply-main-objective" className={labelClass}>What is your main objective? <span className="text-smoke-400">*</span></label>
               <select
+                id="apply-main-objective"
+                name="mainObjective"
                 required
                 onFocus={handleFieldFocus}
                 value={formData.mainObjective}
@@ -274,8 +287,10 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
             </div>
 
             <div>
-              <label className={labelClass}>What has been the biggest obstacle so far? <span className="text-smoke-400">*</span></label>
+              <label htmlFor="apply-biggest-obstacle" className={labelClass}>What has been the biggest obstacle so far? <span className="text-smoke-400">*</span></label>
               <textarea
+                id="apply-biggest-obstacle"
+                name="biggestObstacle"
                 required
                 rows={3}
                 onFocus={handleFieldFocus}
@@ -288,8 +303,10 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
-                <label className={labelClass}>How many days could you realistically train each week? <span className="text-smoke-400">*</span></label>
+                <label htmlFor="apply-available-days" className={labelClass}>How many days could you realistically train each week? <span className="text-smoke-400">*</span></label>
                 <select
+                  id="apply-available-days"
+                  name="availableDays"
                   required
                   onFocus={handleFieldFocus}
                   value={formData.availableDays}
@@ -305,8 +322,10 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
                 </select>
               </div>
               <div>
-                <label className={labelClass}>When would you like to start? <span className="text-smoke-400">*</span></label>
+                <label htmlFor="apply-preferred-start-date" className={labelClass}>When would you like to start? <span className="text-smoke-400">*</span></label>
                 <input
+                  id="apply-preferred-start-date"
+                  name="preferredStartDate"
                   required
                   type="text"
                   onFocus={handleFieldFocus}
@@ -321,10 +340,12 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
             {/* Non-marketing self-reported fallback only if source is absent/ambiguous */}
             {isSourceAmbiguous && (
               <div>
-                <label className={labelClass}>
+                <label htmlFor="apply-referral-source" className={labelClass}>
                   How did you hear about BASELN? <span className="text-paper-400 font-normal">(optional)</span>
                 </label>
                 <input
+                  id="apply-referral-source"
+                  name="referralSource"
                   type="text"
                   onFocus={handleFieldFocus}
                   value={formData.referralSource}
@@ -339,17 +360,19 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
               <div className="flex items-start gap-3">
                 <input
                   id="legal-consent"
+                  name="privacyConsent"
                   type="checkbox"
                   required
                   checked={formData.privacyConsent}
                   onChange={(e) => setFormData({ ...formData, privacyConsent: e.target.checked })}
+                  aria-describedby="legal-consent-details"
                   className="mt-1 h-4 w-4 rounded border-white/20 bg-charcoal-950 text-smoke-500 focus:ring-smoke-400"
                 />
                 <div className="text-xs text-paper-400 font-light leading-relaxed">
                   <label htmlFor="legal-consent" className="cursor-pointer">
                     I confirm that I have read the Privacy Notice and Health &amp; Training Disclaimer. I consent to BASELN using the details in this enquiry to assess coaching fit and contact me about coaching. This does not subscribe me to marketing communications.
                   </label>
-                  <p className="mt-2 text-paper-400/85">
+                  <p id="legal-consent-details" className="mt-2 text-paper-400/85">
                     Open the{' '}
                     <a href="/privacy" target="_blank" rel="noreferrer" className="text-smoke-400 underline underline-offset-2">
                       Privacy Notice
@@ -365,8 +388,11 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
             </div>
 
             <button
+              id="application-submit"
+              name="submitApplication"
               type="submit"
               disabled={isSubmitting}
+              aria-label="Submit private coaching enquiry"
               className="w-full py-4 text-xs sm:text-sm uppercase tracking-widest font-semibold bg-smoke-500 hover:bg-smoke-400 disabled:bg-smoke-500/60 disabled:cursor-wait text-charcoal-950 rounded-sm shadow-xl transition-all"
             >
               {isSubmitting ? 'Sending securely…' : 'Start your enquiry'}

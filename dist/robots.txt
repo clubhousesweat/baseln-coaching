@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /apply
+Disallow: /online/register
+Disallow: /api/
+
+Sitemap: https://baseln.co/sitemap.xml

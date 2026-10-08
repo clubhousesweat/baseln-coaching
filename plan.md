@@ -35,3 +35,7 @@ The existing `POST /apply` path is never used by the new application; the old do
 - Managed server/database enablement is irreversible and required for durable lead storage.
 - The current Webdev config must be read before each domain write. The custom-domain owner/control plane must supply the actual reassignment action and any DNS record values; no DNS target is guessed.
 - The new server uses only first-party persistence and owner notifications. No invented CRM, marketing opt-in, test checkout or unsupported proof is introduced.
+
+## Release-gate accessibility and social metadata correction
+
+The canonical `/online/register` form uses stable `id` and `name` values for every visible intake control, with explicit matching `<label htmlFor>` associations. This includes full name, email, country/time zone, phone, objective, obstacle, available days, preferred start date, the conditional referral fallback and the privacy/health acknowledgement. The submit control has a stable identifier and an accessible name. Error feedback is announced with `role="alert"`; the form is connected to its explanatory introduction. The social preview image must use the canonical `https://baseln.co` asset URL rather than the staging hostname before domain binding.
