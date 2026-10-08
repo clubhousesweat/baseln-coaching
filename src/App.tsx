@@ -7,6 +7,7 @@ import { AboutPage } from './pages/AboutPage';
 import { FieldNotesPage } from './pages/FieldNotesPage';
 import { ApplyPage, TrainingRoomPage } from './pages/ApplyPage';
 import { LegalPage } from './pages/LegalPage';
+import { ContactPage } from './pages/ContactPage';
 import {
   captureUtmParams,
   INSTAGRAM_HANDLE,
@@ -27,6 +28,7 @@ const validPaths: PageRoute[] = [
   '/field-notes',
   CANONICAL_APPLICATION_PATH,
   '/training-room',
+  '/contact',
   '/privacy',
   '/terms',
   '/refund-policy',
@@ -109,6 +111,7 @@ export const App: React.FC = () => {
         {currentPath === '/field-notes' && <FieldNotesPage onNavigate={handleNavigate} />}
         {currentPath === CANONICAL_APPLICATION_PATH && <ApplyPage onNavigate={handleNavigate} />}
         {currentPath === '/training-room' && <TrainingRoomPage onNavigate={handleNavigate} />}
+        {currentPath === '/contact' && <ContactPage onNavigate={handleNavigate} />}
         {currentPath === '/privacy' && <LegalPage type="privacy" onNavigate={handleNavigate} />}
         {currentPath === '/terms' && <LegalPage type="terms" onNavigate={handleNavigate} />}
         {currentPath === '/refund-policy' && <LegalPage type="refund-policy" onNavigate={handleNavigate} />}

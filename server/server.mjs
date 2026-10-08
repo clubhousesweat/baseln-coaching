@@ -39,9 +39,13 @@ const publicMetadata = {
     description: 'Preview the workspace structure for BASELN private coaching.',
     noindex: true,
   },
+  '/contact': {
+    title: 'Contact BASELN | Private Online Coaching',
+    description: 'Contact BASELN about private online coaching, existing coaching support or another enquiry for Aian McLennan.',
+  },
   '/privacy': { title: 'Privacy Notice | BASELN', description: 'How BASELN handles information submitted through coaching enquiries and services.', noindex: true },
   '/terms': { title: 'Coaching Terms | BASELN', description: 'Terms that apply to BASELN private online coaching.', noindex: true },
-  '/refund-policy': { title: 'Refund and Cancellation Policy | BASELN', description: 'BASELN refund and cancellation policy.', noindex: true },
+  '/refund-policy': { title: 'Refund and Cancellation Information | BASELN', description: 'How BASELN confirms cancellation arrangements and consumer rights before coaching begins.', noindex: true },
   '/training-disclaimer': { title: 'Health and Training Disclaimer | BASELN', description: 'Important exercise and training safety information from BASELN.', noindex: true },
 };
 

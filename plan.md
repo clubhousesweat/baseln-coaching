@@ -39,3 +39,7 @@ The existing `POST /apply` path is never used by the new application; the old do
 ## Release-gate accessibility and social metadata correction
 
 The canonical `/online/register` form uses stable `id` and `name` values for every visible intake control, with explicit matching `<label htmlFor>` associations. This includes full name, email, country/time zone, phone, objective, obstacle, available days, preferred start date, the conditional referral fallback and the privacy/health acknowledgement. The submit control has a stable identifier and an accessible name. Error feedback is announced with `role="alert"`; the form is connected to its explanatory introduction. The social preview image must use the canonical `https://baseln.co` asset URL rather than the staging hostname before domain binding.
+
+## Public-price hold and legal consistency gate
+
+No BASELN public route may state a coaching price, monthly subscription, public checkout, payment-provider name or unconfirmed refund rule while payment terms remain on hold. The replacement `/terms`, `/refund-policy` and privacy wording therefore use neutral, application-first language: the applicable six-week investment, any ongoing coaching terms and payment arrangements are confirmed in writing before a client chooses to begin; sending an application neither takes payment nor creates a purchase. The legacy `baseln.co/terms` A$199/month statement must be removed before domain cutover; the existing legacy deployment remains rollback-only until that commercial-consistency gate passes.

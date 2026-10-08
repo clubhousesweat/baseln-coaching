@@ -121,6 +121,7 @@ export const Footer: React.FC<{ onNavigate: (path: PageRoute) => void }> = ({ on
     { label: 'Coaching', href: '/coaching' },
     { label: 'About Aian', href: '/about' },
     { label: 'Field Notes', href: '/field-notes' },
+    { label: 'Contact', href: '/contact' },
   ];
 
   return (

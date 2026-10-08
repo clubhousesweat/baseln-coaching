@@ -13,7 +13,7 @@ interface LegalSection {
   body: React.ReactNode;
 }
 
-const LAST_UPDATED = '5 October 2026';
+const LAST_UPDATED = '9 October 2026';
 
 const privacySections: LegalSection[] = [
   {
@@ -26,15 +26,15 @@ const privacySections: LegalSection[] = [
   },
   {
     heading: '3. Why we use your information',
-    body: <>We use information to assess coaching fit, respond to an enquiry, deliver and support coaching, manage programme records and communications, process a payment where applicable, meet legal obligations and protect the security of BASELN’s services. We do not sell or rent personal information to advertisers.</>,
+    body: <>We use information to assess coaching fit, respond to an enquiry, deliver and support coaching, manage programme records and communications, meet legal obligations and protect the security of BASELN’s services. We do not sell or rent personal information to advertisers.</>,
   },
   {
-    heading: '4. Payments and service providers',
-    body: <>Where an online payment is offered, payment details are handled by the approved payment provider. BASELN does not receive or store full card details. We may also use carefully selected service providers for email, website hosting, programme delivery, communications and administration. Those providers may process information on our behalf only as needed to provide their service.</>,
+    heading: '4. Service providers',
+    body: <>We use carefully selected service providers for email, website hosting, programme delivery, communications and administration. Those providers may process information on our behalf only as needed to provide their service.</>,
   },
   {
     heading: '5. Overseas processing',
-    body: <>Some technology and payment providers may process information outside Australia. Where this occurs, BASELN takes reasonable steps to use providers with appropriate privacy and security arrangements for the service they provide.</>,
+    body: <>Some technology providers may process information outside Australia. Where this occurs, BASELN takes reasonable steps to use providers with appropriate privacy and security arrangements for the service they provide.</>,
   },
   {
     heading: '6. Access, correction and complaints',
@@ -60,16 +60,16 @@ const termsSections: LegalSection[] = [
     body: <>Your programme, session records, progress and feedback are managed through the BASELN Training Room. Timely questions and updates may be handled through WhatsApp, with scheduled Zoom conversations used where agreed. Weekly structured reviews and the six-week review are part of the BASELN / 6 coaching process. Response timing and any scheduled calls are agreed during onboarding and may vary with the nature of the request.</>,
   },
   {
-    heading: '4. Fees and payments',
-    body: <>The applicable coaching fee, payment timing and what is included are confirmed before you decide to proceed. Where payment is available online, the approved payment provider processes the transaction. A payment does not create an ongoing coaching commitment beyond the agreed coaching period unless you and BASELN agree otherwise in writing.</>,
+    heading: '4. Fees and payment arrangements',
+    body: <>BASELN does not publish a coaching price or take payment through this website. The six-week investment, any ongoing coaching terms and the payment arrangements that apply to you are explained before you choose whether to begin. Sending an application is not a purchase, does not commit you and does not take payment.</>,
   },
   {
-    heading: '5. Cancellation and refunds',
-    body: <>The <a href="/refund-policy" className="text-smoke-300 underline underline-offset-4">Refund &amp; Cancellation Policy</a> forms part of these terms. Except for rights that cannot be excluded under the Australian Consumer Law, payments for BASELN / 6 are non-refundable after payment. A request supported by a valid medical certificate received within 24 hours of payment will be assessed individually, case by case. Providing a certificate does not guarantee a refund.</>,
+    heading: '5. Confirmation, changes and cancellation',
+    body: <>Before coaching begins, BASELN will confirm the agreed service period, inclusions and applicable cancellation or change arrangements with you in writing. The <a href="/refund-policy" className="text-smoke-300 underline underline-offset-4">Refund &amp; Cancellation Information</a> page provides general information about this process. Nothing in these terms limits rights that cannot lawfully be excluded under the Australian Consumer Law.</>,
   },
   {
     heading: '6. Changes, pauses and continuation',
-    body: <>If your circumstances change, contact BASELN promptly. BASELN may discuss a practical adjustment where appropriate, but any pause, extension, credit or other variation is at BASELN’s discretion unless required by law. Ongoing coaching after the initial six weeks is available only by mutual agreement under the confirmed terms at that time.</>,
+    body: <>If your circumstances change, contact BASELN promptly. BASELN may discuss a practical adjustment where appropriate. Ongoing coaching after the initial six weeks is available only by mutual agreement under the terms confirmed for that next period.</>,
   },
   {
     heading: '7. Consumer rights',
@@ -79,24 +79,16 @@ const termsSections: LegalSection[] = [
 
 const refundSections: LegalSection[] = [
   {
-    heading: '1. BASELN / 6 commitment',
-    body: <>BASELN / 6 is a defined six-week private coaching commitment. Once payment is made, BASELN allocates coaching preparation, programme design and service capacity to the agreed coaching period.</>,
+    heading: '1. Before coaching begins',
+    body: <>BASELN does not take payment through this website. Before coaching begins, any fees, payment arrangements and the cancellation or variation terms relevant to the agreed coaching service are confirmed with you in writing.</>,
   },
   {
-    heading: '2. Standard position',
-    body: <>Except for rights that cannot be excluded under the Australian Consumer Law, payments are non-refundable and the service cannot be cancelled after payment.</>,
+    heading: '2. Australian Consumer Law',
+    body: <>Nothing on this page excludes, restricts or modifies any consumer guarantee, remedy or other right that cannot lawfully be excluded under the Australian Consumer Law or other applicable law.</>,
   },
   {
-    heading: '3. Medical-certificate requests',
-    body: <>BASELN will consider an exception request only where a valid medical certificate is provided to <a href="mailto:aian@baseln.co" className="text-smoke-300 underline underline-offset-4">aian@baseln.co</a> within 24 hours of payment. Requests meeting these conditions are assessed individually, case by case. A valid certificate does not automatically entitle you to a refund, credit, deferral or other outcome. BASELN will confirm its decision in writing.</>,
-  },
-  {
-    heading: '4. Australian Consumer Law',
-    body: <>This policy does not exclude, restrict or modify any consumer guarantee, remedy or other right that cannot lawfully be excluded under the Australian Consumer Law or other applicable law.</>,
-  },
-  {
-    heading: '5. How to contact BASELN',
-    body: <>Include your full name, the date of payment, the coaching service purchased and the relevant supporting document when you email <a href="mailto:aian@baseln.co" className="text-smoke-300 underline underline-offset-4">aian@baseln.co</a>. Do not send more medical information than is reasonably necessary to support your request.</>,
+    heading: '3. Contact BASELN',
+    body: <>For a question about an agreed coaching arrangement, email <a href="mailto:aian@baseln.co" className="text-smoke-300 underline underline-offset-4">aian@baseln.co</a>. Please provide only the information reasonably needed for BASELN to identify the arrangement and respond.</>,
   },
 ];
 
@@ -134,8 +126,8 @@ const pageContent: Record<LegalPageType, { eyebrow: string; title: string; intro
   },
   'refund-policy': {
     eyebrow: 'BASELN LEGAL & GOVERNANCE',
-    title: 'Refund & Cancellation Policy',
-    intro: 'The policy that applies to BASELN / 6 payments, cancellation requests and medical-certificate exceptions.',
+    title: 'Refund & Cancellation Information',
+    intro: 'How cancellation arrangements and consumer rights are confirmed before coaching begins.',
     sections: refundSections,
   },
   'training-disclaimer': {

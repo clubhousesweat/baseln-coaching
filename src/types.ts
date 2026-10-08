@@ -5,6 +5,7 @@ export type PageRoute =
   | '/field-notes'
   | '/online/register'
   | '/training-room'
+  | '/contact'
   | '/privacy'
   | '/terms'
   | '/refund-policy'

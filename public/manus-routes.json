@@ -7,9 +7,10 @@
     { "path": "/online/register", "title": "Apply for Coaching" },
     { "path": "/apply", "title": "Apply for Coaching Redirect" },
     { "path": "/training-room", "title": "Training Room" },
+    { "path": "/contact", "title": "Contact BASELN" },
     { "path": "/privacy", "title": "Privacy Notice" },
     { "path": "/terms", "title": "Coaching Terms" },
-    { "path": "/refund-policy", "title": "Refund and Cancellation Policy" },
+    { "path": "/refund-policy", "title": "Refund and Cancellation Information" },
     { "path": "/training-disclaimer", "title": "Health and Training Disclaimer" }
   ]
 }
