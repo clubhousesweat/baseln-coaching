@@ -34,9 +34,29 @@ const publicMetadata = {
     description: 'Apply for private online coaching with BASELN. Tell Aian about your goal, training week and the support you need.',
     noindex: true,
   },
+  '/online/thank-you': {
+    title: 'Enquiry Received | BASELN Online Coaching',
+    description: 'Confirmation receipt for your BASELN private online coaching application.',
+    noindex: true,
+  },
   '/training-room': {
     title: 'Training Room Preview | BASELN',
-    description: 'Preview the workspace structure for BASELN private coaching.',
+    description: 'Illustrative preview of the private BASELN Training Room workspace structure.',
+    noindex: true,
+  },
+  '/member-login': {
+    title: 'Client Portal Sign In | BASELN',
+    description: 'Secure client authentication portal for active BASELN coaching clients.',
+    noindex: true,
+  },
+  '/app': {
+    title: 'Client Portal Sign In | BASELN',
+    description: 'Secure client authentication portal for active BASELN coaching clients.',
+    noindex: true,
+  },
+  '/coach': {
+    title: 'Coach Portal | BASELN Operations',
+    description: 'Protected operational portal for BASELN coaching staff.',
     noindex: true,
   },
   '/contact': {
@@ -55,8 +75,6 @@ const legacyRedirects = {
   '/how-it-works': '/coaching',
   '/online/engine-room': '/coaching',
   '/online/field-notes': '/field-notes',
-  '/app': '/training-room',
-  '/member-login': '/training-room',
   '/faq': '/coaching#questions',
 };
 
@@ -245,7 +263,7 @@ const sendOwnerNotification = async ({ leadId, email, objective }) => {
     },
     body: JSON.stringify({
       title: `New BASELN coaching application #${leadId}`,
-      content: `A new coaching application has been received and is due for personal review within one business day. Applicant: ${email}. Primary objective: ${objective}. Review the durable BASELN lead queue for the complete application.`,
+      content: `A new coaching application has been received and is due for personal review within one business day. Applicant: ${email}. Primary objective: ${objective}. Review the durable BASELN lead queue for the complete application. Operational inbox: Outlook.`,
     }),
   });
   if (!response.ok) throw new Error(`Owner notification returned ${response.status}.`);

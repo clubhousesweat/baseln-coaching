@@ -11,32 +11,32 @@ const goalSlides: GoalSlide[] = [
   {
     title: 'Lose body fat',
     eyebrow: 'Lean out with a plan that fits',
-    image: '/manus-storage/async-images/jX2TlDwECYWY8XRKtJpYVM/image-1.webp',
+    image: '/media/goals/lose-body-fat.jpg',
   },
   {
     title: 'Build muscle',
     eyebrow: 'Build more than size',
-    image: '/manus-storage/async-images/jX2TlDwECYWY8XRKtJpYVM/image-2.webp',
+    image: '/media/goals/build-muscle.jpg',
   },
   {
     title: 'Get stronger',
     eyebrow: 'Strength, deliberately built',
-    image: '/manus-storage/async-images/jX2TlDwECYWY8XRKtJpYVM/image-3.webp',
+    image: '/media/goals/get-stronger.jpg',
   },
   {
     title: 'Improve fitness',
     eyebrow: 'Build capacity that lasts',
-    image: '/manus-storage/async-images/jX2TlDwECYWY8XRKtJpYVM/image-4.webp',
+    image: '/media/goals/improve-fitness.jpg',
   },
   {
     title: 'Prepare for an event',
     eyebrow: 'Arrive prepared',
-    image: '/manus-storage/async-images/jX2TlDwECYWY8XRKtJpYVM/image-5.webp',
+    image: '/media/goals/prepare-event.jpg',
   },
   {
     title: 'Return to training',
     eyebrow: 'Start again with direction',
-    image: '/manus-storage/async-images/BwTrBneUyjiDdjad92TgMr/image-1.webp',
+    image: '/media/goals/return-to-training.jpg',
   },
 ];
 

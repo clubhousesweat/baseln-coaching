@@ -76,9 +76,17 @@ export const CoachingPage: React.FC<CoachingPageProps> = ({ onNavigate }) => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-9 lg:gap-14 items-center">
             <div className="order-1 space-y-6">
               <span className="text-xs font-mono uppercase tracking-widest text-smoke-400 block">BASELN / PRIVATE COACHING</span>
-              <h1 className="font-serif text-4xl sm:text-5xl lg:text-[58px] font-light text-white leading-[1.02]"><span className="block">PRIVATE COACHING.</span><span className="block italic text-smoke-300">The full experience.</span></h1>
-              <p className="max-w-xl text-base sm:text-lg md:text-xl text-paper-200 font-light leading-relaxed">Individually designed training, practical nutrition guidance and direct support from Aian McLennan.</p>
-              <button onClick={apply} className="inline-flex items-center justify-center gap-3 text-xs sm:text-sm uppercase tracking-widest font-semibold bg-smoke-500 hover:bg-smoke-400 text-charcoal-950 px-7 py-4 rounded-sm shadow-xl transition-all"><span>Apply to work with Aian</span><ArrowRight size={16} /></button>
+              <h1 className="font-serif text-4xl sm:text-5xl lg:text-[58px] font-light text-white leading-[1.02]">
+                <span className="block">PRIVATE COACHING.</span>
+                <span className="block italic text-smoke-300">The full experience.</span>
+              </h1>
+              <p className="max-w-xl text-base sm:text-lg md:text-xl text-paper-200 font-light leading-relaxed">
+                Individually designed training, practical nutrition guidance and direct support from Aian McLennan.
+              </p>
+              <button onClick={apply} className="inline-flex items-center justify-center gap-3 text-xs sm:text-sm uppercase tracking-widest font-semibold bg-smoke-500 hover:bg-smoke-400 text-charcoal-950 px-7 py-4 rounded-sm shadow-xl transition-all">
+                <span>Apply to work with Aian</span>
+                <ArrowRight size={16} />
+              </button>
             </div>
             <figure className="order-2 h-[250px] sm:h-[330px] lg:h-[460px] overflow-hidden rounded-sm bg-charcoal-850">
               <img src="/media/baseln-team-coaching.png" alt="BASELN coaching team in the training space" className="w-full h-full object-cover object-center grayscale contrast-110" />
@@ -95,11 +103,22 @@ export const CoachingPage: React.FC<CoachingPageProps> = ({ onNavigate }) => {
               <h2 className="font-serif text-3xl sm:text-4xl md:text-[48px] font-light text-white leading-[1.02]">FIRST, WE NEED TO KNOW WHAT WE’RE WORKING WITH.</h2>
             </div>
             <div className="lg:col-span-8">
-              <div className="max-w-2xl text-base sm:text-lg text-paper-200 font-light leading-relaxed space-y-4"><p>Before your first training week, Aian establishes your starting point properly.</p><p>Not just your age, weight and how many days you can train.</p><p>We look at what you want to achieve, what you’ve done before, how you’re currently training, what your week realistically allows, where you train, how you eat, how you recover and anything likely to influence the result.</p></div>
-              <div className="mt-10 border-t border-white/15 grid grid-cols-1 sm:grid-cols-2">
-                {baselineFields.map((field, index) => <div key={field.title} className={`py-6 pr-4 ${index % 2 === 0 ? 'sm:pr-10' : 'sm:pl-10'} border-b border-white/10`}><span className="text-[11px] font-mono uppercase tracking-[0.18em] text-smoke-400 block mb-2">{field.title}</span><p className="text-base text-paper-100 leading-relaxed">{field.copy}</p></div>)}
+              <div className="max-w-2xl text-base sm:text-lg text-paper-200 font-light leading-relaxed space-y-4">
+                <p>Before your first training week, Aian establishes your starting point properly.</p>
+                <p>Not just your age, weight and how many days you can train.</p>
+                <p>We look at what you want to achieve, what you’ve done before, how you’re currently training, what your week realistically allows, where you train, how you eat, how you recover and anything likely to influence the result.</p>
               </div>
-              <p className="mt-9 max-w-2xl font-serif text-xl sm:text-2xl text-paper-100 leading-relaxed">We don’t collect information to make onboarding look impressive. <span className="text-smoke-300 italic">We collect what helps us coach you better.</span></p>
+              <div className="mt-10 border-t border-white/15 grid grid-cols-1 sm:grid-cols-2">
+                {baselineFields.map((field, index) => (
+                  <div key={field.title} className={`py-6 pr-4 ${index % 2 === 0 ? 'sm:pr-10' : 'sm:pl-10'} border-b border-white/10`}>
+                    <span className="text-[11px] font-mono uppercase tracking-[0.18em] text-smoke-400 block mb-2">{field.title}</span>
+                    <p className="text-base text-paper-100 leading-relaxed">{field.copy}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-9 max-w-2xl font-serif text-xl sm:text-2xl text-paper-100 leading-relaxed">
+                We don’t collect information to make onboarding look impressive. <span className="text-smoke-300 italic">We collect what helps us coach you better.</span>
+              </p>
             </div>
           </div>
         </div>
@@ -114,7 +133,12 @@ export const CoachingPage: React.FC<CoachingPageProps> = ({ onNavigate }) => {
             <p className="lg:col-span-5 text-base sm:text-lg text-charcoal-950/75 leading-relaxed">A clear starting point, direct responsibility for the work, and a review of what changed before the next decision is made.</p>
           </div>
           <div className="mt-10 sm:mt-14 grid grid-cols-1 sm:grid-cols-2 gap-x-14 border-t border-charcoal-950/20 pt-6 sm:pt-8">
-            {baseSixIncludes.map((item, index) => <div key={item} className="flex items-start gap-3 py-2.5 text-base sm:text-lg leading-snug"><span className="font-mono text-xs text-charcoal-950/55 pt-1">{String(index + 1).padStart(2, '0')}</span><span>{item}</span></div>)}
+            {baseSixIncludes.map((item, index) => (
+              <div key={item} className="flex items-start gap-3 py-2.5 text-base sm:text-lg leading-snug">
+                <span className="font-mono text-xs text-charcoal-950/55 pt-1">{String(index + 1).padStart(2, '0')}</span>
+                <span>{item}</span>
+              </div>
+            ))}
           </div>
           <p className="mt-9 max-w-2xl text-base sm:text-lg leading-relaxed text-charcoal-950/75">Your programme, records, questions and feedback live in your private Training Room, with WhatsApp for timely questions and scheduled Zoom conversations.</p>
         </div>
@@ -133,13 +157,40 @@ export const CoachingPage: React.FC<CoachingPageProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      <section className="bg-charcoal-900">
+      <section id="questions" className="bg-charcoal-900 scroll-mt-24">
         <div className="max-w-[1080px] mx-auto px-5 sm:px-8 py-12 sm:py-16 lg:py-20">
           <h2 className="font-serif text-3xl sm:text-4xl md:text-[44px] font-light text-white leading-tight">QUESTIONS?</h2>
           <div className="mt-7 border-t border-white/10">
-            {faqItems.map((item, index) => <div key={item.q} className="border-b border-white/10"><button onClick={() => setOpenFaq(openFaq === index ? null : index)} className="w-full py-5 sm:py-6 text-left flex items-start justify-between gap-5 hover:text-smoke-300 transition-colors focus:outline-none" aria-expanded={openFaq === index}><span className="text-base sm:text-lg font-semibold text-white leading-snug">{item.q}</span><ChevronDown size={19} className={`text-smoke-400 shrink-0 mt-0.5 transition-transform duration-200 ${openFaq === index ? 'rotate-180' : ''}`} /></button>{openFaq === index && <div className="pb-6 pr-8 text-base text-paper-300 font-light leading-relaxed">{item.a}</div>}</div>)}
+            {faqItems.map((item, index) => {
+              const isOpen = openFaq === index;
+              const contentId = `faq-content-${index}`;
+              const triggerId = `faq-trigger-${index}`;
+              return (
+                <div key={item.q} className="border-b border-white/10">
+                  <button
+                    id={triggerId}
+                    type="button"
+                    onClick={() => setOpenFaq(isOpen ? null : index)}
+                    aria-expanded={isOpen}
+                    aria-controls={contentId}
+                    className="w-full py-5 sm:py-6 text-left flex items-start justify-between gap-5 hover:text-smoke-300 transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-smoke-400 rounded-sm cursor-pointer"
+                  >
+                    <span className="text-base sm:text-lg font-semibold text-white leading-snug">{item.q}</span>
+                    <ChevronDown size={19} className={`text-smoke-400 shrink-0 mt-0.5 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+                  </button>
+                  {isOpen && (
+                    <div id={contentId} role="region" aria-labelledby={triggerId} className="pb-6 pr-8 text-base text-paper-300 font-light leading-relaxed animate-in fade-in duration-200">
+                      {item.a}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
-          <button onClick={apply} className="inline-flex items-center gap-3 mt-9 text-xs sm:text-sm uppercase tracking-widest font-semibold bg-smoke-500 hover:bg-smoke-400 text-charcoal-950 px-8 py-4 rounded-sm shadow-xl transition-all"><span>Apply to work with Aian</span><ArrowRight size={16} /></button>
+          <button onClick={apply} className="inline-flex items-center gap-3 mt-9 text-xs sm:text-sm uppercase tracking-widest font-semibold bg-smoke-500 hover:bg-smoke-400 text-charcoal-950 px-8 py-4 rounded-sm shadow-xl transition-all">
+            <span>Apply to work with Aian</span>
+            <ArrowRight size={16} />
+          </button>
         </div>
       </section>
     </div>

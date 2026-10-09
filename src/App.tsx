@@ -6,6 +6,9 @@ import { CoachingPage } from './pages/CoachingPage';
 import { AboutPage } from './pages/AboutPage';
 import { FieldNotesPage } from './pages/FieldNotesPage';
 import { ApplyPage, TrainingRoomPage } from './pages/ApplyPage';
+import { ThankYouPage } from './pages/ThankYouPage';
+import { MemberLoginPage } from './pages/MemberLoginPage';
+import { CoachPortalPage } from './pages/CoachPortalPage';
 import { LegalPage } from './pages/LegalPage';
 import { ContactPage } from './pages/ContactPage';
 import {
@@ -27,7 +30,11 @@ const validPaths: PageRoute[] = [
   '/about',
   '/field-notes',
   CANONICAL_APPLICATION_PATH,
+  '/online/thank-you',
   '/training-room',
+  '/member-login',
+  '/app',
+  '/coach',
   '/contact',
   '/privacy',
   '/terms',
@@ -38,13 +45,12 @@ const validPaths: PageRoute[] = [
 const resolvePath = (path: string): PageRoute => {
   if (path === '/how-it-works') return '/coaching';
   if (path === '/apply' || path === INSTAGRAM_BIO_PATH) return CANONICAL_APPLICATION_PATH;
-  return validPaths.includes(path as PageRoute) ? path as PageRoute : '/';
+  return validPaths.includes(path as PageRoute) ? (path as PageRoute) : '/';
 };
 
 const redirectInstagramBioLink = (): boolean => {
   if (window.location.pathname !== INSTAGRAM_BIO_PATH) return false;
 
-  // Preserve the original bio entry route before moving to the public registration address.
   window.sessionStorage.setItem('baseln_first_landing_override', window.location.pathname + window.location.search);
   window.sessionStorage.setItem(INSTAGRAM_BIO_EVENT_KEY, 'true');
 
@@ -103,14 +109,24 @@ export const App: React.FC = () => {
 
   return (
     <div className="min-h-[100dvh] w-full bg-charcoal-950 text-paper-200 flex flex-col font-sans selection:bg-smoke-500 selection:text-charcoal-950">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[200] focus:px-4 focus:py-2 focus:bg-smoke-500 focus:text-charcoal-950 focus:font-semibold focus:rounded-sm focus:shadow-xl text-xs uppercase tracking-wider"
+      >
+        Skip to main content
+      </a>
       <Header currentPath={currentPath} onNavigate={handleNavigate} />
-      <main className="flex-1 w-full bg-charcoal-900">
+      <main id="main-content" className="flex-1 w-full bg-charcoal-900 focus:outline-none" tabIndex={-1}>
         {currentPath === '/' && <HomePage onNavigate={handleNavigate} />}
         {currentPath === '/coaching' && <CoachingPage onNavigate={handleNavigate} />}
         {currentPath === '/about' && <AboutPage onNavigate={handleNavigate} />}
         {currentPath === '/field-notes' && <FieldNotesPage onNavigate={handleNavigate} />}
         {currentPath === CANONICAL_APPLICATION_PATH && <ApplyPage onNavigate={handleNavigate} />}
+        {currentPath === '/online/thank-you' && <ThankYouPage onNavigate={handleNavigate} />}
         {currentPath === '/training-room' && <TrainingRoomPage onNavigate={handleNavigate} />}
+        {currentPath === '/member-login' && <MemberLoginPage onNavigate={handleNavigate} />}
+        {currentPath === '/app' && <MemberLoginPage onNavigate={handleNavigate} />}
+        {currentPath === '/coach' && <CoachPortalPage onNavigate={handleNavigate} />}
         {currentPath === '/contact' && <ContactPage onNavigate={handleNavigate} />}
         {currentPath === '/privacy' && <LegalPage type="privacy" onNavigate={handleNavigate} />}
         {currentPath === '/terms' && <LegalPage type="terms" onNavigate={handleNavigate} />}
