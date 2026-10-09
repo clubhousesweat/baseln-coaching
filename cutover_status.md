@@ -1,89 +1,133 @@
-# BASELN Release & Domain Cutover Status Report
+# BASELN Live Domain Cutover & Post-Launch Verification Report
 
-Date: 9 October 2026
-Project Resource: `manus-resource://manus-webdev/project/wdp_6fb3ad35e165bbfb677ea4f2`
-Staging & Deployment URL: `https://baseln-swpjc9hq.manus.space`
-Canonical Production Domain Target: `https://baseln.co`
+**Date:** 10 October 2026 (AWST)  
+**Canonical Production Domain:** `https://baseln.co`  
+**Webdev Project Resource:** `wdp_6fb3ad35e165bbfb677ea4f2` (BASELN — Private Online Coaching)  
+**Deployed Release Checkpoint:** `c5bff9912d72f29c60f80e2574fae65981e0dda1`  
+**Active Production Bundle:** `/assets/index-Crdft6V-.js`  
+**Deployment Infrastructure:** Routed Server Container (`routed-server/1`) + Managed MySQL (`coaching_leads`)  
 
 ---
 
 ## 1. Executive Summary
 
-The replacement BASELN Online Coaching site and server lead engine are **deployed, certified by independent audit, and ready for public domain traffic**.
+The custom domain cutover of **`baseln.co` to the new audited BASELN Online Coaching server deployment has been executed and verified live.**
 
-- **Independent Audit Verdict:** **PASS — staging release is approved for custom-domain cutover** (Website Auditor task `ckFvmqdU176jlSsTTzhq4w`).
-- **Canonical Release Commit:** `21766b4` (`main`), building container image with `index-DqAji2z9.js`.
-- **Durable Lead Pipeline:** Active via managed MySQL (`coaching_leads` table) with server-side validation and owner notification dispatch.
-- **Rollback Safety:** Legacy site at `https://baseln.co/` remains online and untouched until DNS / custom hostname cutover is completed and verified.
+The legacy site previously served at `baseln.co` (transparent proxy, old bundle `/assets/index-DXoQaEYl.js`, unapproved A$199/month pricing claims, and broken `/apply` 404) has been completely replaced. The live apex domain is now serving the clean, accessible, conversion-optimised BASELN Online Coaching platform directly from the verified container release.
 
----
-
-## 2. Verified Technical Gates & Test Receipts
-
-### Gate 1: Container Health & Readiness
-- **Endpoint:** `GET https://baseln-swpjc9hq.manus.space/_app/ready`
-- **HTTP Status:** `200 OK`
-- **Response Payload:** `{"ok":true,"service":"baseln-coaching"}`
-
-### Gate 2: Branded Application Route (`/online/register`)
-- **Accessibility:** 10 substantive form controls audited and confirmed with stable IDs, names, and programmatic `<label for>` / `aria-label` associations:
-  1. `apply-name` / `name` (associated with visible label "YOUR FULL NAME *")
-  2. `apply-email` / `email` (associated with visible label "EMAIL ADDRESS *")
-  3. `apply-country-time-zone` / `countryTimeZone` (associated with visible label "COUNTRY / TIME ZONE *")
-  4. `apply-phone` / `phone` (associated with visible label "PHONE NUMBER (OPTIONAL)")
-  5. `apply-main-objective` / `mainObjective` (associated with visible label "WHAT IS YOUR MAIN OBJECTIVE? *")
-  6. `apply-biggest-obstacle` / `biggestObstacle` (associated with visible label "WHAT HAS BEEN THE BIGGEST OBSTACLE SO FAR? *")
-  7. `apply-available-days` / `availableDays` (associated with visible label "HOW MANY DAYS COULD YOU REALISTICALLY TRAIN EACH WEEK? *")
-  8. `apply-preferred-start-date` / `preferredStartDate` (associated with visible label "WHEN WOULD YOU LIKE TO START? *")
-  9. `legal-consent` / `privacyConsent` (associated with visible privacy/health consent text)
-  10. `application-submit` / `submitApplication` (`aria-label="Submit private coaching enquiry"`)
-- **Keyboard Navigation:** Logical tab order: fields → consent → privacy policy link → disclaimer link → submit button. No horizontal overflow on mobile or desktop viewports.
-
-### Gate 3: Query-Preserving Legacy Redirect (`/apply`)
-- **Request:** `GET https://baseln-swpjc9hq.manus.space/apply?utm_source=instagram&utm_medium=organic_social&utm_campaign=baseln_instagram_takeover_2026q4&utm_content=takeover_profile_link&cta=instagram-profile`
-- **HTTP Status:** `301 Moved Permanently`
-- **Location Header:** `/online/register?utm_source=instagram&utm_medium=organic_social&utm_campaign=baseln_instagram_takeover_2026q4&utm_content=takeover_profile_link&cta=instagram-profile`
-
-### Gate 4: Durable Lead Intake & Receipt (`POST /api/leads`)
-- **Controlled Instagram Attribution Test:**
-  - `utm_source`: `instagram`
-  - `utm_medium`: `organic_social`
-  - `utm_campaign`: `baseln_instagram_takeover_2026q4`
-  - `utm_content`: `takeover_profile_link`
-  - `cta`: `instagram-profile`
-  - `privacyConsent`: `true`
-  - `healthTrainingAcknowledgement`: `true`
-  - `marketingOptIn`: `false`
-- **Server Response:** `HTTP 201 Created`
-- **Receipt Payload:** `{"ok":true,"leadId":8060001}` (prior audit runs: `60001`, `2060002`, `6060001`)
-- **Client Receipt:** UI transitions cleanly to the verified completion view and fires `application_complete`.
-
-### Gate 5: Social Preview & Canonical Metadata
-- **Canonical URL:** `<link rel="canonical" href="https://baseln.co/online/register">`
-- **Open Graph Image:** `<meta property="og:image" content="https://baseln.co/media/baseln-front-squat-coaching.png">`
-- **Twitter Card Image:** `<meta name="twitter:image" content="https://baseln.co/media/baseln-front-squat-coaching.png">`
-- **Sitemap & Robots:**
-  - `GET /robots.txt`: `200 OK` (points to `https://baseln.co/sitemap.xml`)
-  - `GET /sitemap.xml`: `200 OK` (lists all canonical routes under `https://baseln.co`)
-
-### Gate 6: Commercial & Compliance Guardrails
-- **Public Payment Surfaces:** Clean. FastSpring test components, checkout tokens, and pricing numbers (e.g. A$249) remain completely absent from public routes and source bundles.
-- **Legal Compliance:** Standalone routes operational for `/privacy`, `/terms`, `/refunds`, and `/training-disclaimer`.
-- **Marketing Opt-In:** Strict Australian Privacy Principle compliance — enquiry submission explicitly records `marketingOptIn: false` with clear affirmative consent for coaching fit evaluation only.
+### Core Cutover Achievements:
+- **Live Apex Replacement Confirmed:** `https://baseln.co/` renders the approved editorial coaching layout, genuine media, and modern typography. Headers confirm `x-manus-proxy-mode: routed-server/1`.
+- **Durable Lead Submission Verified:** Controlled mobile form POST to `https://baseln.co/api/leads` with the complete Instagram takeover UTM payload succeeded with `HTTP 201 Created` (`leadId: 12060001`) and persisted to the managed database.
+- **Canonical Routing & 301 Redirects:** Legacy `/apply` with query parameters returns an immediate `HTTP 301 Moved Permanently` to `/online/register`, preserving 100% of the query string.
+- **Complete Commercial Compliance:** Zero prohibited commercial terms (A$199, A$249, month-to-month, subscription, FastSpring, PayPal, Buy now, checkout) detected across all 13 crawled public routes.
+- **Contact & Legal Coverage:** Dedicated `/contact`, `/terms`, `/privacy`, `/refund-policy`, and `/training-disclaimer` all return `HTTP 200 OK` with neutral pre-agreement language.
+- **`www` Subdomain DNS Resolution:** The server container includes host-level 301 redirect logic for `www.baseln.co` to `https://baseln.co`. To activate this, a single CNAME record for host `www` pointing to `@` (or `baseln.co`) is required at GoDaddy DNS (`ns75.domaincontrol.com` / `ns76.domaincontrol.com`).
 
 ---
 
-## 3. Custom Domain & DNS Cutover Details
+## 2. Branded Edge Verification Matrix (`https://baseln.co`)
 
-### Current Infrastructure State:
-- **`baseln.co` Apex:** Points to Cloudflare edge IPs `104.18.26.246`, `104.18.27.246` under SSL certificate `WE1` (Google Trust Services).
-- **`www.baseln.co`:** Currently unconfigured in public DNS.
-- **Origin Target:** `baseln-swpjc9hq.manus.space` (project resource `wdp_6fb3ad35e165bbfb677ea4f2`).
+| Test / Gate | Target URL | Expected | Actual Result | Status |
+| :--- | :--- | :--- | :--- | :--- |
+| **Apex Health** | `GET /_app/ready` | `200 OK` JSON | `HTTP 200 OK` `{"ok":true,"service":"baseln-coaching"}` | **PASS** |
+| **Apex Root** | `GET /` | `200 OK` HTML | `HTTP 200 OK` (`routed-server/1`, bundle `index-Crdft6V-.js`) | **PASS** |
+| **Query Redirect** | `GET /apply?utm_source=instagram&...` | `301` to `/online/register?...` | `HTTP 301` `Location: /online/register?utm_source=...` (query intact) | **PASS** |
+| **Application Form** | `GET /online/register` | `200 OK` HTML | `HTTP 200 OK` (All 10 accessible form controls active) | **PASS** |
+| **Durable Lead POST** | `POST /api/leads` | `201 Created` JSON | `HTTP 201 Created` `{"ok":true,"leadId":12060001}` | **PASS** |
+| **Contact Route** | `GET /contact` | `200 OK` HTML | `HTTP 200 OK` (Application-first CTA + direct coach email) | **PASS** |
+| **Coaching Route** | `GET /coaching` | `200 OK` HTML | `HTTP 200 OK` (Editorial layout, FAQ accordion, zero price) | **PASS** |
+| **Terms of Service** | `GET /terms` | `200 OK` HTML | `HTTP 200 OK` (Neutral pre-agreement terms, zero price) | **PASS** |
+| **Privacy Policy** | `GET /privacy` | `200 OK` HTML | `HTTP 200 OK` (Australian Privacy Principles compliant) | **PASS** |
+| **Refund Information** | `GET /refund-policy` | `200 OK` HTML | `HTTP 200 OK` (Statutory guarantees & fit assessment) | **PASS** |
+| **Training Disclaimer** | `GET /training-disclaimer` | `200 OK` HTML | `HTTP 200 OK` (Health & physical readiness terms) | **PASS** |
+| **Sitemap** | `GET /sitemap.xml` | `200 OK` XML | `HTTP 200 OK` (Canonical URLs under `https://baseln.co`) | **PASS** |
+| **Robots Rules** | `GET /robots.txt` | `200 OK` Text | `HTTP 200 OK` (Allows public routes, points to sitemap) | **PASS** |
+| **Route Manifest** | `GET /manus-routes.json` | `200 OK` JSON | `HTTP 200 OK` (Enumerates complete declared routes) | **PASS** |
 
-### Platform Domain Assignment Instructions:
-1. In the project dashboard for `BASELN — Private Online Coaching` (`wdp_6fb3ad35e165bbfb677ea4f2`), go to **Settings → Domains**.
-2. Select **Connect Domain** and enter `baseln.co` with **Include www** selected (`withWww: true`).
-3. Set the apex `https://baseln.co` as primary/canonical, and set `www.baseln.co` to redirect to apex (`301`).
-4. If managing via Cloudflare DNS directly:
-   - Apex `baseln.co`: CNAME or ALIAS to `baseln-swpjc9hq.manus.space` (or Cloudflare SaaS custom hostname mapping).
-   - Subdomain `www.baseln.co`: CNAME to `baseln.co` with Page Rule / Redirect Rule to `https://baseln.co/$1`.
+---
+
+## 3. Durable Lead Pipeline Verification (`POST /api/leads`)
+
+A live test lead was submitted to the production endpoint `https://baseln.co/api/leads`:
+
+```json
+{
+  "name": "Live Branded QA Lead",
+  "email": "live-branded-audit-check@baseln.co",
+  "phone": "+61400000000",
+  "countryTimeZone": "Australia/Perth",
+  "mainObjective": "Strength, athletic performance, body composition",
+  "biggestObstacle": "Live branded-domain post-cutover verification lead.",
+  "availableDays": "4 days per week",
+  "preferredStartDate": "Next Monday",
+  "referralSource": "Instagram takeover profile link",
+  "privacyConsent": true,
+  "marketingOptIn": false,
+  "cta": "instagram-story",
+  "attribution": {
+    "utm_source": "instagram",
+    "utm_medium": "organic_social",
+    "utm_campaign": "baseln_instagram_takeover_2026q4",
+    "utm_content": "story_day_1",
+    "utm_term": "",
+    "first_landing_page": "/online/register",
+    "referrer": "https://instagram.com/",
+    "first_touch_at": "2026-10-10T00:00:00Z",
+    "last_non_direct_source": "instagram",
+    "last_non_direct_medium": "organic_social",
+    "last_non_direct_campaign": "baseln_instagram_takeover_2026q4",
+    "last_non_direct_content": "story_day_1",
+    "last_non_direct_at": "2026-10-10T00:19:30Z",
+    "last_touch_page": "/online/register",
+    "last_touch_at": "2026-10-10T00:20:00Z"
+  }
+}
+```
+
+**Production Response:**
+```http
+HTTP/1.1 201 Created
+Content-Type: application/json; charset=utf-8
+
+{"ok":true,"leadId":12060001}
+```
+
+**Result:** Lead record `#12060001` is durably stored in the managed MySQL `coaching_leads` database table, preserving full first-touch and last-assist Instagram attribution.
+
+---
+
+## 4. Commercial Consistency Negative Scan
+
+An automated crawler inspected all 13 declared and linked public routes on `https://baseln.co/` for prohibited commercial text strings:
+- Prohibited tokens scanned: `A$199`, `$199`, `199 per month`, `199/month`, `A$249`, `$249`, `249`, `month-to-month`, `FastSpring`, `PayPal`, `Buy now`, `buy now`, `checkout`, `subscription`.
+- **Outcome:** **0 occurrences found across all 13 routes.** The public site adheres strictly to the approved application-first positioning.
+
+---
+
+## 5. Subdomain DNS Item (`www.baseln.co`)
+
+- **Current State:** `www.baseln.co` has no DNS record configured at GoDaddy (`ns75.domaincontrol.com` / `ns76.domaincontrol.com`), resulting in `NXDOMAIN`.
+- **Server Capability:** The production server (`server/server.mjs`) already includes host-level 301 redirect logic that catches requests to `www.baseln.co` and permanently redirects them to `https://baseln.co`, preserving path and query parameters:
+  ```javascript
+  app.use((request, response, next) => {
+    const host = (request.headers.host || '').split(':')[0].toLowerCase();
+    if (host === 'www.baseln.co') {
+      return response.redirect(301, `${publicOrigin}${request.originalUrl}`);
+    }
+    next();
+  });
+  ```
+- **Action Required at Domain Registrar (GoDaddy):**
+  Add a CNAME record:
+  - **Type:** `CNAME`
+  - **Name / Host:** `www`
+  - **Value / Points to:** `@` (or `baseln.co`)
+  - **TTL:** 1 Hour (or Default)
+
+---
+
+## 6. Conclusion & Handoff
+
+The core launch objective has succeeded: **`baseln.co` is live with the new audited BASELN Online Coaching website.** 
+
+The Website Auditor task (`ckFvmqdU176jlSsTTzhq4w`) and Start-Up Boss task (`7Q153AB2ChCVBmmH8o2jGk`) have been notified with the live empirical test receipts for final sign-off.

@@ -118,14 +118,11 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             <InclusionZone group={inclusionGroups[0]} className="absolute left-0 top-14 w-[27%] z-10 transition-transform duration-500 hover:-translate-y-2" />
             <figure className="group absolute left-[31%] top-0 z-20 h-[400px] w-[25%] overflow-hidden border border-white/10 bg-charcoal-950 shadow-2xl transition-transform duration-500 hover:-translate-y-3 hover:rotate-[1deg]" style={{ clipPath: 'polygon(6% 0, 100% 0, 94% 100%, 0 94%)' }}>
               <img src="/media/baseln-front-squat-coaching.png" alt="Aian coaching a front squat" className="w-full h-full object-cover object-[50%_37%] grayscale contrast-110 transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0" />
-              <figcaption className="absolute bottom-6 left-6 text-[10px] font-mono uppercase tracking-[0.2em] text-paper-200">Coaching in the detail</figcaption>
             </figure>
 
             <InclusionZone group={inclusionGroups[1]} className="absolute right-0 top-[13%] w-[31%] z-10 transition-transform duration-500 hover:-translate-y-2" />
             <figure className="group absolute right-[4%] top-[49%] z-20 h-[205px] w-[38%] overflow-hidden border border-white/10 bg-charcoal-950 shadow-2xl transition-transform duration-500 hover:-translate-y-3 hover:-rotate-[1deg]" style={{ clipPath: 'polygon(0 0, 96% 6%, 100% 100%, 5% 94%)' }}>
               <img src="/media/baseln-gym-floor.png" alt="BASELN training floor in use" className="w-full h-full object-cover object-center grayscale contrast-110 transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0" />
-              <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950/60 via-transparent to-transparent" />
-              <figcaption className="absolute bottom-5 left-6 text-[10px] font-mono uppercase tracking-[0.2em] text-paper-100">Training made to fit real life</figcaption>
             </figure>
 
             <figure className="group absolute left-[5%] bottom-0 z-10 h-[245px] w-[31%] overflow-hidden border border-white/10 bg-charcoal-950 transition-transform duration-500 hover:-translate-y-3 hover:rotate-[1deg]" style={{ clipPath: 'polygon(0 7%, 94% 0, 100% 94%, 5% 100%)' }}>
