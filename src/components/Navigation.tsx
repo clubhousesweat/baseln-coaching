@@ -143,7 +143,7 @@ export const Footer: React.FC<{ onNavigate: (path: PageRoute) => void }> = ({ on
                 <div className="space-y-2 text-xs sm:text-sm flex flex-col items-end">
                   <button onClick={() => navigate('/training-room')} className="hover:text-white transition-colors">Member Login</button>
                   <a
-                    href="https://www.instagram.com/baseln_retreats/"
+                    href="https://www.instagram.com/baseln_fit/"
                     target="_blank"
                     rel="noreferrer"
                     onClick={() => trackEvent('instagram_profile_click', { social_account: SOCIAL_ACCOUNT, social_handle: INSTAGRAM_HANDLE, placement: 'footer' })}

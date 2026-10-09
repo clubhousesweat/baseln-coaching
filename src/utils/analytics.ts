@@ -38,9 +38,9 @@ export interface AnalyticsEventPayload {
 const STORAGE_KEY = 'baseln_attribution_v1';
 const ATTRIBUTION_QUERY_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'cta'];
 
-// @baseln_retreats is the flagship BASELN Online Coaching social account.
+// @baseln_fit is the active flagship BASELN Online Coaching social account.
 export const SOCIAL_ACCOUNT = 'baseln_online_coaching';
-export const INSTAGRAM_HANDLE = '@baseln_retreats';
+export const INSTAGRAM_HANDLE = '@baseln_fit';
 export const INSTAGRAM_TAKEOVER_CAMPAIGN = 'baseln_instagram_takeover_2026q4';
 export const INSTAGRAM_TAKEOVER_CONTENT = 'takeover_profile_link';
 
