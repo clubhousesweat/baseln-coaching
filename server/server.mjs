@@ -31,11 +31,11 @@ const publicMetadata = {
   },
   '/online/register': {
     title: 'Apply for Coaching | BASELN',
-    description: 'Apply for private online coaching with BASELN. Tell Aian about your goal, training week and the support you need.',
+    description: 'Apply for private online coaching with BASELN. Five short stages to understand your goals, training schedule and starting point.',
     noindex: true,
   },
   '/online/thank-you': {
-    title: 'Enquiry Received | BASELN Online Coaching',
+    title: 'Application Received | BASELN Online Coaching',
     description: 'Confirmation receipt for your BASELN private online coaching application.',
     noindex: true,
   },
@@ -262,8 +262,8 @@ const sendOwnerNotification = async ({ leadId, email, objective }) => {
       'connect-protocol-version': '1',
     },
     body: JSON.stringify({
-      title: `New BASELN coaching application #${leadId}`,
-      content: `A new coaching application has been received and is due for personal review within one business day. Applicant: ${email}. Primary objective: ${objective}. Review the durable BASELN lead queue for the complete application. Operational inbox: Outlook.`,
+      title: `New BASELN 5-stage coaching application #${leadId}`,
+      content: `A new coaching application has been received and is due for personal review within one business day. Applicant: ${email}. Primary goals: ${objective}. Review the durable BASELN lead queue for the complete application. Operational inbox: Outlook.`,
     }),
   });
   if (!response.ok) throw new Error(`Owner notification returned ${response.status}.`);
@@ -311,7 +311,16 @@ app.post('/api/leads', async (request, response) => {
   const fullName = requiredText(payload.name, 120, 'name', errors);
   const email = requiredText(payload.email, 254, 'email', errors);
   const countryTimeZone = requiredText(payload.countryTimeZone, 160, 'country/time zone', errors);
-  const mainObjective = requiredText(payload.mainObjective, 200, 'main objective', errors);
+
+  // Support both multi-select goals array and single mainObjective string
+  let goalsStr = '';
+  if (Array.isArray(payload.goals) && payload.goals.length > 0) {
+    goalsStr = payload.goals.join(', ');
+  } else if (typeof payload.mainObjective === 'string') {
+    goalsStr = payload.mainObjective;
+  }
+  const mainObjective = requiredText(goalsStr, 200, 'goals / main objective', errors);
+
   const biggestObstacle = requiredText(payload.biggestObstacle, 4000, 'biggest obstacle', errors);
   const availableDays = requiredText(payload.availableDays, 80, 'available training days', errors);
   const preferredStartDate = requiredText(payload.preferredStartDate, 160, 'preferred start date', errors);
@@ -323,10 +332,17 @@ app.post('/api/leads', async (request, response) => {
   }
 
   const attribution = safeAttribution(payload.attribution);
+  // Add extra 5-stage metadata if present into attribution_json
+  const enrichedAttribution = {
+    ...attribution,
+    goals: Array.isArray(payload.goals) ? payload.goals : [mainObjective],
+    trainingExperience: optionalText(payload.trainingExperience, 160) || 'General',
+  };
+
   const values = [
     fullName, email.toLowerCase(), countryTimeZone, optionalText(payload.phone, 64), mainObjective,
     biggestObstacle, availableDays, preferredStartDate, optionalText(payload.referralSource, 240),
-    true, false, optionalText(payload.cta, 120) || 'site_apply', JSON.stringify(attribution),
+    true, false, optionalText(payload.cta, 120) || 'site_apply', JSON.stringify(enrichedAttribution),
     attribution.utm_source, attribution.utm_medium, attribution.utm_campaign, attribution.utm_content,
     attribution.utm_term, attribution.first_landing_page, attribution.referrer, attribution.first_touch_at,
     attribution.last_non_direct_source, attribution.last_non_direct_medium, attribution.last_non_direct_campaign,
@@ -351,7 +367,7 @@ app.post('/api/leads', async (request, response) => {
     sendOwnerNotification({ leadId, email: email.toLowerCase(), objective: mainObjective }).catch((error) => {
       console.error(`Owner notification failed for lead ${leadId}:`, error.message);
     });
-    console.info(`BASELN lead ${leadId} stored successfully.`);
+    console.info(`BASELN 5-stage application lead ${leadId} stored successfully.`);
     return response.status(201).json({ ok: true, leadId });
   } catch (error) {
     console.error('BASELN lead submission failed:', error.message);

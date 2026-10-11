@@ -1,45 +1,67 @@
-# BASELN — Durable Intake and Domain Cutover Plan
+# BASELN — Private Coaching 5-Stage Application & Coordinated Brand Styling Plan
 
-## Decision
+## 1. Product Requirements & Source Directives
 
-**baseln.co** is the canonical public domain for the launch-ready BASELN Online Coaching site in Webdev project `wdp_6fb3ad35e165bbfb677ea4f2`. The former site remains online until the new project has a durable, attributed server-side enquiry receipt and the domain cutover is verified. No public price, FastSpring checkout, Buy now flow or payment hand-off is added.
+The user provided the definitive specification for the BASELN Private Coaching Application in `Pasted_content_68.txt`:
+1. **Core Purpose:** A premium, mobile-first coaching application (not a lengthy fitness questionnaire), taking ~2–3 minutes to turn interested visitors into qualified coaching enquiries. Detailed training, nutrition, injury and lifestyle assessments take place during onboarding, not before.
+2. **Unified Destination:** The exact same application serves both the website (`/online/register`) and Instagram bio/Story/Reel conversion (`/apply` 301 query-preserving redirect to `/online/register`).
+3. **Five-Stage Structure:**
+   - **Stage 01 / 05 — Your Goals (`APPLICATION / 01—05`):**
+     - Header: "YOUR GOALS. OUR STARTING POINT."
+     - Subhead: "A few quick questions to understand what you’re working towards and how we can help."
+     - Question: "What would you like to achieve?"
+     - Guidance: "Select everything that applies. You don’t need to have just one goal."
+     - Multi-select options:
+       - Lose body fat
+       - Build muscle
+       - Get stronger
+       - Improve conditioning (and "Improve fitness and conditioning")
+       - Prepare for an event (and "Train for an event")
+       - Improve general health and fitness
+   - **Stage 02 / 05 — Training Background & Experience:**
+     - Training context, current frequency, and realistic weekly schedule (e.g. 1–2 days, 3 days, 4 days, 5+ days).
+   - **Stage 03 / 05 — The Primary Challenge:**
+     - The main obstacle or what needs the coach's attention (e.g. routine consistency, technique, nutrition structure, accountability).
+   - **Stage 04 / 05 — Timelines & Logistics:**
+     - Preferred start timeline, time zone / country, and preferred contact method (email, phone/WhatsApp).
+   - **Stage 05 / 05 — Contact & Confirmation:**
+     - Full name, email address, optional phone/WhatsApp number, explicit privacy/health consent acknowledgement (`marketingOptIn: false`), and referral source fallback if ambiguous.
+4. **Post-Submission Experience:**
+   - Client is redirected to the polished confirmation page (`/online/thank-you` or in-page receipt) with clear expectation: personal review by Aian within one business day, next step explanation, and subsequent consultation invitation.
+5. **Form Styling & Brand Coordination:**
+   - User directive: "change the colour on the forms to coordinate with our website colours please".
+   - Coordinated brand colors:
+     - Background: Deep Charcoal (`#07080A` charcoal-950 and `#0B0C0E` charcoal-900 / `#111317` charcoal-850)
+     - Accents: Smoke-Blue (`#7C93A6` smoke-500, `#8AA3B6` smoke-400, `#A4B8C8` smoke-300)
+     - Typography: Clean Warm Off-White (`#F4F4F2` paper-200, `#E4E5E2` paper-300, `#C8CCC9` paper-400)
+     - Selection state: Pill/card tiles with subtle border transitions (`border-smoke-500/40`, active smoke-500 background `bg-smoke-500/15`, smoke-blue checkmark, warm-white text)
+     - No harsh generic blue, purple or rainbow gradients.
+6. **Social Media Coordination:**
+   - Active flagship Instagram profile is `@baseln.fit` (formerly `@baseln_retreats`).
+   - Profile link points to clean `https://baseln.co` or tracked `/online/register`.
+   - All social UTM attribution, first-touch, and last-touch non-direct assists must be preserved through the 5 stages and submitted to `POST /api/leads`.
 
-The current public CTA remains **Apply for coaching**. The canonical public application address after cutover is:
+---
 
-`https://baseln.co/online/register?cta=instagram-profile&utm_source=instagram&utm_medium=organic_social&utm_campaign=baseln_instagram_takeover_2026q4&utm_content=takeover_profile_link`
+## 2. Architecture & Data Flow
 
-## Implementation approach
+- **Frontend Client (`src/pages/ApplyPage.tsx`):**
+  - Stateful 5-stage progressive flow with clear back/continue controls, stage progress indicator (`APPLICATION / 01—05`), keyboard navigation, accessible labels (`<label htmlFor>`), and live error handling.
+  - Interactive multi-select goal pill buttons coordinating with smoke-blue and charcoal.
+  - Submits the consolidated payload to `/api/leads`.
+  - On 201 receipt, stores reference in `sessionStorage` and renders receipt or transitions to `/online/thank-you`.
+- **Backend API (`server/server.mjs`):**
+  - Accepts both consolidated multi-goal arrays and legacy fields.
+  - Saves all 5-stage fields, attribution JSON, UTM parameters, and consent flags into MySQL `coaching_leads`.
+  - Dispatches owner notification to Outlook (`aian@baseln.co`).
+- **Social Bio & Tracking:**
+  - Tracked route `https://baseln.co/apply?cta=instagram-profile&utm_source=instagram&utm_medium=organic_social&utm_campaign=baseln_instagram_takeover_2026q4&utm_content=takeover_profile_link` 301 redirects to `/online/register` with complete query preservation.
 
-### Hybrid deployment and lead delivery
+---
 
-The existing Vite/React site will become a hybrid static-plus-server deployment. A Node/Express server will serve the built Vite output and expose a single private-write API, `POST /api/leads`. It will validate and persist consented coaching applications to the project-managed MySQL database, including first-touch UTM values, latest non-direct assist, landing route, referrer, timestamps, CTA/Instagram takeover context, service fields and `marketingOptIn: false`. A successful database insert is the condition for client success state and `application_complete`.
+## 3. Verification & Acceptance Spec
 
-The server creates its additive lead table idempotently on startup, exposes `/_app/health` for deployment readiness, rate-limits public submission attempts in process, and sends a concise owner notification after persistence. Notification failure is non-blocking; database persistence and the returned receipt remain authoritative.
-
-### Canonical application and legacy paths
-
-The branded public intake will be `/online/register` and it will render the existing application experience. Every public Apply CTA will navigate there. `GET /apply` will return a **301** to `/online/register`, retaining all query parameters. The former site’s practical public routes will be moved as safe server redirects: `/online`, `/the-package`, `/how-it-works`, and `/online/engine-room` to `/coaching`; `/online/field-notes` to `/field-notes`; `/app` and `/member-login` to `/training-room`; and `/faq` to `/coaching#questions`. The homepage, `/coaching`, `/online/register`, `/privacy` and `/terms` are served by the new site.
-
-The existing `POST /apply` path is never used by the new application; the old domain remains unchanged until domain reassignment occurs, avoiding any interruption to its currently proven lead receipt.
-
-### Domain handoff sequence
-
-1. Enable the project’s one-way managed server/database features and deploy the hybrid application.
-2. Validate a real end-to-end lead receipt, database row and owner notification attempt using the exact Instagram takeover UTM payload. Verify the post-submit acknowledgement only follows server success.
-3. Configure canonical metadata for `https://baseln.co`, publish query-preserving redirects, and verify the new Manus deployment at its project URL.
-4. Use the domain control plane to reassign `baseln.co`; add `www.baseln.co` to the same new project if DNS is created, with canonical host handling. Do not destroy the old deployment.
-5. Verify HTTPS/DNS, canonical headers/markup, 301 responses, mobile application layout, the complete four-parameter Instagram URL, legal pages and absence of payment/checkout UI on `baseln.co`.
-
-## Constraints
-
-- Managed server/database enablement is irreversible and required for durable lead storage.
-- The current Webdev config must be read before each domain write. The custom-domain owner/control plane must supply the actual reassignment action and any DNS record values; no DNS target is guessed.
-- The new server uses only first-party persistence and owner notifications. No invented CRM, marketing opt-in, test checkout or unsupported proof is introduced.
-
-## Release-gate accessibility and social metadata correction
-
-The canonical `/online/register` form uses stable `id` and `name` values for every visible intake control, with explicit matching `<label htmlFor>` associations. This includes full name, email, country/time zone, phone, objective, obstacle, available days, preferred start date, the conditional referral fallback and the privacy/health acknowledgement. The submit control has a stable identifier and an accessible name. Error feedback is announced with `role="alert"`; the form is connected to its explanatory introduction. The social preview image must use the canonical `https://baseln.co` asset URL rather than the staging hostname before domain binding.
-
-## Public-price hold and legal consistency gate
-
-No BASELN public route may state a coaching price, monthly subscription, public checkout, payment-provider name or unconfirmed refund rule while payment terms remain on hold. The replacement `/terms`, `/refund-policy` and privacy wording therefore use neutral, application-first language: the applicable six-week investment, any ongoing coaching terms and payment arrangements are confirmed in writing before a client chooses to begin; sending an application neither takes payment nor creates a purchase. The legacy `baseln.co/terms` A$199/month statement must be removed before domain cutover; the existing legacy deployment remains rollback-only until that commercial-consistency gate passes.
+- Build check (`tsc && vite build`) passes cleanly.
+- Unit/integration test verifies 5-stage form validation, stage transitions, multi-goal selection, and payload assembly.
+- Local server test confirms `POST /api/leads` stores new multi-goal payload with 201 and durable lead ID.
+- Live check on `https://baseln.co` after deployment confirms new 5-stage application is active, styling coordinates with smoke-blue/charcoal, and all routes remain functional.
