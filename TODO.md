@@ -6,7 +6,7 @@
 
 - [x] **Five-stage form presentation without functional regression.** All existing stages, question names, options, validation messages, field labels, consent, attribution, accessible errors, browser interactions and receipt behaviour are preserved. The right panel includes stage label, `2–3 MIN`, segmented progress, compact stage heading, answer group and full-width Continue/Submit action. Cards expose hover, selected, focus, disabled and error states, with card-level selected treatment verified by source regression tests.
 
-- [x] **Authoritative editorial palette.** The application uses warm cream page/form surfaces, dark forest brand panel, charcoal copy/rules and muted oxblood action/progress. It contains no smoke-blue or black/graphite application tokens, no imagery, and only the supplied BASELN wordmark; desktop and mobile visual captures confirm the treatment.
+- [x] **Authoritative BASELN palette correction.** The approved split layout, spacing, question flow, wordmark and legal links are retained. All cream, forest-green and oxblood declarations have been removed. Canvas/surfaces, paper typography, low-opacity rules, smoke-blue selected/focus/progress treatment and `#C7D5D7` charcoal-text actions follow the existing BASELN system; desktop and 390px mobile captures are clear.
 
 - [x] **Preserve the durable application contract.** The current same-origin `POST /api/public/coaching-application` path, lead persistence, CRM/database schema, attribution/consent capture, retry/failure messaging, server-confirmed receipt, `/apply` query-preserving 301 redirect, domain binding, payments and public pricing are unchanged; source regression checks pass.
 

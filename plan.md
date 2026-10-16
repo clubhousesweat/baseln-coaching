@@ -15,7 +15,7 @@ No DNS, payment, public-price, CRM/database schema or application-routing change
 - **Design movement:** restrained editorial intake — contemporary private-coaching hospitality rather than a SaaS form or campaign landing page.
 - **Brand essence:** a considered private-coaching application for people who value capable, sustainable training; **assured, practical, selective**.
 - **Layout paradigm:** at desktop, a content-driven 1200–1280px two-column composition. The left brand panel frames the decision; the right panel contains the compact working form. At tablet/mobile, it becomes one column with a short brand introduction followed immediately by the form.
-- **Colour philosophy:** warm cream surfaces create calm and legibility; dark forest establishes editorial weight; charcoal carries interface copy and rules; muted oxblood reserves emphasis for progress and action. Use no smoke-blue, black/graphite-only, generic beige, bright red branding, stock, synthetic or composited imagery.
+- **Colour philosophy:** use the existing BASELN dark system only: canvas `#07080a`; charcoal panel/surface `#0b0c0e` and `#111317`; primary paper `#f9f9f8`/`#f4f4f2`; secondary paper `#c8ccc9`; smoke-blue `#a4b8c8`, `#8aa3b6` and `#7c93a6` for selected/focus/progress; and `#C7D5D7` with charcoal text for the primary action. Rules remain low-opacity white. No cream, forest green, oxblood, stock, synthetic or composited imagery.
 - **Typography system:** supplied BASELN serif wordmark only; one dominant serif display line in the left panel; compact serif stage titles and clean sans/mono interface labels on the right.
 - **Signature elements:** thin five-part progress rule; full-card answer controls; quiet legal and return-home utility row.
 - **Interaction:** every answer card is fully clickable with visible hover, focus, selected, disabled and accessible error states. Selection is communicated by the complete card treatment, not just an icon.
@@ -35,9 +35,9 @@ No DNS, payment, public-price, CRM/database schema or application-routing change
 - Left panel copy exactly:
   - `BASELN / APPLICATION`
   - `GOOD TRAINING STARTS HERE.`
-  - `Tell us where you want to go. We’ll work out the best way to get you there.`
-  - `STRENGTH. CONDITIONING. BODY COMPOSITION.`
-- Do not introduce an image unless it is a confirmed real, approved BASELN asset; use the dark forest colour field by default.
+- `Tell us where you want to go. We’ll work out the best way to get you there.`
+- `STRENGTH. CONDITIONING. BODY COMPOSITION.`
+- Do not introduce an image unless it is a confirmed real, approved BASELN asset; use the BASELN charcoal colour field by default.
 - Right panel presents the dynamic `01 / 05 — [STAGE]` label, `2–3 MIN`, segmented progress, stage prompt, answer group and a full-width primary action as one connected working group.
 
 ### Mobile/tablet

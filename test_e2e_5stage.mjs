@@ -18,12 +18,16 @@ console.log('=== Test 1: Editorial application composition ===');
   '2–3 MIN',
   'max-w-[1280px]',
   'lg:grid-cols-[minmax(360px,0.86fr)_minmax(0,1.14fr)]',
-  'bg-[#15362D]',
-  'bg-[#E9E0D3]',
-  'bg-[#76352F]',
+  'bg-[#0B0C0E]',
+  'bg-[#07080A]',
+  'bg-[#C7D5D7]',
+  'bg-[#8AA3B6]',
+  'text-[#F9F9F8]',
 ].forEach((phrase) => mustContain(applySource, phrase, `Missing editorial composition token: ${phrase}`));
-assert.ok(!applySource.includes('bg-smoke-'), 'Application must not use the superseded smoke-blue palette.');
-assert.ok(!applySource.includes('bg-charcoal-'), 'Application must not retain the superseded black/graphite form treatment.');
+[
+  '#E9E0D3', '#F8F3EB', '#FCF8F0', '#FDF9F2', '#FFF8EE',
+  '#15362D', '#6F312D', '#76352F', '#F5EDE3', '#F6E7D8', '#F7E9D8',
+].forEach((token) => assert.ok(!applySource.includes(token), `Application retains superseded palette token: ${token}`));
 
 console.log('=== Test 2: Five-stage form and accessible controls ===');
 [

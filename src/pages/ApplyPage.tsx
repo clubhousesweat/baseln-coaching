@@ -309,9 +309,9 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
   };
 
   const inputClass =
-    'w-full min-h-12 bg-[#FCF8F0] border border-[#BEB2A4] rounded-none px-3.5 py-3 text-[15px] text-[#2C2926] placeholder:text-[#81786F] transition-colors focus:border-[#76352F] focus:outline-none focus:ring-2 focus:ring-[#76352F]/20';
-  const labelClass = 'mb-2 block text-[11px] font-semibold uppercase tracking-[0.13em] text-[#4A4641]';
-  const helperClass = 'mt-1.5 text-sm leading-relaxed text-[#696159]';
+    'w-full min-h-12 bg-[#0B0C0E] border border-white/15 rounded-none px-3.5 py-3 text-[15px] text-[#F9F9F8] placeholder:text-[#7C93A6] transition-colors focus:border-[#8AA3B6] focus:outline-none focus:ring-2 focus:ring-[#A4B8C8]/30';
+  const labelClass = 'mb-2 block text-[11px] font-semibold uppercase tracking-[0.13em] text-[#C8CCC9]';
+  const helperClass = 'mt-1.5 text-sm leading-relaxed text-[#C8CCC9]';
   const stageMeta = [
     '',
     'YOUR GOALS',
@@ -321,21 +321,21 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
     'YOUR DETAILS',
   ];
   const stageLabel = stageMeta[stage];
-  const cardBase = 'min-h-[58px] w-full border px-4 py-3.5 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#76352F] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F8F3EB] disabled:cursor-not-allowed disabled:opacity-50';
-  const cardUnselected = 'border-[#C8BCAD] bg-[#FCF8F0] text-[#302D2A] hover:border-[#76352F] hover:bg-[#F5EDE3]';
-  const cardSelected = 'border-[#76352F] bg-[#6F312D] text-[#FFF8EE] shadow-[inset_0_0_0_1px_rgba(255,248,238,0.14)]';
+  const cardBase = 'min-h-[58px] w-full border px-4 py-3.5 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A4B8C8] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111317] disabled:cursor-not-allowed disabled:opacity-50';
+  const cardUnselected = 'border-white/15 bg-[#0B0C0E] text-[#F9F9F8] hover:border-[#A4B8C8] hover:bg-[#111317]';
+  const cardSelected = 'border-[#A4B8C8] bg-[#8AA3B6] text-[#F9F9F8] shadow-[inset_0_0_0_1px_rgba(7,8,10,0.18)]';
 
   return (
-    <div className="min-h-[100dvh] bg-[#E9E0D3] text-[#2D2B28] selection:bg-[#76352F] selection:text-[#FFF8EE]">
+    <div className="min-h-[100dvh] bg-[#07080A] text-[#F9F9F8] selection:bg-[#A4B8C8] selection:text-[#07080A]">
       <div className="w-full px-0 py-0 md:px-6 md:py-6 xl:px-10 xl:py-8">
-        <div className="mx-auto max-w-[1280px] overflow-hidden border border-[#C7BAAA] bg-[#F8F3EB] shadow-[0_18px_52px_rgba(36,31,25,0.18)]">
+        <div className="mx-auto max-w-[1280px] overflow-hidden border border-white/15 bg-[#111317] shadow-[0_18px_52px_rgba(36,31,25,0.18)]">
           <div className="grid lg:grid-cols-[minmax(360px,0.86fr)_minmax(0,1.14fr)]">
-            <aside className="flex min-h-0 flex-col bg-[#15362D] px-5 py-5 text-[#FFF8EE] sm:px-8 sm:py-8 lg:min-h-[720px] lg:px-10 lg:py-10 xl:px-12">
+            <aside className="flex min-h-0 flex-col bg-[#0B0C0E] px-5 py-5 text-[#F9F9F8] sm:px-8 sm:py-8 lg:min-h-[720px] lg:px-10 lg:py-10 xl:px-12">
               <div className="flex items-center justify-between gap-4 border-b border-white/20 pb-5">
                 <button
                   type="button"
                   onClick={() => onNavigate('/')}
-                  className="rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F7E9D8]"
+                  className="rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F4F4F2]"
                   aria-label="Return to BASELN home"
                 >
                   <img
@@ -344,34 +344,34 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
                     className="h-5 w-auto object-contain brightness-0 invert sm:h-6"
                   />
                 </button>
-                <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#D7CEC0]">Private coaching</span>
+                <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#C8CCC9]">Private coaching</span>
               </div>
 
               <div className="pt-7 sm:pt-12 lg:pt-20">
-                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#D7CEC0]">BASELN / APPLICATION</p>
-                <h1 className="mt-4 max-w-none font-serif text-4xl font-normal leading-[0.93] tracking-[-0.035em] text-[#FFF8EE] sm:mt-5 sm:text-5xl lg:max-w-[10ch] lg:text-[4.15rem]">
+                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#C8CCC9]">BASELN / APPLICATION</p>
+                <h1 className="mt-4 max-w-none font-serif text-4xl font-normal leading-[0.93] tracking-[-0.035em] text-[#F9F9F8] sm:mt-5 sm:text-5xl lg:max-w-[10ch] lg:text-[4.15rem]">
                   GOOD TRAINING STARTS HERE.
                 </h1>
-                <p className="mt-4 max-w-sm text-base leading-relaxed text-[#E6DDD1] sm:mt-6 sm:text-[17px]">
+                <p className="mt-4 max-w-sm text-base leading-relaxed text-[#C8CCC9] sm:mt-6 sm:text-[17px]">
                   Tell us where you want to go. We’ll work out the best way to get you there.
                 </p>
               </div>
 
               <div className="mt-8 pt-6 lg:mt-auto lg:pt-20">
                 <div className="h-px w-full bg-white/20" />
-                <p className="mt-5 font-mono text-[10px] uppercase tracking-[0.16em] text-[#D7CEC0]">
+                <p className="mt-5 font-mono text-[10px] uppercase tracking-[0.16em] text-[#C8CCC9]">
                   STRENGTH. CONDITIONING. BODY COMPOSITION.
                 </p>
               </div>
             </aside>
 
-            <section className="bg-[#F8F3EB] px-5 py-5 sm:px-8 sm:py-8 lg:px-10 lg:py-10 xl:px-12" aria-label="Private coaching application">
-              <div className="flex items-center justify-between gap-4 border-b border-[#CFC3B5] pb-5">
-                <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#5B554E]">2–3 MIN</span>
+            <section className="bg-[#111317] px-5 py-5 sm:px-8 sm:py-8 lg:px-10 lg:py-10 xl:px-12" aria-label="Private coaching application">
+              <div className="flex items-center justify-between gap-4 border-b border-white/15 pb-5">
+                <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#C8CCC9]">2–3 MIN</span>
                 <button
                   type="button"
                   onClick={() => onNavigate('/')}
-                  className="inline-flex min-h-10 items-center gap-2 px-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#403C37] transition-colors hover:text-[#76352F] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#76352F]"
+                  className="inline-flex min-h-10 items-center gap-2 px-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#F9F9F8] transition-colors hover:text-[#A4B8C8] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A4B8C8]"
                 >
                   <ArrowLeft size={14} aria-hidden="true" />
                   Return home
@@ -380,18 +380,18 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
 
               {submitted ? (
                 <div className="py-10 sm:py-14">
-                  <div className="max-w-xl border border-[#BFAE9E] bg-[#FCF8F0] p-6 sm:p-8">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#15362D] text-[#FFF8EE]">
+                  <div className="max-w-xl border border-white/20 bg-[#0B0C0E] p-6 sm:p-8">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#0B0C0E] text-[#F9F9F8]">
                       <CheckCircle2 size={23} strokeWidth={2} aria-hidden="true" />
                     </div>
-                    <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.18em] text-[#76352F]">Application recorded</p>
-                    <h2 className="mt-2 font-serif text-3xl leading-tight text-[#26231F] sm:text-4xl">Received.</h2>
-                    <p className="mt-4 text-[15px] leading-relaxed text-[#4E4841]">
+                    <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.18em] text-[#A4B8C8]">Application recorded</p>
+                    <h2 className="mt-2 font-serif text-3xl leading-tight text-[#F9F9F8] sm:text-4xl">Received.</h2>
+                    <p className="mt-4 text-[15px] leading-relaxed text-[#C8CCC9]">
                       Aian will personally review your application and respond within one business day.
                     </p>
-                    <div className="mt-7 border-y border-[#D7CCBF] py-5">
-                      <p className="text-sm font-semibold text-[#322E2A]">What happens next</p>
-                      <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-[#5E5750]">
+                    <div className="mt-7 border-y border-white/15 py-5">
+                      <p className="text-sm font-semibold text-[#F9F9F8]">What happens next</p>
+                      <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-[#C8CCC9]">
                         <li>Your goals and weekly schedule are reviewed for coaching fit.</li>
                         <li>Suitable applicants receive an invitation to a direct conversation.</li>
                         <li>Your programme and coaching rhythm are confirmed from there.</li>
@@ -401,14 +401,14 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
                       <button
                         type="button"
                         onClick={() => onNavigate('/')}
-                        className="text-xs font-semibold uppercase tracking-[0.12em] text-[#76352F] underline underline-offset-4 transition-colors hover:text-[#4E211F] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#76352F]"
+                        className="text-xs font-semibold uppercase tracking-[0.12em] text-[#A4B8C8] underline underline-offset-4 transition-colors hover:text-[#7C93A6] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A4B8C8]"
                       >
                         Return home
                       </button>
                       <button
                         type="button"
                         onClick={() => onNavigate('/coaching')}
-                        className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-[#403C37] transition-colors hover:text-[#76352F] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#76352F]"
+                        className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-[#F9F9F8] transition-colors hover:text-[#A4B8C8] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A4B8C8]"
                       >
                         Coaching inclusions <ArrowRight size={14} aria-hidden="true" />
                       </button>
@@ -418,30 +418,30 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
               ) : (
                 <div className="mx-auto max-w-[620px] py-7 sm:py-9">
                   <div className="flex flex-wrap items-baseline justify-between gap-3">
-                    <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-[#76352F]">
+                    <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-[#A4B8C8]">
                       {String(stage).padStart(2, '0')} / 05 — {stageLabel}
                     </p>
-                    <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#6E675E]">Private intake</span>
+                    <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#C8CCC9]">Private intake</span>
                   </div>
 
                   <div className="mt-4 grid grid-cols-5 gap-1.5" role="progressbar" aria-label={`Application stage ${stage} of 5`} aria-valuemin={1} aria-valuemax={5} aria-valuenow={stage}>
                     {[1, 2, 3, 4, 5].map((segment) => (
-                      <span key={segment} className={`h-[3px] ${segment <= stage ? 'bg-[#76352F]' : 'bg-[#D6CABB]'}`} />
+                      <span key={segment} className={`h-[3px] ${segment <= stage ? 'bg-[#A4B8C8]' : 'bg-white/15'}`} />
                     ))}
                   </div>
 
                   {errorMsg && (
-                    <div role="alert" aria-live="assertive" className="mt-6 flex items-start gap-3 border border-[#A84743] bg-[#FFF0EE] p-3.5 text-sm leading-relaxed text-[#712923]">
+                    <div role="alert" aria-live="assertive" className="mt-6 flex items-start gap-3 border border-[#D97775] bg-[#2A1719] p-3.5 text-sm leading-relaxed text-[#FAD7D4]">
                       <AlertCircle size={17} className="mt-0.5 shrink-0" aria-hidden="true" />
                       <span>{errorMsg}</span>
                     </div>
                   )}
 
-                  <div className="mt-7 border border-[#CFC3B5] bg-[#FDF9F2] p-5 shadow-[0_10px_26px_rgba(42,34,27,0.06)] sm:p-7">
+                  <div className="mt-7 border border-white/15 bg-[#111317] p-5 shadow-[0_10px_26px_rgba(42,34,27,0.06)] sm:p-7">
                     {stage === 1 && (
                       <div className="space-y-6">
                         <div>
-                          <h2 className="font-serif text-2xl leading-tight text-[#26231F] sm:text-[1.8rem]">What are you working towards?</h2>
+                          <h2 className="font-serif text-2xl leading-tight text-[#F9F9F8] sm:text-[1.8rem]">What are you working towards?</h2>
                           <p className={helperClass}>Select everything that applies. Coaching can be built around more than one outcome.</p>
                         </div>
                         <fieldset>
@@ -458,7 +458,7 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
                                   className={`${cardBase} ${isSelected ? cardSelected : cardUnselected} flex items-center justify-between gap-4`}
                                 >
                                   <span className="text-[15px] font-medium leading-snug">{goal}</span>
-                                  <span className={`flex h-5 w-5 shrink-0 items-center justify-center border ${isSelected ? 'border-[#FFF8EE]/65 bg-[#FFF8EE] text-[#6F312D]' : 'border-[#958A7D] text-transparent'}`} aria-hidden="true">
+                                  <span className={`flex h-5 w-5 shrink-0 items-center justify-center border ${isSelected ? 'border-[#07080A]/40 bg-[#C7D5D7] text-[#07080A]' : 'border-[#7C93A6] text-transparent'}`} aria-hidden="true">
                                     <Check size={13} strokeWidth={2.75} />
                                   </span>
                                 </button>
@@ -468,7 +468,7 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
                         </fieldset>
                         <div>
                           <label htmlFor="stage-goal-detail" className={labelClass}>
-                            Any specific details or context? <span className="normal-case tracking-normal text-[#746C63]">(optional)</span>
+                            Any specific details or context? <span className="normal-case tracking-normal text-[#C8CCC9]">(optional)</span>
                           </label>
                           <textarea
                             id="stage-goal-detail"
@@ -485,11 +485,11 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
                     {stage === 2 && (
                       <div className="space-y-6">
                         <div>
-                          <h2 className="font-serif text-2xl leading-tight text-[#26231F] sm:text-[1.8rem]">What does training look like right now?</h2>
+                          <h2 className="font-serif text-2xl leading-tight text-[#F9F9F8] sm:text-[1.8rem]">What does training look like right now?</h2>
                           <p className={helperClass}>We design around the week and equipment you actually have.</p>
                         </div>
                         <div>
-                          <label htmlFor="stage-current-training" className={labelClass}>What are you doing currently? <span className="text-[#76352F]">*</span></label>
+                          <label htmlFor="stage-current-training" className={labelClass}>What are you doing currently? <span className="text-[#A4B8C8]">*</span></label>
                           <textarea
                             id="stage-current-training"
                             rows={3}
@@ -501,7 +501,7 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
                           />
                         </div>
                         <fieldset>
-                          <legend className={labelClass}>Realistic weekly training days <span className="text-[#76352F]">*</span></legend>
+                          <legend className={labelClass}>Realistic weekly training days <span className="text-[#A4B8C8]">*</span></legend>
                           <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
                             {TRAINING_DAYS.map((opt) => {
                               const isSelected = trainingDays === opt.value;
@@ -514,14 +514,14 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
                                   className={`${cardBase} ${isSelected ? cardSelected : cardUnselected}`}
                                 >
                                   <span className="block text-[15px] font-semibold leading-snug">{opt.label}</span>
-                                  <span className={`mt-1 block text-xs leading-relaxed ${isSelected ? 'text-[#F6E7D8]' : 'text-[#6F675F]'}`}>{opt.desc}</span>
+                                  <span className={`mt-1 block text-xs leading-relaxed ${isSelected ? 'text-[#C8CCC9]' : 'text-[#C8CCC9]'}`}>{opt.desc}</span>
                                 </button>
                               );
                             })}
                           </div>
                         </fieldset>
                         <fieldset>
-                          <legend className={labelClass}>Training environment &amp; equipment <span className="text-[#76352F]">*</span></legend>
+                          <legend className={labelClass}>Training environment &amp; equipment <span className="text-[#A4B8C8]">*</span></legend>
                           <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
                             {TRAINING_ENVIRONMENTS.map((env) => {
                               const isSelected = trainingEnvironment === env.value;
@@ -534,14 +534,14 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
                                   className={`${cardBase} ${isSelected ? cardSelected : cardUnselected}`}
                                 >
                                   <span className="block text-[15px] font-semibold leading-snug">{env.label}</span>
-                                  <span className={`mt-1 block text-xs leading-relaxed ${isSelected ? 'text-[#F6E7D8]' : 'text-[#6F675F]'}`}>{env.desc}</span>
+                                  <span className={`mt-1 block text-xs leading-relaxed ${isSelected ? 'text-[#C8CCC9]' : 'text-[#C8CCC9]'}`}>{env.desc}</span>
                                 </button>
                               );
                             })}
                           </div>
                         </fieldset>
                         <div>
-                          <label htmlFor="stage-training-history" className={labelClass}>Prior training experience <span className="normal-case tracking-normal text-[#746C63]">(optional)</span></label>
+                          <label htmlFor="stage-training-history" className={labelClass}>Prior training experience <span className="normal-case tracking-normal text-[#C8CCC9]">(optional)</span></label>
                           <select id="stage-training-history" value={trainingHistory} onChange={(e) => setTrainingHistory(e.target.value)} className={inputClass}>
                             <option value="">Select current context</option>
                             {TRAINING_HISTORY_OPTIONS.map((opt) => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
@@ -553,11 +553,11 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
                     {stage === 3 && (
                       <div className="space-y-6">
                         <div>
-                          <h2 className="font-serif text-2xl leading-tight text-[#26231F] sm:text-[1.8rem]">What has been getting in the way?</h2>
+                          <h2 className="font-serif text-2xl leading-tight text-[#F9F9F8] sm:text-[1.8rem]">What has been getting in the way?</h2>
                           <p className={helperClass}>The honest version gives coaching a better starting point.</p>
                         </div>
                         <div>
-                          <label htmlFor="stage-barrier" className={labelClass}>Your primary obstacle or challenge <span className="text-[#76352F]">*</span></label>
+                          <label htmlFor="stage-barrier" className={labelClass}>Your primary obstacle or challenge <span className="text-[#A4B8C8]">*</span></label>
                           <textarea
                             id="stage-barrier"
                             rows={4}
@@ -569,7 +569,7 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
                           />
                         </div>
                         <div>
-                          <label htmlFor="stage-previous-attempts" className={labelClass}>What have you tried before, and why did it stall? <span className="normal-case tracking-normal text-[#746C63]">(optional)</span></label>
+                          <label htmlFor="stage-previous-attempts" className={labelClass}>What have you tried before, and why did it stall? <span className="normal-case tracking-normal text-[#C8CCC9]">(optional)</span></label>
                           <textarea id="stage-previous-attempts" rows={3} value={previousAttempts} onChange={(e) => setPreviousAttempts(e.target.value)} placeholder="A programme, approach or plan that did not fit your real life." className={inputClass} />
                         </div>
                       </div>
@@ -578,11 +578,11 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
                     {stage === 4 && (
                       <div className="space-y-6">
                         <div>
-                          <h2 className="font-serif text-2xl leading-tight text-[#26231F] sm:text-[1.8rem]">Why is now the right time?</h2>
+                          <h2 className="font-serif text-2xl leading-tight text-[#F9F9F8] sm:text-[1.8rem]">Why is now the right time?</h2>
                           <p className={helperClass}>Private coaching works best when the timing and commitment are both real.</p>
                         </div>
                         <div>
-                          <label htmlFor="stage-why-now" className={labelClass}>Why is starting coaching right now important to you? <span className="text-[#76352F]">*</span></label>
+                          <label htmlFor="stage-why-now" className={labelClass}>Why is starting coaching right now important to you? <span className="text-[#A4B8C8]">*</span></label>
                           <textarea
                             id="stage-why-now"
                             rows={4}
@@ -594,7 +594,7 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
                           />
                         </div>
                         <div>
-                          <label htmlFor="stage-coaching-value" className={labelClass}>What do you value most in a coach? <span className="normal-case tracking-normal text-[#746C63]">(optional)</span></label>
+                          <label htmlFor="stage-coaching-value" className={labelClass}>What do you value most in a coach? <span className="normal-case tracking-normal text-[#C8CCC9]">(optional)</span></label>
                           <textarea id="stage-coaching-value" rows={3} value={coachingValue} onChange={(e) => setCoachingValue(e.target.value)} placeholder="Structure, clear feedback, accountability, technique support or another priority." className={inputClass} />
                         </div>
                       </div>
@@ -603,41 +603,41 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
                     {stage === 5 && (
                       <form onSubmit={handleSubmit} className="space-y-6">
                         <div>
-                          <h2 className="font-serif text-2xl leading-tight text-[#26231F] sm:text-[1.8rem]">Where can Aian reach you?</h2>
+                          <h2 className="font-serif text-2xl leading-tight text-[#F9F9F8] sm:text-[1.8rem]">Where can Aian reach you?</h2>
                           <p className={helperClass}>Your details are used to assess coaching fit and respond to your application.</p>
                         </div>
                         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                           <div>
-                            <label htmlFor="stage-name" className={labelClass}>Full name <span className="text-[#76352F]">*</span></label>
+                            <label htmlFor="stage-name" className={labelClass}>Full name <span className="text-[#A4B8C8]">*</span></label>
                             <input id="stage-name" type="text" required value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" autoComplete="name" className={inputClass} />
                           </div>
                           <div>
-                            <label htmlFor="stage-email" className={labelClass}>Email address <span className="text-[#76352F]">*</span></label>
+                            <label htmlFor="stage-email" className={labelClass}>Email address <span className="text-[#A4B8C8]">*</span></label>
                             <input id="stage-email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" autoComplete="email" className={inputClass} />
                           </div>
                           <div>
-                            <label htmlFor="stage-timezone" className={labelClass}>Country / time zone <span className="text-[#76352F]">*</span></label>
+                            <label htmlFor="stage-timezone" className={labelClass}>Country / time zone <span className="text-[#A4B8C8]">*</span></label>
                             <input id="stage-timezone" type="text" required value={timezone} onChange={(e) => setTimezone(e.target.value)} placeholder="Australia (AWST), UK, etc." className={inputClass} />
                           </div>
                           <div>
-                            <label htmlFor="stage-phone" className={labelClass}>Mobile / WhatsApp <span className="normal-case tracking-normal text-[#746C63]">(optional)</span></label>
+                            <label htmlFor="stage-phone" className={labelClass}>Mobile / WhatsApp <span className="normal-case tracking-normal text-[#C8CCC9]">(optional)</span></label>
                             <input id="stage-phone" type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+61 400 000 000" autoComplete="tel" className={inputClass} />
                           </div>
                           <div>
-                            <label htmlFor="stage-age" className={labelClass}>Age <span className="normal-case tracking-normal text-[#746C63]">(optional)</span></label>
+                            <label htmlFor="stage-age" className={labelClass}>Age <span className="normal-case tracking-normal text-[#C8CCC9]">(optional)</span></label>
                             <input id="stage-age" type="text" value={age} onChange={(e) => setAge(e.target.value)} placeholder="e.g. 34" className={inputClass} />
                           </div>
                           {isSourceAmbiguous && (
                             <div>
-                              <label htmlFor="stage-referral" className={labelClass}>How did you hear about BASELN? <span className="normal-case tracking-normal text-[#746C63]">(optional)</span></label>
+                              <label htmlFor="stage-referral" className={labelClass}>How did you hear about BASELN? <span className="normal-case tracking-normal text-[#C8CCC9]">(optional)</span></label>
                               <input id="stage-referral" type="text" value={referralSource} onChange={(e) => setReferralSource(e.target.value)} placeholder="Instagram, referral, word of mouth" className={inputClass} />
                             </div>
                           )}
                         </div>
-                        <div className="border-y border-[#D7CCBF] py-4 text-sm leading-relaxed text-[#655E56]">
+                        <div className="border-y border-white/15 py-4 text-sm leading-relaxed text-[#C8CCC9]">
                           <div className="flex items-start gap-3">
-                            <Shield size={17} className="mt-0.5 shrink-0 text-[#15362D]" aria-hidden="true" />
-                            <p><strong className="font-semibold text-[#37322D]">Health &amp; safety:</strong> Do not submit confidential medical diagnoses, rehabilitation notes or sensitive health records through this public form. Relevant history can be discussed privately after initial fit is established.</p>
+                            <Shield size={17} className="mt-0.5 shrink-0 text-[#A4B8C8]" aria-hidden="true" />
+                            <p><strong className="font-semibold text-[#F9F9F8]">Health &amp; safety:</strong> Do not submit confidential medical diagnoses, rehabilitation notes or sensitive health records through this public form. Relevant history can be discussed privately after initial fit is established.</p>
                           </div>
                         </div>
                         <div className="flex items-start gap-3">
@@ -647,28 +647,28 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
                             required
                             checked={privacyAck}
                             onChange={(e) => setPrivacyAck(e.target.checked)}
-                            className="mt-1 h-5 w-5 shrink-0 accent-[#76352F] focus:ring-[#76352F]"
+                            className="mt-1 h-5 w-5 shrink-0 accent-[#A4B8C8] focus:ring-[#A4B8C8]"
                           />
-                          <div className="text-sm leading-relaxed text-[#5E5750]">
-                            <label htmlFor="stage-privacy-ack" className="cursor-pointer text-[#413C36]">
+                          <div className="text-sm leading-relaxed text-[#C8CCC9]">
+                            <label htmlFor="stage-privacy-ack" className="cursor-pointer text-[#F4F4F2]">
                               I have read the Privacy Notice and Health &amp; Training Disclaimer. I consent to BASELN using this enquiry to assess coaching fit and contact me. This does not subscribe me to marketing lists.
                             </label>
                             <p className="mt-1.5">
-                              Read the <a href="/privacy" target="_blank" rel="noreferrer" className="font-medium text-[#76352F] underline underline-offset-2">Privacy Notice</a> and <a href="/training-disclaimer" target="_blank" rel="noreferrer" className="font-medium text-[#76352F] underline underline-offset-2">Health Disclaimer</a>.
+                              Read the <a href="/privacy" target="_blank" rel="noreferrer" className="font-medium text-[#A4B8C8] underline underline-offset-2">Privacy Notice</a> and <a href="/training-disclaimer" target="_blank" rel="noreferrer" className="font-medium text-[#A4B8C8] underline underline-offset-2">Health Disclaimer</a>.
                             </p>
                           </div>
                         </div>
-                        <div className="border-t border-[#D7CCBF] pt-5">
+                        <div className="border-t border-white/15 pt-5">
                           <button
                             type="submit"
                             disabled={isSubmitting}
                             aria-busy={isSubmitting}
-                            className="flex min-h-13 w-full items-center justify-center gap-2 bg-[#76352F] px-5 py-4 text-xs font-semibold uppercase tracking-[0.13em] text-[#FFF8EE] transition-colors hover:bg-[#5D2926] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#76352F] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FDF9F2] disabled:cursor-not-allowed disabled:bg-[#9C827B]"
+                            className="flex min-h-13 w-full items-center justify-center gap-2 bg-[#C7D5D7] px-5 py-4 text-xs font-semibold uppercase tracking-[0.13em] text-[#F9F9F8] transition-colors hover:bg-[#A4B8C8] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A4B8C8] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111317] disabled:cursor-not-allowed disabled:bg-[#56636E]"
                           >
                             <span>{isSubmitting ? 'Submitting application…' : 'Submit application'}</span>
                             <ArrowRight size={15} aria-hidden="true" />
                           </button>
-                          <button type="button" onClick={handleBack} className="mt-4 inline-flex min-h-10 items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#4E4841] transition-colors hover:text-[#76352F] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#76352F]">
+                          <button type="button" onClick={handleBack} className="mt-4 inline-flex min-h-10 items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#C8CCC9] transition-colors hover:text-[#A4B8C8] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A4B8C8]">
                             <ArrowLeft size={14} aria-hidden="true" /> Back
                           </button>
                         </div>
@@ -676,16 +676,16 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
                     )}
 
                     {stage < 5 && (
-                      <div className="mt-7 border-t border-[#D7CCBF] pt-5">
+                      <div className="mt-7 border-t border-white/15 pt-5">
                         <button
                           type="button"
                           onClick={handleNext}
-                          className="flex min-h-13 w-full items-center justify-center gap-2 bg-[#76352F] px-5 py-4 text-xs font-semibold uppercase tracking-[0.13em] text-[#FFF8EE] transition-colors hover:bg-[#5D2926] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#76352F] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FDF9F2]"
+                          className="flex min-h-13 w-full items-center justify-center gap-2 bg-[#C7D5D7] px-5 py-4 text-xs font-semibold uppercase tracking-[0.13em] text-[#F9F9F8] transition-colors hover:bg-[#A4B8C8] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A4B8C8] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111317]"
                         >
                           Continue <ArrowRight size={15} aria-hidden="true" />
                         </button>
                         {stage > 1 && (
-                          <button type="button" onClick={handleBack} className="mt-4 inline-flex min-h-10 items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#4E4841] transition-colors hover:text-[#76352F] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#76352F]">
+                          <button type="button" onClick={handleBack} className="mt-4 inline-flex min-h-10 items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#C8CCC9] transition-colors hover:text-[#A4B8C8] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A4B8C8]">
                             <ArrowLeft size={14} aria-hidden="true" /> Back
                           </button>
                         )}
@@ -693,10 +693,10 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
                     )}
                   </div>
 
-                  <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-[11px] text-[#6E675E]">
-                    <a href="/privacy" target="_blank" rel="noreferrer" className="underline underline-offset-2 transition-colors hover:text-[#76352F]">Privacy</a>
-                    <a href="/terms" target="_blank" rel="noreferrer" className="underline underline-offset-2 transition-colors hover:text-[#76352F]">Terms</a>
-                    <a href="/training-disclaimer" target="_blank" rel="noreferrer" className="underline underline-offset-2 transition-colors hover:text-[#76352F]">Training disclaimer</a>
+                  <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-[11px] text-[#C8CCC9]">
+                    <a href="/privacy" target="_blank" rel="noreferrer" className="underline underline-offset-2 transition-colors hover:text-[#A4B8C8]">Privacy</a>
+                    <a href="/terms" target="_blank" rel="noreferrer" className="underline underline-offset-2 transition-colors hover:text-[#A4B8C8]">Terms</a>
+                    <a href="/training-disclaimer" target="_blank" rel="noreferrer" className="underline underline-offset-2 transition-colors hover:text-[#A4B8C8]">Training disclaimer</a>
                   </div>
                 </div>
               )}
