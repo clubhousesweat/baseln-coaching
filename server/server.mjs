@@ -322,52 +322,97 @@ for (const [legacyPath, destination] of Object.entries(legacyRedirects)) {
   app.get(legacyPath, (request, response) => response.redirect(301, appendQuery(request, destination)));
 }
 
-app.post('/api/leads', async (request, response) => {
+// Handler for both /api/leads and /api/public/coaching-application
+const handleCoachingApplication = async (request, response) => {
   if (!databaseReady || !databasePool) {
     return response.status(503).json({ ok: false, error: 'The application service is not ready. Please try again shortly.' });
   }
 
   const errors = [];
   const payload = request.body && typeof request.body === 'object' ? request.body : {};
-  const fullName = requiredText(payload.name, 120, 'name', errors);
+
+  // Support both 5-stage brief naming and legacy naming
+  const fullName = requiredText(payload.name || payload.full_name, 120, 'name', errors);
   const email = requiredText(payload.email, 254, 'email', errors);
-  const countryTimeZone = requiredText(payload.countryTimeZone, 160, 'country/time zone', errors);
+  const timezone = requiredText(payload.timezone || payload.countryTimeZone, 160, 'country / time zone', errors);
 
-  // Support both multi-select goals array and single mainObjective string
-  let goalsStr = '';
+  // Stage 01 Goal
+  let goalsArray = [];
   if (Array.isArray(payload.goals) && payload.goals.length > 0) {
-    goalsStr = payload.goals.join(', ');
-  } else if (typeof payload.mainObjective === 'string') {
-    goalsStr = payload.mainObjective;
+    goalsArray = payload.goals.map((g) => String(g).trim()).filter(Boolean);
+  } else if (typeof payload.mainObjective === 'string' && payload.mainObjective.trim()) {
+    goalsArray = [payload.mainObjective.trim()];
   }
-  const mainObjective = requiredText(goalsStr, 200, 'goals / main objective', errors);
+  const mainObjective = requiredText(goalsArray.join(', '), 200, 'goals / main objective', errors);
 
-  const biggestObstacle = requiredText(payload.biggestObstacle, 4000, 'biggest obstacle', errors);
-  const availableDays = requiredText(payload.availableDays, 80, 'available training days', errors);
-  const preferredStartDate = requiredText(payload.preferredStartDate, 160, 'preferred start date', errors);
+  // Stage 02 Training Now
+  const trainingDays = optionalText(payload.training_days || payload.availableDays, 80) || 'Consistent';
+  const currentTraining = optionalText(payload.current_training, 500) || 'Active';
+  const trainingEnvironment = optionalText(payload.training_environment, 200) || 'Gym';
+  const trainingHistory = optionalText(payload.training_history || payload.trainingExperience, 200) || 'General';
+
+  // Stage 03 Friction
+  const barrier = requiredText(payload.barrier || payload.biggestObstacle, 4000, 'main obstacle or friction', errors);
+  const previousAttempts = optionalText(payload.previous_attempts, 2000);
+
+  // Stage 04 Fit
+  const coachingValue = optionalText(payload.coaching_value, 2000);
+  const whyNow = optionalText(payload.why_now || payload.preferredStartDate, 2000) || 'Ready now';
+
+  // Consent
+  const hasConsent = payload.privacy_ack === true || payload.privacyConsent === true;
+  if (!hasConsent) errors.push('privacy and health-training acknowledgement');
 
   if (!/^\S+@\S+\.\S+$/.test(email || '')) errors.push('valid email address');
-  if (payload.privacyConsent !== true) errors.push('privacy and health-training acknowledgement');
+
   if (errors.length) {
     return response.status(400).json({ ok: false, error: `Please provide: ${[...new Set(errors)].join(', ')}.` });
   }
 
   const attribution = safeAttribution(payload.attribution);
-  // Add extra 5-stage metadata if present into attribution_json
   const enrichedAttribution = {
     ...attribution,
-    goals: Array.isArray(payload.goals) ? payload.goals : [mainObjective],
-    trainingExperience: optionalText(payload.trainingExperience, 160) || 'General',
+    goals: goalsArray,
+    goal_detail: optionalText(payload.goal_detail, 2000),
+    current_training: currentTraining,
+    training_days: trainingDays,
+    training_environment: trainingEnvironment,
+    training_history: trainingHistory,
+    barrier,
+    previous_attempts: previousAttempts,
+    coaching_value: coachingValue,
+    why_now: whyNow,
+    age: optionalText(payload.age, 32),
   };
 
   const values = [
-    fullName, email.toLowerCase(), countryTimeZone, optionalText(payload.phone, 64), mainObjective,
-    biggestObstacle, availableDays, preferredStartDate, optionalText(payload.referralSource, 240),
-    true, false, optionalText(payload.cta, 120) || 'site_apply', JSON.stringify(enrichedAttribution),
-    attribution.utm_source, attribution.utm_medium, attribution.utm_campaign, attribution.utm_content,
-    attribution.utm_term, attribution.first_landing_page, attribution.referrer, attribution.first_touch_at,
-    attribution.last_non_direct_source, attribution.last_non_direct_medium, attribution.last_non_direct_campaign,
-    attribution.last_non_direct_content, attribution.last_non_direct_at, attribution.last_touch_page,
+    fullName,
+    email.toLowerCase(),
+    timezone,
+    optionalText(payload.phone, 64),
+    mainObjective,
+    barrier,
+    trainingDays,
+    whyNow.slice(0, 160),
+    optionalText(payload.referralSource || payload.referral_source, 240),
+    true,
+    false,
+    optionalText(payload.cta, 120) || 'site_apply',
+    JSON.stringify(enrichedAttribution),
+    attribution.utm_source,
+    attribution.utm_medium,
+    attribution.utm_campaign,
+    attribution.utm_content,
+    attribution.utm_term,
+    attribution.first_landing_page,
+    attribution.referrer,
+    attribution.first_touch_at,
+    attribution.last_non_direct_source,
+    attribution.last_non_direct_medium,
+    attribution.last_non_direct_campaign,
+    attribution.last_non_direct_content,
+    attribution.last_non_direct_at,
+    attribution.last_touch_page,
     attribution.last_touch_at,
   ];
 
@@ -388,13 +433,16 @@ app.post('/api/leads', async (request, response) => {
     sendOwnerNotification({ leadId, email: email.toLowerCase(), objective: mainObjective }).catch((error) => {
       console.error(`Owner notification failed for lead ${leadId}:`, error.message);
     });
-    console.info(`BASELN 5-stage application lead ${leadId} stored successfully.`);
+    console.info(`BASELN coaching application lead ${leadId} stored successfully.`);
     return response.status(201).json({ ok: true, leadId });
   } catch (error) {
     console.error('BASELN lead submission failed:', error.message);
     return response.status(500).json({ ok: false, error: 'We could not securely receive your enquiry. Please try again, or email aian@baseln.co.' });
   }
-});
+};
+
+app.post('/api/leads', handleCoachingApplication);
+app.post('/api/public/coaching-application', handleCoachingApplication);
 
 app.use(express.static(publicBuildPath, { index: false, maxAge: '1h' }));
 app.use((request, response, next) => {

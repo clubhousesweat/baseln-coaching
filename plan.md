@@ -1,67 +1,67 @@
-# BASELN — Private Coaching 5-Stage Application & Coordinated Brand Styling Plan
+# Implementation Plan — Seamless 5-Stage Private Coaching Application
 
-## 1. Product Requirements & Source Directives
+**Site destination:** `https://baseln-swpjc9hq.manus.space` (BASELN Online Coaching, directory `/home/ubuntu/baseln`, resource `wdp_6fb3ad35e165bbfb677ea4f2`).  
+**Design direction:** Seamless in-site application. Retains the existing site header, footer, navigation, supplied BASELN serif wordmark, dark video hero, and the black/graphite/white/silver-grey visual language with smoke-blue accents (`smoke-400`/`smoke-500`). No synthetic images, no cream/forest/oxblood palette, no standalone microsite.
 
-The user provided the definitive specification for the BASELN Private Coaching Application in `Pasted_content_68.txt`:
-1. **Core Purpose:** A premium, mobile-first coaching application (not a lengthy fitness questionnaire), taking ~2–3 minutes to turn interested visitors into qualified coaching enquiries. Detailed training, nutrition, injury and lifestyle assessments take place during onboarding, not before.
-2. **Unified Destination:** The exact same application serves both the website (`/online/register`) and Instagram bio/Story/Reel conversion (`/apply` 301 query-preserving redirect to `/online/register`).
-3. **Five-Stage Structure:**
-   - **Stage 01 / 05 — Your Goals (`APPLICATION / 01—05`):**
-     - Header: "YOUR GOALS. OUR STARTING POINT."
-     - Subhead: "A few quick questions to understand what you’re working towards and how we can help."
-     - Question: "What would you like to achieve?"
-     - Guidance: "Select everything that applies. You don’t need to have just one goal."
-     - Multi-select options:
-       - Lose body fat
-       - Build muscle
-       - Get stronger
-       - Improve conditioning (and "Improve fitness and conditioning")
-       - Prepare for an event (and "Train for an event")
-       - Improve general health and fitness
-   - **Stage 02 / 05 — Training Background & Experience:**
-     - Training context, current frequency, and realistic weekly schedule (e.g. 1–2 days, 3 days, 4 days, 5+ days).
-   - **Stage 03 / 05 — The Primary Challenge:**
-     - The main obstacle or what needs the coach's attention (e.g. routine consistency, technique, nutrition structure, accountability).
-   - **Stage 04 / 05 — Timelines & Logistics:**
-     - Preferred start timeline, time zone / country, and preferred contact method (email, phone/WhatsApp).
-   - **Stage 05 / 05 — Contact & Confirmation:**
-     - Full name, email address, optional phone/WhatsApp number, explicit privacy/health consent acknowledgement (`marketingOptIn: false`), and referral source fallback if ambiguous.
-4. **Post-Submission Experience:**
-   - Client is redirected to the polished confirmation page (`/online/thank-you` or in-page receipt) with clear expectation: personal review by Aian within one business day, next step explanation, and subsequent consultation invitation.
-5. **Form Styling & Brand Coordination:**
-   - User directive: "change the colour on the forms to coordinate with our website colours please".
-   - Coordinated brand colors:
-     - Background: Deep Charcoal (`#07080A` charcoal-950 and `#0B0C0E` charcoal-900 / `#111317` charcoal-850)
-     - Accents: Smoke-Blue (`#7C93A6` smoke-500, `#8AA3B6` smoke-400, `#A4B8C8` smoke-300)
-     - Typography: Clean Warm Off-White (`#F4F4F2` paper-200, `#E4E5E2` paper-300, `#C8CCC9` paper-400)
-     - Selection state: Pill/card tiles with subtle border transitions (`border-smoke-500/40`, active smoke-500 background `bg-smoke-500/15`, smoke-blue checkmark, warm-white text)
-     - No harsh generic blue, purple or rainbow gradients.
-6. **Social Media Coordination:**
-   - Active flagship Instagram profile is `@baseln.fit` (formerly `@baseln_retreats`).
-   - Profile link points to clean `https://baseln.co` or tracked `/online/register`.
-   - All social UTM attribution, first-touch, and last-touch non-direct assists must be preserved through the 5 stages and submitted to `POST /api/leads`.
+## 1. Scope & Acceptance Requirements
 
----
+### Design & Layout
+- Keep the real site header, footer, navigation, and mobile menu completely intact.
+- Route remains `/online/register`. Compact intro: the first question appears above the fold on desktop and within the first normal mobile phone viewport without long scrolling.
+- Contained 5-stage progressive flow with a quiet indicator: small `01 / 05` label, thin smoke-blue progress line, and in-flow Back / Continue controls.
+- Clean black/graphite/silver-grey palette: `bg-charcoal-950` page, `bg-charcoal-900` card, `border-white/10`, white typography, `text-paper-300`/`text-paper-400` descriptions, and subtle smoke-blue interaction highlights (`bg-smoke-500/15`, `border-smoke-400`, `text-smoke-300`).
+- Visible, programmatically associated `<label for>` attributes on every control.
+- Clear error summary per step with no jumping or floating buttons.
 
-## 2. Architecture & Data Flow
+### 5-Stage Form Structure & Backend Field Contract
+Support both `/api/public/coaching-application` and `/api/leads` on the server:
 
-- **Frontend Client (`src/pages/ApplyPage.tsx`):**
-  - Stateful 5-stage progressive flow with clear back/continue controls, stage progress indicator (`APPLICATION / 01—05`), keyboard navigation, accessible labels (`<label htmlFor>`), and live error handling.
-  - Interactive multi-select goal pill buttons coordinating with smoke-blue and charcoal.
-  - Submits the consolidated payload to `/api/leads`.
-  - On 201 receipt, stores reference in `sessionStorage` and renders receipt or transitions to `/online/thank-you`.
-- **Backend API (`server/server.mjs`):**
-  - Accepts both consolidated multi-goal arrays and legacy fields.
-  - Saves all 5-stage fields, attribution JSON, UTM parameters, and consent flags into MySQL `coaching_leads`.
-  - Dispatches owner notification to Outlook (`aian@baseln.co`).
-- **Social Bio & Tracking:**
-  - Tracked route `https://baseln.co/apply?cta=instagram-profile&utm_source=instagram&utm_medium=organic_social&utm_campaign=baseln_instagram_takeover_2026q4&utm_content=takeover_profile_link` 301 redirects to `/online/register` with complete query preservation.
+- **Stage 01 — Goal**:
+  - `goals`: string array (e.g. `Lose body fat`, `Build muscle`, `Get stronger`, `Improve conditioning`, `Prepare for an event`, `Improve general health and fitness`).
+  - `goal_detail`: optional string for specific detail or nuances.
+- **Stage 02 — Training Now**:
+  - `current_training`: string (what the applicant is doing right now).
+  - `training_days`: string (`1–2 days`, `3 days`, `4 days`, `5+ days`, `Variable`).
+  - `training_environment`: string (`Commercial gym`, `Home setup / dumbbells`, `Bodyweight / outdoors`, `Mix of gym and travel`).
+  - `training_history`: string / select (context of prior structured training).
+- **Stage 03 — Friction**:
+  - `barrier`: required string (what has been the main obstacle or friction).
+  - `previous_attempts`: optional string (what was tried previously and why it stalled).
+- **Stage 04 — Coaching Fit**:
+  - `coaching_value`: optional string (what they value most in a coach: direct technique feedback, weekly accountability, structured planning).
+  - `why_now`: required string (why starting coaching right now matters).
+- **Stage 05 — Contact & Consent**:
+  - `name`: required string.
+  - `email`: required valid email string.
+  - `phone`: optional string (WhatsApp/mobile for timely coordination).
+  - `timezone`: required string (country / time zone).
+  - `age`: optional string.
+  - `privacy_ack`: required boolean (privacy notice & health training acknowledgement).
+  - Explicit warning: no sensitive medical/injury records submitted through the public form.
+
+### Submission & Receipt Contract
+- Client POSTs JSON payload containing both legacy keys (`countryTimeZone`, `availableDays`, `biggestObstacle`, `preferredStartDate`) and explicit 5-stage keys (`goals`, `goal_detail`, `current_training`, `training_days`, `training_environment`, `training_history`, `barrier`, `previous_attempts`, `coaching_value`, `why_now`, `name`, `email`, `phone`, `timezone`, `age`, `privacy_ack`, `attribution`).
+- Server verifies database connectivity and required fields, inserts into `coaching_leads` (storing rich fields in `attribution_json`), and returns `201 { ok: true, leadId }`.
+- Success state displays only after confirmed server persistence.
+- Confirmation states: "Received. Aian will personally review your application and respond within one business day." No false claim of an automated email receipt.
+- Query-preserving permanent 301 redirect: `/apply` → `/online/register`.
+- No changes to DNS, payments, or public pricing.
 
 ---
 
-## 3. Verification & Acceptance Spec
+## 2. Implementation Steps
 
-- Build check (`tsc && vite build`) passes cleanly.
-- Unit/integration test verifies 5-stage form validation, stage transitions, multi-goal selection, and payload assembly.
-- Local server test confirms `POST /api/leads` stores new multi-goal payload with 201 and durable lead ID.
-- Live check on `https://baseln.co` after deployment confirms new 5-stage application is active, styling coordinates with smoke-blue/charcoal, and all routes remain functional.
+1. **Server API (`server/server.mjs`)**:
+   - Add alias endpoint `POST /api/public/coaching-application` with the same robust database insertion and validation logic as `POST /api/leads`.
+   - Update validation to accept all 5-stage fields (`goals`, `goal_detail`, `current_training`, `training_days`, `training_environment`, `training_history`, `barrier`, `previous_attempts`, `coaching_value`, `why_now`, `name`, `email`, `phone`, `timezone`, `privacy_ack`).
+   - Store full 5-stage metadata durably in `attribution_json`.
+2. **Client Application Form (`src/pages/ApplyPage.tsx`)**:
+   - Refactor into the 5-stage progressive layout.
+   - Maintain the compact, above-the-fold layout with the `01 / 05` progress indicator and in-flow navigation.
+   - Keep inputs keyboard-accessible with visible labels and clear validation states.
+3. **Build & Automated Verification**:
+   - Run unit/integration tests with `pnpm run build` and a local Node server script.
+   - Verify server POST persistence and valid response codes.
+4. **Git Checkpoint & Production Deployment**:
+   - Push commit to `origin/main` to trigger platform auto-publish for `https://baseln-swpjc9hq.manus.space`.
+   - Verify live endpoints: `/online/register`, `/_app/ready`, and test submission.

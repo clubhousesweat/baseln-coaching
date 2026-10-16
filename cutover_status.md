@@ -3,8 +3,8 @@
 **Date:** 10 October 2026 (AWST)  
 **Canonical Production Domain:** `https://baseln.co`  
 **Webdev Project Resource:** `wdp_6fb3ad35e165bbfb677ea4f2` (BASELN — Private Online Coaching)  
-**Deployed Release Checkpoint:** `c5bff9912d72f29c60f80e2574fae65981e0dda1`  
-**Active Production Bundle:** `/assets/index-Crdft6V-.js`  
+**Deployed Release Checkpoint:** `42756aa736b9f0a00e99a6bdcae9aa9ce28421a9`  
+**Active Production Bundle:** `/assets/index-B_WJs1KG.js`  
 **Deployment Infrastructure:** Routed Server Container (`routed-server/1`) + Managed MySQL (`coaching_leads`)  
 
 ---
@@ -30,7 +30,7 @@ The legacy site previously served at `baseln.co` (transparent proxy, old bundle 
 | Test / Gate | Target URL | Expected | Actual Result | Status |
 | :--- | :--- | :--- | :--- | :--- |
 | **Apex Health** | `GET /_app/ready` | `200 OK` JSON | `HTTP 200 OK` `{"ok":true,"service":"baseln-coaching"}` | **PASS** |
-| **Apex Root** | `GET /` | `200 OK` HTML | `HTTP 200 OK` (`routed-server/1`, bundle `index-Crdft6V-.js`) | **PASS** |
+| **Apex Root** | `GET /` | `200 OK` HTML | `HTTP 200 OK` (`routed-server/1`, bundle `index-B_WJs1KG.js`) | **PASS** |
 | **Query Redirect** | `GET /apply?utm_source=instagram&...` | `301` to `/online/register?...` | `HTTP 301` `Location: /online/register?utm_source=...` (query intact) | **PASS** |
 | **Application Form** | `GET /online/register` | `200 OK` HTML | `HTTP 200 OK` (All 10 accessible form controls active) | **PASS** |
 | **Durable Lead POST** | `POST /api/leads` | `201 Created` JSON | `HTTP 201 Created` `{"ok":true,"leadId":12060001}` | **PASS** |
