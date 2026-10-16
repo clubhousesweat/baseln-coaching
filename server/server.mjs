@@ -11,6 +11,13 @@ const publicIndexPath = path.join(publicBuildPath, 'index.html');
 const port = Number(process.env.PORT || 3000);
 const publicOrigin = 'https://baseln.co';
 const attributionQueryKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'cta'];
+const instagramTakeoverDefaults = Object.freeze({
+  cta: 'instagram-profile',
+  utm_source: 'instagram',
+  utm_medium: 'organic_social',
+  utm_campaign: 'baseln_instagram_takeover_2026q4',
+  utm_content: 'takeover_profile_link',
+});
 
 const publicMetadata = {
   '/': {
@@ -18,11 +25,11 @@ const publicMetadata = {
     description: 'Private online coaching with Aian McLennan. Custom training, thoughtful nutrition guidance and direct coach accountability from day one.',
   },
   '/coaching': {
-    title: 'Online Coaching | BASELN',
+    title: 'BASELN Online Coaching | Training & Accountability',
     description: 'Individual online coaching built around your actual week: tailored training, practical nutrition and direct feedback from Aian McLennan.',
   },
   '/about': {
-    title: 'About Aian McLennan | BASELN',
+    title: 'About Aian McLennan | BASELN Online Coaching',
     description: 'Meet the coach behind BASELN: practical, performance-led online coaching for people with demanding lives.',
   },
   '/field-notes': {
@@ -30,7 +37,7 @@ const publicMetadata = {
     description: 'Practical coaching notes on strength, fitness, body composition and training that works in real life.',
   },
   '/online/register': {
-    title: 'Apply for Coaching | BASELN',
+    title: 'Apply for BASELN Online Coaching | Private Coaching',
     description: 'Apply for private online coaching with BASELN. Five short stages to understand your goals, training schedule and starting point.',
     noindex: true,
   },
@@ -60,7 +67,7 @@ const publicMetadata = {
     noindex: true,
   },
   '/contact': {
-    title: 'Contact BASELN | Private Online Coaching',
+    title: 'Contact BASELN Online Coaching | Aian McLennan',
     description: 'Contact BASELN about private online coaching, existing coaching support or another enquiry for Aian McLennan.',
   },
   '/privacy': { title: 'Privacy Notice | BASELN', description: 'How BASELN handles information submitted through coaching enquiries and services.', noindex: true },
@@ -276,6 +283,14 @@ const appendQuery = (request, destination) => {
   return `${pathPart}${request.originalUrl.slice(queryIndex)}${fragment ? `#${fragment}` : ''}`;
 };
 
+const instagramTakeoverDestination = (request) => {
+  const params = new URL(request.originalUrl, publicOrigin).searchParams;
+  for (const [key, value] of Object.entries(instagramTakeoverDefaults)) {
+    if (!params.get(key)) params.set(key, value);
+  }
+  return `/online/register?${params.toString()}`;
+};
+
 // Canonicalise www.baseln.co to apex baseln.co
 app.use((request, response, next) => {
   const host = (request.headers.host || '').split(':')[0].toLowerCase();
@@ -294,6 +309,12 @@ app.get(['/_app/ready', '/_app/health'], async (_request, response) => {
 // Approved canonical decision: /online/register is the intake; /apply must 301 to it with query string preserved.
 app.get('/apply', (request, response) => {
   return response.redirect(301, appendQuery(request, '/online/register'));
+});
+
+// Profile-bio traffic is campaign-controlled, so retain a mutable redirect while
+// guaranteeing the takeover attribution reaches the canonical application route.
+app.get('/go/instagram', (request, response) => {
+  return response.redirect(302, instagramTakeoverDestination(request));
 });
 
 // Legacy site route 301 redirects

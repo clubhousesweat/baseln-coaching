@@ -13,16 +13,18 @@ import { LegalPage } from './pages/LegalPage';
 import { ContactPage } from './pages/ContactPage';
 import {
   captureUtmParams,
+  INSTAGRAM_BIO_PATH,
   INSTAGRAM_HANDLE,
+  INSTAGRAM_TAKEOVER_CTA,
   INSTAGRAM_TAKEOVER_CAMPAIGN,
   INSTAGRAM_TAKEOVER_CONTENT,
   SOCIAL_ACCOUNT,
   trackEvent,
 } from './utils/analytics';
 
-const INSTAGRAM_BIO_PATH = '/go/instagram';
 const CANONICAL_APPLICATION_PATH: PageRoute = '/online/register';
 const INSTAGRAM_BIO_EVENT_KEY = 'baseln_pending_instagram_bio_event';
+const INSTAGRAM_BIO_VIEW_KEY = 'baseln_recorded_instagram_bio_view';
 
 const validPaths: PageRoute[] = [
   '/',
@@ -55,7 +57,7 @@ const redirectInstagramBioLink = (): boolean => {
   window.sessionStorage.setItem(INSTAGRAM_BIO_EVENT_KEY, 'true');
 
   const params = new URLSearchParams(window.location.search);
-  params.set('cta', params.get('cta') || 'instagram-profile');
+  params.set('cta', params.get('cta') || INSTAGRAM_TAKEOVER_CTA);
   params.set('utm_source', params.get('utm_source') || 'instagram');
   params.set('utm_medium', params.get('utm_medium') || 'organic_social');
   params.set('utm_campaign', params.get('utm_campaign') || INSTAGRAM_TAKEOVER_CAMPAIGN);
@@ -63,6 +65,13 @@ const redirectInstagramBioLink = (): boolean => {
 
   window.history.replaceState({}, '', `${CANONICAL_APPLICATION_PATH}?${params.toString()}`);
   return true;
+};
+
+const hasInstagramTakeoverAttribution = (): boolean => {
+  const params = new URLSearchParams(window.location.search);
+  return params.get('utm_source') === 'instagram'
+    && params.get('utm_campaign') === INSTAGRAM_TAKEOVER_CAMPAIGN
+    && params.get('utm_content') === INSTAGRAM_TAKEOVER_CONTENT;
 };
 
 const initialRoute = (): PageRoute => {
@@ -85,7 +94,11 @@ export const App: React.FC = () => {
         window.history.replaceState({}, '', `${resolvedPath}${window.location.search}`);
       }
 
-      const shouldRecordBioView = arrivedViaInstagramBio || window.sessionStorage.getItem(INSTAGRAM_BIO_EVENT_KEY) === 'true';
+      const shouldRecordBioView = (
+        arrivedViaInstagramBio
+        || window.sessionStorage.getItem(INSTAGRAM_BIO_EVENT_KEY) === 'true'
+        || hasInstagramTakeoverAttribution()
+      ) && window.sessionStorage.getItem(INSTAGRAM_BIO_VIEW_KEY) !== 'true';
       if (shouldRecordBioView) {
         trackEvent('instagram_takeover_profile_view', {
           social_account: SOCIAL_ACCOUNT,
@@ -94,6 +107,7 @@ export const App: React.FC = () => {
           destination: CANONICAL_APPLICATION_PATH,
         });
         window.sessionStorage.removeItem(INSTAGRAM_BIO_EVENT_KEY);
+        window.sessionStorage.setItem(INSTAGRAM_BIO_VIEW_KEY, 'true');
       }
     };
 

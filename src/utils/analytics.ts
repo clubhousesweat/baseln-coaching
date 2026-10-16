@@ -42,6 +42,8 @@ const ATTRIBUTION_QUERY_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm
 // @baseln_fit is the active flagship BASELN Online Coaching social account.
 export const SOCIAL_ACCOUNT = 'baseln_online_coaching';
 export const INSTAGRAM_HANDLE = '@baseln_fit';
+export const INSTAGRAM_BIO_PATH = '/go/instagram';
+export const INSTAGRAM_TAKEOVER_CTA = 'instagram-profile';
 export const INSTAGRAM_TAKEOVER_CAMPAIGN = 'baseln_instagram_takeover_2026q4';
 export const INSTAGRAM_TAKEOVER_CONTENT = 'takeover_profile_link';
 

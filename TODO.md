@@ -6,6 +6,7 @@
 - [x] **Container deployment contract and health readiness.** Production Dockerfile runs `node server/server.mjs`. Live probe responds at `/_app/live` and database readiness at `/_app/ready` and `/_app/health`.
 - [x] **FastSpring and public payment hold.** Zero public checkout, Buy now, FastSpring, or price references exist on public routes.
 - [x] **Published production verification and branded domain cutover.** Branded domain `https://baseln.co` is live and serving the production container.
+- [x] **Instagram takeover bio attribution and BASELN Online Coaching metadata.** The active `@baseln_fit` profile bio route lands on the canonical coaching application with consistent Instagram takeover attribution, while public page, Open Graph and social-card metadata identify the offer as “BASELN Online Coaching”.
 - [ ] **Five-Stage Mobile-First Application.** Implement the exact 5-stage application specified in `Pasted_content_68.txt`:
   - Stage 1: Goals ("Lose body fat", "Build muscle", "Get stronger", "Improve conditioning", "Prepare for an event", "Improve general health and fitness") with multi-select capability.
   - Stage 2: Training background and weekly frequency ("1–2 days", "3 days", "4 days", "5+ days", "Variable").
