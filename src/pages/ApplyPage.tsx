@@ -309,532 +309,400 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
   };
 
   const inputClass =
-    'w-full bg-charcoal-950 border border-white/10 rounded-sm px-4 py-3 text-sm text-white placeholder-paper-400/40 focus:outline-none focus:border-smoke-400 focus:ring-1 focus:ring-smoke-400/20 transition-all';
-  const labelClass = 'block text-xs uppercase tracking-wider text-paper-300 font-medium mb-1.5';
-  const helperClass = 'text-xs text-paper-400 font-light mt-1.5 leading-relaxed';
+    'w-full min-h-12 bg-[#FCF8F0] border border-[#BEB2A4] rounded-none px-3.5 py-3 text-[15px] text-[#2C2926] placeholder:text-[#81786F] transition-colors focus:border-[#76352F] focus:outline-none focus:ring-2 focus:ring-[#76352F]/20';
+  const labelClass = 'mb-2 block text-[11px] font-semibold uppercase tracking-[0.13em] text-[#4A4641]';
+  const helperClass = 'mt-1.5 text-sm leading-relaxed text-[#696159]';
+  const stageMeta = [
+    '',
+    'YOUR GOALS',
+    'YOUR TRAINING',
+    'THE FRICTION',
+    'COACHING FIT',
+    'YOUR DETAILS',
+  ];
+  const stageLabel = stageMeta[stage];
+  const cardBase = 'min-h-[58px] w-full border px-4 py-3.5 text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#76352F] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F8F3EB] disabled:cursor-not-allowed disabled:opacity-50';
+  const cardUnselected = 'border-[#C8BCAD] bg-[#FCF8F0] text-[#302D2A] hover:border-[#76352F] hover:bg-[#F5EDE3]';
+  const cardSelected = 'border-[#76352F] bg-[#6F312D] text-[#FFF8EE] shadow-[inset_0_0_0_1px_rgba(255,248,238,0.14)]';
 
   return (
-    <div className="pt-24 min-h-[92vh] bg-charcoal-950 pb-20">
-      <div className="max-w-[760px] mx-auto px-5 sm:px-8 py-8">
-        {/* Compact in-site intro: visible above the fold on desktop and within the first normal mobile phone viewport */}
-        <div className="mb-8 border-b border-white/10 pb-6">
-          <div className="flex items-center justify-between text-xs font-mono uppercase tracking-[0.2em] text-smoke-400 mb-2.5">
-            <span>BASELN · PRIVATE COACHING</span>
-            <span className="text-paper-400">0{stage} / 05</span>
-          </div>
-
-          <h1 className="font-serif text-3xl sm:text-4xl text-white font-light tracking-tight leading-tight uppercase">
-            <span>Apply for coaching.</span>
-          </h1>
-
-          <p className="mt-2 text-xs sm:text-sm text-paper-300 font-light leading-relaxed max-w-xl">
-            Five short questions to understand your goals, training context and starting point. Aian reviews every submission personally.
-          </p>
-
-          {/* Thin progress line in smoke-blue */}
-          <div className="mt-5 w-full h-[3px] bg-charcoal-850 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-smoke-400 transition-all duration-300 ease-out"
-              style={{ width: `${(stage / 5) * 100}%` }}
-              role="progressbar"
-              aria-valuenow={stage}
-              aria-valuemin={1}
-              aria-valuemax={5}
-            />
-          </div>
-        </div>
-
-        {submitted ? (
-          <div className="p-8 sm:p-12 bg-charcoal-900 border border-smoke-500/30 rounded-sm space-y-6 shadow-2xl animate-in fade-in duration-300">
-            <div className="w-12 h-12 rounded-full bg-smoke-500/15 flex items-center justify-center text-smoke-300">
-              <CheckCircle2 size={26} strokeWidth={2.2} />
-            </div>
-
-            <div className="space-y-1.5">
-              <span className="text-[11px] font-mono uppercase tracking-widest text-smoke-400 block">APPLICATION RECORDED</span>
-              <h2 className="font-serif text-2xl sm:text-3xl text-white font-light">Received.</h2>
-            </div>
-
-            <div className="p-5 bg-charcoal-850 border border-white/5 rounded-sm">
-              <p className="text-sm text-paper-200 font-light leading-relaxed">
-                “Received. Aian will personally assess your application and respond within one business day.”
-              </p>
-            </div>
-
-            <div className="text-xs sm:text-sm text-paper-400 font-light leading-relaxed space-y-2.5">
-              <p className="font-medium text-paper-300">What happens next:</p>
-              <ul className="list-disc pl-5 space-y-1 text-paper-300">
-                <li>Aian assesses whether your goals and weekly schedule suit private coaching.</li>
-                <li>Suitable applicants receive an invitation to book a direct conversation.</li>
-                <li>Your programme, nutrition guidance and Training Room access begin once confirmed.</li>
-              </ul>
-            </div>
-
-            <div className="pt-4 border-t border-white/10 flex flex-wrap items-center gap-4">
-              <button
-                type="button"
-                onClick={() => onNavigate('/')}
-                className="text-xs uppercase tracking-widest font-semibold bg-white/10 hover:bg-white/15 text-white px-5 py-3 rounded-sm transition-colors"
-              >
-                Return to home
-              </button>
-              <button
-                type="button"
-                onClick={() => onNavigate('/coaching')}
-                className="text-xs uppercase tracking-widest font-semibold text-smoke-400 hover:text-white inline-flex items-center gap-1.5"
-              >
-                <span>Review coaching inclusions</span>
-                <ArrowRight size={14} />
-              </button>
-            </div>
-          </div>
-        ) : (
-          <div className="bg-charcoal-900 border border-white/10 rounded-sm p-6 sm:p-9 shadow-xl space-y-7">
-            {errorMsg && (
-              <div role="alert" className="p-3.5 bg-red-950/40 border border-red-500/30 text-red-200 text-xs sm:text-sm rounded flex items-center gap-3">
-                <AlertCircle size={16} className="shrink-0 text-red-400" />
-                <span>{errorMsg}</span>
-              </div>
-            )}
-
-            {/* STAGE 01: Goals */}
-            {stage === 1 && (
-              <div className="space-y-6">
-                <div>
-                  <span className="text-[11px] font-mono uppercase tracking-widest text-smoke-400 block mb-1">01 / 05 · PRIMARY OBJECTIVE</span>
-                  <h2 className="font-serif text-2xl sm:text-3xl text-white font-light">What are you working towards?</h2>
-                  <p className={helperClass}>Select everything that applies. Aian designs training around multiple overlapping goals.</p>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
-                  {GOALS_LIST.map((goal) => {
-                    const isSelected = selectedGoals.includes(goal);
-                    return (
-                      <button
-                        key={goal}
-                        type="button"
-                        onClick={() => toggleGoal(goal)}
-                        className={`p-3.5 text-left rounded-sm border transition-all flex items-center justify-between gap-3 ${
-                          isSelected
-                            ? 'bg-smoke-500/15 border-smoke-400 text-white shadow-sm ring-1 ring-smoke-400/30'
-                            : 'bg-charcoal-950 border-white/10 text-paper-300 hover:border-white/25 hover:text-white'
-                        }`}
-                      >
-                        <span className="text-sm font-medium">{goal}</span>
-                        <div
-                          className={`w-5 h-5 rounded-full flex items-center justify-center border transition-colors ${
-                            isSelected ? 'bg-smoke-400 border-smoke-400 text-charcoal-950' : 'border-white/20'
-                          }`}
-                        >
-                          {isSelected && <Check size={12} strokeWidth={3} />}
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
-
-                <div className="pt-2">
-                  <label htmlFor="stage-goal-detail" className={labelClass}>
-                    Any specific details or context? <span className="text-paper-400 font-normal">(optional)</span>
-                  </label>
-                  <textarea
-                    id="stage-goal-detail"
-                    rows={3}
-                    value={goalDetail}
-                    onChange={(e) => setGoalDetail(e.target.value)}
-                    placeholder="e.g. Preparing for a marathon in six months, recovering confidence after shoulder surgery, or wanting to drop 8kg while keeping strength."
-                    className={inputClass}
-                  />
-                </div>
-              </div>
-            )}
-
-            {/* STAGE 02: Training Now */}
-            {stage === 2 && (
-              <div className="space-y-6">
-                <div>
-                  <span className="text-[11px] font-mono uppercase tracking-widest text-smoke-400 block mb-1">02 / 05 · TRAINING CONTEXT</span>
-                  <h2 className="font-serif text-2xl sm:text-3xl text-white font-light">What does training look like right now?</h2>
-                  <p className={helperClass}>Your programme is built around your real week, environment and equipment.</p>
-                </div>
-
-                <div>
-                  <label htmlFor="stage-current-training" className={labelClass}>
-                    What are you doing currently? <span className="text-smoke-400">*</span>
-                  </label>
-                  <textarea
-                    id="stage-current-training"
-                    rows={3}
-                    required
-                    value={currentTraining}
-                    onChange={(e) => {
-                      setCurrentTraining(e.target.value);
-                      setErrorMsg('');
-                    }}
-                    placeholder="e.g. 2 gym sessions when work allows, occasional running, or haven't trained consistently in 3 months."
-                    className={inputClass}
-                  />
-                </div>
-
-                <div>
-                  <label className={labelClass}>
-                    Realistic weekly training days <span className="text-smoke-400">*</span>
-                  </label>
-                  <div className="space-y-2 pt-1">
-                    {TRAINING_DAYS.map((opt) => {
-                      const isSelected = trainingDays === opt.value;
-                      return (
-                        <button
-                          key={opt.value}
-                          type="button"
-                          onClick={() => {
-                            setTrainingDays(opt.value);
-                            setErrorMsg('');
-                          }}
-                          className={`w-full p-3.5 text-left rounded-sm border transition-all flex items-center justify-between gap-4 ${
-                            isSelected
-                              ? 'bg-smoke-500/15 border-smoke-400 text-white ring-1 ring-smoke-400/30'
-                              : 'bg-charcoal-950 border-white/10 text-paper-300 hover:border-white/25 hover:text-white'
-                          }`}
-                        >
-                          <div>
-                            <div className="text-sm font-semibold">{opt.label}</div>
-                            <div className="text-xs text-paper-400 mt-0.5">{opt.desc}</div>
-                          </div>
-                          <div
-                            className={`w-5 h-5 rounded-full flex items-center justify-center border shrink-0 transition-colors ${
-                              isSelected ? 'bg-smoke-400 border-smoke-400 text-charcoal-950' : 'border-white/20'
-                            }`}
-                          >
-                            {isSelected && <Check size={12} strokeWidth={3} />}
-                          </div>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                <div>
-                  <label className={labelClass}>
-                    Training environment &amp; equipment <span className="text-smoke-400">*</span>
-                  </label>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
-                    {TRAINING_ENVIRONMENTS.map((env) => {
-                      const isSelected = trainingEnvironment === env.value;
-                      return (
-                        <button
-                          key={env.value}
-                          type="button"
-                          onClick={() => {
-                            setTrainingEnvironment(env.value);
-                            setErrorMsg('');
-                          }}
-                          className={`p-3 text-left rounded-sm border transition-all ${
-                            isSelected
-                              ? 'bg-smoke-500/15 border-smoke-400 text-white ring-1 ring-smoke-400/30'
-                              : 'bg-charcoal-950 border-white/10 text-paper-300 hover:border-white/25 hover:text-white'
-                          }`}
-                        >
-                          <div className="text-xs font-semibold">{env.label}</div>
-                          <div className="text-[11px] text-paper-400 mt-0.5">{env.desc}</div>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                <div>
-                  <label htmlFor="stage-training-history" className={labelClass}>
-                    Prior training experience <span className="text-paper-400 font-normal">(optional)</span>
-                  </label>
-                  <select
-                    id="stage-training-history"
-                    value={trainingHistory}
-                    onChange={(e) => setTrainingHistory(e.target.value)}
-                    className={inputClass}
-                  >
-                    <option value="">Select current context</option>
-                    {TRAINING_HISTORY_OPTIONS.map((opt) => (
-                      <option key={opt.value} value={opt.value}>
-                        {opt.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-            )}
-
-            {/* STAGE 03: Friction */}
-            {stage === 3 && (
-              <div className="space-y-6">
-                <div>
-                  <span className="text-[11px] font-mono uppercase tracking-widest text-smoke-400 block mb-1">03 / 05 · OBSTACLES &amp; FRICTION</span>
-                  <h2 className="font-serif text-2xl sm:text-3xl text-white font-light">What has been getting in the way?</h2>
-                  <p className={helperClass}>An honest summary helps Aian focus coaching where it will provide immediate momentum.</p>
-                </div>
-
-                <div>
-                  <label htmlFor="stage-barrier" className={labelClass}>
-                    Your primary obstacle or challenge <span className="text-smoke-400">*</span>
-                  </label>
-                  <textarea
-                    id="stage-barrier"
-                    rows={4}
-                    required
-                    value={barrier}
-                    onChange={(e) => {
-                      setBarrier(e.target.value);
-                      setErrorMsg('');
-                    }}
-                    placeholder="e.g. Inconsistent routine due to work travel, lack of progression in the gym, feeling overwhelmed by conflicting nutrition advice, or falling off without direct accountability."
-                    className={inputClass}
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="stage-previous-attempts" className={labelClass}>
-                    What have you tried before, and why did it stall? <span className="text-paper-400 font-normal">(optional)</span>
-                  </label>
-                  <textarea
-                    id="stage-previous-attempts"
-                    rows={3}
-                    value={previousAttempts}
-                    onChange={(e) => setPreviousAttempts(e.target.value)}
-                    placeholder="e.g. Cookie-cutter PDF programmes that didn't fit real life, group classes that aggravated my lower back, or tracking calories until it became unsustainable."
-                    className={inputClass}
-                  />
-                </div>
-              </div>
-            )}
-
-            {/* STAGE 04: Coaching Fit */}
-            {stage === 4 && (
-              <div className="space-y-6">
-                <div>
-                  <span className="text-[11px] font-mono uppercase tracking-widest text-smoke-400 block mb-1">04 / 05 · COACHING FIT</span>
-                  <h2 className="font-serif text-2xl sm:text-3xl text-white font-light">Why is now the right time?</h2>
-                  <p className={helperClass}>Coaching requires communication, honesty and consistent involvement from both sides.</p>
-                </div>
-
-                <div>
-                  <label htmlFor="stage-why-now" className={labelClass}>
-                    Why is starting coaching right now important to you? <span className="text-smoke-400">*</span>
-                  </label>
-                  <textarea
-                    id="stage-why-now"
-                    rows={4}
-                    required
-                    value={whyNow}
-                    onChange={(e) => {
-                      setWhyNow(e.target.value);
-                      setErrorMsg('');
-                    }}
-                    placeholder="e.g. Ready to stop guessing, upcoming event in 12 weeks, or tired of spinning my wheels and want a professional looking over my training."
-                    className={inputClass}
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="stage-coaching-value" className={labelClass}>
-                    What do you value most in a coach? <span className="text-paper-400 font-normal">(optional)</span>
-                  </label>
-                  <textarea
-                    id="stage-coaching-value"
-                    rows={3}
-                    value={coachingValue}
-                    onChange={(e) => setCoachingValue(e.target.value)}
-                    placeholder="e.g. Direct video technique analysis, a structured plan that adapts to my schedule, honest feedback, and regular weekly reviews."
-                    className={inputClass}
-                  />
-                </div>
-              </div>
-            )}
-
-            {/* STAGE 05: Contact & Consent */}
-            {stage === 5 && (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <span className="text-[11px] font-mono uppercase tracking-widest text-smoke-400 block mb-1">05 / 05 · CONTACT DETAILS</span>
-                  <h2 className="font-serif text-2xl sm:text-3xl text-white font-light">Where can Aian reach you?</h2>
-                  <p className={helperClass}>Your details are kept private and used only to review your application and respond.</p>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="stage-name" className={labelClass}>
-                      Full name <span className="text-smoke-400">*</span>
-                    </label>
-                    <input
-                      id="stage-name"
-                      type="text"
-                      required
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      placeholder="e.g. Alex Henderson"
-                      autoComplete="name"
-                      className={inputClass}
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="stage-email" className={labelClass}>
-                      Email address <span className="text-smoke-400">*</span>
-                    </label>
-                    <input
-                      id="stage-email"
-                      type="email"
-                      required
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="alex@example.com"
-                      autoComplete="email"
-                      className={inputClass}
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="stage-timezone" className={labelClass}>
-                      Country / Time zone <span className="text-smoke-400">*</span>
-                    </label>
-                    <input
-                      id="stage-timezone"
-                      type="text"
-                      required
-                      value={timezone}
-                      onChange={(e) => setTimezone(e.target.value)}
-                      placeholder="e.g. Australia (AEST / AWST) or UK"
-                      className={inputClass}
-                    />
-                  </div>
-
-                  <div>
-                    <label htmlFor="stage-phone" className={labelClass}>
-                      Mobile / WhatsApp <span className="text-paper-400 font-normal">(optional, for timely coordination)</span>
-                    </label>
-                    <input
-                      id="stage-phone"
-                      type="tel"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      placeholder="+61 400 000 000"
-                      autoComplete="tel"
-                      className={inputClass}
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="stage-age" className={labelClass}>
-                      Age <span className="text-paper-400 font-normal">(optional)</span>
-                    </label>
-                    <input
-                      id="stage-age"
-                      type="text"
-                      value={age}
-                      onChange={(e) => setAge(e.target.value)}
-                      placeholder="e.g. 34"
-                      className={inputClass}
-                    />
-                  </div>
-
-                  {isSourceAmbiguous && (
-                    <div>
-                      <label htmlFor="stage-referral" className={labelClass}>
-                        How did you hear about BASELN? <span className="text-paper-400 font-normal">(optional)</span>
-                      </label>
-                      <input
-                        id="stage-referral"
-                        type="text"
-                        value={referralSource}
-                        onChange={(e) => setReferralSource(e.target.value)}
-                        placeholder="e.g. Instagram, client referral, word of mouth"
-                        className={inputClass}
-                      />
-                    </div>
-                  )}
-                </div>
-
-                {/* Explicit medical safety note */}
-                <div className="p-3.5 bg-charcoal-950 border border-white/5 rounded text-xs text-paper-400 leading-relaxed flex items-start gap-2.5">
-                  <Shield size={16} className="text-smoke-400 shrink-0 mt-0.5" />
-                  <span>
-                    <strong>Health &amp; Safety:</strong> Please do not submit confidential medical diagnoses, rehabilitation notes or sensitive health records through this public form. Relevant medical history is discussed confidentially after initial fit is established.
-                  </span>
-                </div>
-
-                {/* Legal Consent */}
-                <div className="pt-2 border-t border-white/10">
-                  <div className="flex items-start gap-3">
-                    <input
-                      id="stage-privacy-ack"
-                      type="checkbox"
-                      required
-                      checked={privacyAck}
-                      onChange={(e) => setPrivacyAck(e.target.checked)}
-                      className="mt-1 h-4 w-4 rounded border-white/20 bg-charcoal-950 text-smoke-500 focus:ring-smoke-400"
-                    />
-                    <div className="text-xs text-paper-400 font-light leading-relaxed">
-                      <label htmlFor="stage-privacy-ack" className="cursor-pointer text-paper-300">
-                        I confirm that I have read the Privacy Notice and Health &amp; Training Disclaimer. I consent to BASELN using this enquiry to assess coaching fit and contact me. This does not subscribe me to marketing lists.
-                      </label>
-                      <p className="mt-1 text-paper-400/80">
-                        View{' '}
-                        <a href="/privacy" target="_blank" rel="noreferrer" className="text-smoke-400 underline underline-offset-2">
-                          Privacy Notice
-                        </a>{' '}
-                        and{' '}
-                        <a href="/training-disclaimer" target="_blank" rel="noreferrer" className="text-smoke-400 underline underline-offset-2">
-                          Health Disclaimer
-                        </a>.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="pt-2">
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full py-3.5 text-xs sm:text-sm uppercase tracking-widest font-semibold bg-smoke-500 hover:bg-smoke-400 disabled:opacity-60 text-charcoal-950 rounded-sm shadow-xl transition-all flex items-center justify-center gap-2"
-                  >
-                    <span>{isSubmitting ? 'Submitting Application…' : 'Submit Private Coaching Application'}</span>
-                    <ArrowRight size={15} />
-                  </button>
-                </div>
-              </form>
-            )}
-
-            {/* In-flow Stage Navigation Controls (Stages 1 through 4) */}
-            {stage < 5 && (
-              <div className="pt-5 border-t border-white/10 flex items-center justify-between">
-                {stage > 1 ? (
-                  <button
-                    type="button"
-                    onClick={handleBack}
-                    className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-semibold text-paper-300 hover:text-white transition-colors py-2 px-3"
-                  >
-                    <ArrowLeft size={13} />
-                    <span>Back</span>
-                  </button>
-                ) : (
-                  <div />
-                )}
-
+    <div className="min-h-[100dvh] bg-[#E9E0D3] text-[#2D2B28] selection:bg-[#76352F] selection:text-[#FFF8EE]">
+      <div className="w-full px-0 py-0 md:px-6 md:py-6 xl:px-10 xl:py-8">
+        <div className="mx-auto max-w-[1280px] overflow-hidden border border-[#C7BAAA] bg-[#F8F3EB] shadow-[0_18px_52px_rgba(36,31,25,0.18)]">
+          <div className="grid lg:grid-cols-[minmax(360px,0.86fr)_minmax(0,1.14fr)]">
+            <aside className="flex min-h-0 flex-col bg-[#15362D] px-5 py-5 text-[#FFF8EE] sm:px-8 sm:py-8 lg:min-h-[720px] lg:px-10 lg:py-10 xl:px-12">
+              <div className="flex items-center justify-between gap-4 border-b border-white/20 pb-5">
                 <button
                   type="button"
-                  onClick={handleNext}
-                  className="inline-flex items-center gap-2 text-xs sm:text-sm uppercase tracking-widest font-semibold bg-smoke-500 hover:bg-smoke-400 text-charcoal-950 px-6 py-2.5 rounded-sm shadow-md transition-all active:translate-y-[1px]"
+                  onClick={() => onNavigate('/')}
+                  className="rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F7E9D8]"
+                  aria-label="Return to BASELN home"
                 >
-                  <span>Continue</span>
-                  <ArrowRight size={14} />
+                  <img
+                    src="/media/baseln-wordmark_ce64ccd9.png"
+                    alt="BASELN"
+                    className="h-5 w-auto object-contain brightness-0 invert sm:h-6"
+                  />
+                </button>
+                <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#D7CEC0]">Private coaching</span>
+              </div>
+
+              <div className="pt-7 sm:pt-12 lg:pt-20">
+                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#D7CEC0]">BASELN / APPLICATION</p>
+                <h1 className="mt-4 max-w-none font-serif text-4xl font-normal leading-[0.93] tracking-[-0.035em] text-[#FFF8EE] sm:mt-5 sm:text-5xl lg:max-w-[10ch] lg:text-[4.15rem]">
+                  GOOD TRAINING STARTS HERE.
+                </h1>
+                <p className="mt-4 max-w-sm text-base leading-relaxed text-[#E6DDD1] sm:mt-6 sm:text-[17px]">
+                  Tell us where you want to go. We’ll work out the best way to get you there.
+                </p>
+              </div>
+
+              <div className="mt-8 pt-6 lg:mt-auto lg:pt-20">
+                <div className="h-px w-full bg-white/20" />
+                <p className="mt-5 font-mono text-[10px] uppercase tracking-[0.16em] text-[#D7CEC0]">
+                  STRENGTH. CONDITIONING. BODY COMPOSITION.
+                </p>
+              </div>
+            </aside>
+
+            <section className="bg-[#F8F3EB] px-5 py-5 sm:px-8 sm:py-8 lg:px-10 lg:py-10 xl:px-12" aria-label="Private coaching application">
+              <div className="flex items-center justify-between gap-4 border-b border-[#CFC3B5] pb-5">
+                <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#5B554E]">2–3 MIN</span>
+                <button
+                  type="button"
+                  onClick={() => onNavigate('/')}
+                  className="inline-flex min-h-10 items-center gap-2 px-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#403C37] transition-colors hover:text-[#76352F] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#76352F]"
+                >
+                  <ArrowLeft size={14} aria-hidden="true" />
+                  Return home
                 </button>
               </div>
-            )}
+
+              {submitted ? (
+                <div className="py-10 sm:py-14">
+                  <div className="max-w-xl border border-[#BFAE9E] bg-[#FCF8F0] p-6 sm:p-8">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#15362D] text-[#FFF8EE]">
+                      <CheckCircle2 size={23} strokeWidth={2} aria-hidden="true" />
+                    </div>
+                    <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.18em] text-[#76352F]">Application recorded</p>
+                    <h2 className="mt-2 font-serif text-3xl leading-tight text-[#26231F] sm:text-4xl">Received.</h2>
+                    <p className="mt-4 text-[15px] leading-relaxed text-[#4E4841]">
+                      Aian will personally review your application and respond within one business day.
+                    </p>
+                    <div className="mt-7 border-y border-[#D7CCBF] py-5">
+                      <p className="text-sm font-semibold text-[#322E2A]">What happens next</p>
+                      <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-[#5E5750]">
+                        <li>Your goals and weekly schedule are reviewed for coaching fit.</li>
+                        <li>Suitable applicants receive an invitation to a direct conversation.</li>
+                        <li>Your programme and coaching rhythm are confirmed from there.</li>
+                      </ul>
+                    </div>
+                    <div className="mt-7 flex flex-wrap gap-x-5 gap-y-3">
+                      <button
+                        type="button"
+                        onClick={() => onNavigate('/')}
+                        className="text-xs font-semibold uppercase tracking-[0.12em] text-[#76352F] underline underline-offset-4 transition-colors hover:text-[#4E211F] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#76352F]"
+                      >
+                        Return home
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => onNavigate('/coaching')}
+                        className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-[#403C37] transition-colors hover:text-[#76352F] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#76352F]"
+                      >
+                        Coaching inclusions <ArrowRight size={14} aria-hidden="true" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="mx-auto max-w-[620px] py-7 sm:py-9">
+                  <div className="flex flex-wrap items-baseline justify-between gap-3">
+                    <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-[#76352F]">
+                      {String(stage).padStart(2, '0')} / 05 — {stageLabel}
+                    </p>
+                    <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#6E675E]">Private intake</span>
+                  </div>
+
+                  <div className="mt-4 grid grid-cols-5 gap-1.5" role="progressbar" aria-label={`Application stage ${stage} of 5`} aria-valuemin={1} aria-valuemax={5} aria-valuenow={stage}>
+                    {[1, 2, 3, 4, 5].map((segment) => (
+                      <span key={segment} className={`h-[3px] ${segment <= stage ? 'bg-[#76352F]' : 'bg-[#D6CABB]'}`} />
+                    ))}
+                  </div>
+
+                  {errorMsg && (
+                    <div role="alert" aria-live="assertive" className="mt-6 flex items-start gap-3 border border-[#A84743] bg-[#FFF0EE] p-3.5 text-sm leading-relaxed text-[#712923]">
+                      <AlertCircle size={17} className="mt-0.5 shrink-0" aria-hidden="true" />
+                      <span>{errorMsg}</span>
+                    </div>
+                  )}
+
+                  <div className="mt-7 border border-[#CFC3B5] bg-[#FDF9F2] p-5 shadow-[0_10px_26px_rgba(42,34,27,0.06)] sm:p-7">
+                    {stage === 1 && (
+                      <div className="space-y-6">
+                        <div>
+                          <h2 className="font-serif text-2xl leading-tight text-[#26231F] sm:text-[1.8rem]">What are you working towards?</h2>
+                          <p className={helperClass}>Select everything that applies. Coaching can be built around more than one outcome.</p>
+                        </div>
+                        <fieldset>
+                          <legend className="sr-only">Primary coaching goals</legend>
+                          <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+                            {GOALS_LIST.map((goal) => {
+                              const isSelected = selectedGoals.includes(goal);
+                              return (
+                                <button
+                                  key={goal}
+                                  type="button"
+                                  onClick={() => toggleGoal(goal)}
+                                  aria-pressed={isSelected}
+                                  className={`${cardBase} ${isSelected ? cardSelected : cardUnselected} flex items-center justify-between gap-4`}
+                                >
+                                  <span className="text-[15px] font-medium leading-snug">{goal}</span>
+                                  <span className={`flex h-5 w-5 shrink-0 items-center justify-center border ${isSelected ? 'border-[#FFF8EE]/65 bg-[#FFF8EE] text-[#6F312D]' : 'border-[#958A7D] text-transparent'}`} aria-hidden="true">
+                                    <Check size={13} strokeWidth={2.75} />
+                                  </span>
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </fieldset>
+                        <div>
+                          <label htmlFor="stage-goal-detail" className={labelClass}>
+                            Any specific details or context? <span className="normal-case tracking-normal text-[#746C63]">(optional)</span>
+                          </label>
+                          <textarea
+                            id="stage-goal-detail"
+                            rows={3}
+                            value={goalDetail}
+                            onChange={(e) => setGoalDetail(e.target.value)}
+                            placeholder="A concrete target, event date or useful starting context."
+                            className={inputClass}
+                          />
+                        </div>
+                      </div>
+                    )}
+
+                    {stage === 2 && (
+                      <div className="space-y-6">
+                        <div>
+                          <h2 className="font-serif text-2xl leading-tight text-[#26231F] sm:text-[1.8rem]">What does training look like right now?</h2>
+                          <p className={helperClass}>We design around the week and equipment you actually have.</p>
+                        </div>
+                        <div>
+                          <label htmlFor="stage-current-training" className={labelClass}>What are you doing currently? <span className="text-[#76352F]">*</span></label>
+                          <textarea
+                            id="stage-current-training"
+                            rows={3}
+                            required
+                            value={currentTraining}
+                            onChange={(e) => { setCurrentTraining(e.target.value); setErrorMsg(''); }}
+                            placeholder="Your usual week, training routine or where consistency has fallen away."
+                            className={inputClass}
+                          />
+                        </div>
+                        <fieldset>
+                          <legend className={labelClass}>Realistic weekly training days <span className="text-[#76352F]">*</span></legend>
+                          <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+                            {TRAINING_DAYS.map((opt) => {
+                              const isSelected = trainingDays === opt.value;
+                              return (
+                                <button
+                                  key={opt.value}
+                                  type="button"
+                                  onClick={() => { setTrainingDays(opt.value); setErrorMsg(''); }}
+                                  aria-pressed={isSelected}
+                                  className={`${cardBase} ${isSelected ? cardSelected : cardUnselected}`}
+                                >
+                                  <span className="block text-[15px] font-semibold leading-snug">{opt.label}</span>
+                                  <span className={`mt-1 block text-xs leading-relaxed ${isSelected ? 'text-[#F6E7D8]' : 'text-[#6F675F]'}`}>{opt.desc}</span>
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </fieldset>
+                        <fieldset>
+                          <legend className={labelClass}>Training environment &amp; equipment <span className="text-[#76352F]">*</span></legend>
+                          <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+                            {TRAINING_ENVIRONMENTS.map((env) => {
+                              const isSelected = trainingEnvironment === env.value;
+                              return (
+                                <button
+                                  key={env.value}
+                                  type="button"
+                                  onClick={() => { setTrainingEnvironment(env.value); setErrorMsg(''); }}
+                                  aria-pressed={isSelected}
+                                  className={`${cardBase} ${isSelected ? cardSelected : cardUnselected}`}
+                                >
+                                  <span className="block text-[15px] font-semibold leading-snug">{env.label}</span>
+                                  <span className={`mt-1 block text-xs leading-relaxed ${isSelected ? 'text-[#F6E7D8]' : 'text-[#6F675F]'}`}>{env.desc}</span>
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </fieldset>
+                        <div>
+                          <label htmlFor="stage-training-history" className={labelClass}>Prior training experience <span className="normal-case tracking-normal text-[#746C63]">(optional)</span></label>
+                          <select id="stage-training-history" value={trainingHistory} onChange={(e) => setTrainingHistory(e.target.value)} className={inputClass}>
+                            <option value="">Select current context</option>
+                            {TRAINING_HISTORY_OPTIONS.map((opt) => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
+                          </select>
+                        </div>
+                      </div>
+                    )}
+
+                    {stage === 3 && (
+                      <div className="space-y-6">
+                        <div>
+                          <h2 className="font-serif text-2xl leading-tight text-[#26231F] sm:text-[1.8rem]">What has been getting in the way?</h2>
+                          <p className={helperClass}>The honest version gives coaching a better starting point.</p>
+                        </div>
+                        <div>
+                          <label htmlFor="stage-barrier" className={labelClass}>Your primary obstacle or challenge <span className="text-[#76352F]">*</span></label>
+                          <textarea
+                            id="stage-barrier"
+                            rows={4}
+                            required
+                            value={barrier}
+                            onChange={(e) => { setBarrier(e.target.value); setErrorMsg(''); }}
+                            placeholder="Work travel, a stalled routine, lack of progression, nutrition noise or something else."
+                            className={inputClass}
+                          />
+                        </div>
+                        <div>
+                          <label htmlFor="stage-previous-attempts" className={labelClass}>What have you tried before, and why did it stall? <span className="normal-case tracking-normal text-[#746C63]">(optional)</span></label>
+                          <textarea id="stage-previous-attempts" rows={3} value={previousAttempts} onChange={(e) => setPreviousAttempts(e.target.value)} placeholder="A programme, approach or plan that did not fit your real life." className={inputClass} />
+                        </div>
+                      </div>
+                    )}
+
+                    {stage === 4 && (
+                      <div className="space-y-6">
+                        <div>
+                          <h2 className="font-serif text-2xl leading-tight text-[#26231F] sm:text-[1.8rem]">Why is now the right time?</h2>
+                          <p className={helperClass}>Private coaching works best when the timing and commitment are both real.</p>
+                        </div>
+                        <div>
+                          <label htmlFor="stage-why-now" className={labelClass}>Why is starting coaching right now important to you? <span className="text-[#76352F]">*</span></label>
+                          <textarea
+                            id="stage-why-now"
+                            rows={4}
+                            required
+                            value={whyNow}
+                            onChange={(e) => { setWhyNow(e.target.value); setErrorMsg(''); }}
+                            placeholder="What has changed, what matters now, or where you want to be in the next few months."
+                            className={inputClass}
+                          />
+                        </div>
+                        <div>
+                          <label htmlFor="stage-coaching-value" className={labelClass}>What do you value most in a coach? <span className="normal-case tracking-normal text-[#746C63]">(optional)</span></label>
+                          <textarea id="stage-coaching-value" rows={3} value={coachingValue} onChange={(e) => setCoachingValue(e.target.value)} placeholder="Structure, clear feedback, accountability, technique support or another priority." className={inputClass} />
+                        </div>
+                      </div>
+                    )}
+
+                    {stage === 5 && (
+                      <form onSubmit={handleSubmit} className="space-y-6">
+                        <div>
+                          <h2 className="font-serif text-2xl leading-tight text-[#26231F] sm:text-[1.8rem]">Where can Aian reach you?</h2>
+                          <p className={helperClass}>Your details are used to assess coaching fit and respond to your application.</p>
+                        </div>
+                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                          <div>
+                            <label htmlFor="stage-name" className={labelClass}>Full name <span className="text-[#76352F]">*</span></label>
+                            <input id="stage-name" type="text" required value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" autoComplete="name" className={inputClass} />
+                          </div>
+                          <div>
+                            <label htmlFor="stage-email" className={labelClass}>Email address <span className="text-[#76352F]">*</span></label>
+                            <input id="stage-email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" autoComplete="email" className={inputClass} />
+                          </div>
+                          <div>
+                            <label htmlFor="stage-timezone" className={labelClass}>Country / time zone <span className="text-[#76352F]">*</span></label>
+                            <input id="stage-timezone" type="text" required value={timezone} onChange={(e) => setTimezone(e.target.value)} placeholder="Australia (AWST), UK, etc." className={inputClass} />
+                          </div>
+                          <div>
+                            <label htmlFor="stage-phone" className={labelClass}>Mobile / WhatsApp <span className="normal-case tracking-normal text-[#746C63]">(optional)</span></label>
+                            <input id="stage-phone" type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+61 400 000 000" autoComplete="tel" className={inputClass} />
+                          </div>
+                          <div>
+                            <label htmlFor="stage-age" className={labelClass}>Age <span className="normal-case tracking-normal text-[#746C63]">(optional)</span></label>
+                            <input id="stage-age" type="text" value={age} onChange={(e) => setAge(e.target.value)} placeholder="e.g. 34" className={inputClass} />
+                          </div>
+                          {isSourceAmbiguous && (
+                            <div>
+                              <label htmlFor="stage-referral" className={labelClass}>How did you hear about BASELN? <span className="normal-case tracking-normal text-[#746C63]">(optional)</span></label>
+                              <input id="stage-referral" type="text" value={referralSource} onChange={(e) => setReferralSource(e.target.value)} placeholder="Instagram, referral, word of mouth" className={inputClass} />
+                            </div>
+                          )}
+                        </div>
+                        <div className="border-y border-[#D7CCBF] py-4 text-sm leading-relaxed text-[#655E56]">
+                          <div className="flex items-start gap-3">
+                            <Shield size={17} className="mt-0.5 shrink-0 text-[#15362D]" aria-hidden="true" />
+                            <p><strong className="font-semibold text-[#37322D]">Health &amp; safety:</strong> Do not submit confidential medical diagnoses, rehabilitation notes or sensitive health records through this public form. Relevant history can be discussed privately after initial fit is established.</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-3">
+                          <input
+                            id="stage-privacy-ack"
+                            type="checkbox"
+                            required
+                            checked={privacyAck}
+                            onChange={(e) => setPrivacyAck(e.target.checked)}
+                            className="mt-1 h-5 w-5 shrink-0 accent-[#76352F] focus:ring-[#76352F]"
+                          />
+                          <div className="text-sm leading-relaxed text-[#5E5750]">
+                            <label htmlFor="stage-privacy-ack" className="cursor-pointer text-[#413C36]">
+                              I have read the Privacy Notice and Health &amp; Training Disclaimer. I consent to BASELN using this enquiry to assess coaching fit and contact me. This does not subscribe me to marketing lists.
+                            </label>
+                            <p className="mt-1.5">
+                              Read the <a href="/privacy" target="_blank" rel="noreferrer" className="font-medium text-[#76352F] underline underline-offset-2">Privacy Notice</a> and <a href="/training-disclaimer" target="_blank" rel="noreferrer" className="font-medium text-[#76352F] underline underline-offset-2">Health Disclaimer</a>.
+                            </p>
+                          </div>
+                        </div>
+                        <div className="border-t border-[#D7CCBF] pt-5">
+                          <button
+                            type="submit"
+                            disabled={isSubmitting}
+                            aria-busy={isSubmitting}
+                            className="flex min-h-13 w-full items-center justify-center gap-2 bg-[#76352F] px-5 py-4 text-xs font-semibold uppercase tracking-[0.13em] text-[#FFF8EE] transition-colors hover:bg-[#5D2926] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#76352F] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FDF9F2] disabled:cursor-not-allowed disabled:bg-[#9C827B]"
+                          >
+                            <span>{isSubmitting ? 'Submitting application…' : 'Submit application'}</span>
+                            <ArrowRight size={15} aria-hidden="true" />
+                          </button>
+                          <button type="button" onClick={handleBack} className="mt-4 inline-flex min-h-10 items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#4E4841] transition-colors hover:text-[#76352F] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#76352F]">
+                            <ArrowLeft size={14} aria-hidden="true" /> Back
+                          </button>
+                        </div>
+                      </form>
+                    )}
+
+                    {stage < 5 && (
+                      <div className="mt-7 border-t border-[#D7CCBF] pt-5">
+                        <button
+                          type="button"
+                          onClick={handleNext}
+                          className="flex min-h-13 w-full items-center justify-center gap-2 bg-[#76352F] px-5 py-4 text-xs font-semibold uppercase tracking-[0.13em] text-[#FFF8EE] transition-colors hover:bg-[#5D2926] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#76352F] focus-visible:ring-offset-2 focus-visible:ring-offset-[#FDF9F2]"
+                        >
+                          Continue <ArrowRight size={15} aria-hidden="true" />
+                        </button>
+                        {stage > 1 && (
+                          <button type="button" onClick={handleBack} className="mt-4 inline-flex min-h-10 items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#4E4841] transition-colors hover:text-[#76352F] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#76352F]">
+                            <ArrowLeft size={14} aria-hidden="true" /> Back
+                          </button>
+                        )}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-[11px] text-[#6E675E]">
+                    <a href="/privacy" target="_blank" rel="noreferrer" className="underline underline-offset-2 transition-colors hover:text-[#76352F]">Privacy</a>
+                    <a href="/terms" target="_blank" rel="noreferrer" className="underline underline-offset-2 transition-colors hover:text-[#76352F]">Terms</a>
+                    <a href="/training-disclaimer" target="_blank" rel="noreferrer" className="underline underline-offset-2 transition-colors hover:text-[#76352F]">Training disclaimer</a>
+                  </div>
+                </div>
+              )}
+            </section>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

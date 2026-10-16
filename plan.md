@@ -1,67 +1,62 @@
-# Implementation Plan — Seamless 5-Stage Private Coaching Application
+# Implementation Plan — BASELN Editorial Application Redesign
 
-**Site destination:** `https://baseln-swpjc9hq.manus.space` (BASELN Online Coaching, directory `/home/ubuntu/baseln`, resource `wdp_6fb3ad35e165bbfb677ea4f2`).  
-**Design direction:** Seamless in-site application. Retains the existing site header, footer, navigation, supplied BASELN serif wordmark, dark video hero, and the black/graphite/white/silver-grey visual language with smoke-blue accents (`smoke-400`/`smoke-500`). No synthetic images, no cream/forest/oxblood palette, no standalone microsite.
+**Authoritative project:** `wdp_6fb3ad35e165bbfb677ea4f2` in `/home/ubuntu/baseln`
+**Authoritative origin:** `https://baseln-swpjc9hq.manus.space`
+**Required public domain:** `https://baseln.co` after this exact project is deployed and bound.
 
-## 1. Scope & Acceptance Requirements
+## Scope
 
-### Design & Layout
-- Keep the real site header, footer, navigation, and mobile menu completely intact.
-- Route remains `/online/register`. Compact intro: the first question appears above the fold on desktop and within the first normal mobile phone viewport without long scrolling.
-- Contained 5-stage progressive flow with a quiet indicator: small `01 / 05` label, thin smoke-blue progress line, and in-flow Back / Continue controls.
-- Clean black/graphite/silver-grey palette: `bg-charcoal-950` page, `bg-charcoal-900` card, `border-white/10`, white typography, `text-paper-300`/`text-paper-400` descriptions, and subtle smoke-blue interaction highlights (`bg-smoke-500/15`, `border-smoke-400`, `text-smoke-300`).
-- Visible, programmatically associated `<label for>` attributes on every control.
-- Clear error summary per step with no jumping or floating buttons.
+Replace the existing visual layer of `/online/register` with a quiet, in-site **five-stage editorial application**. This is a front-end redesign only. It must preserve the current five stages, question names, browser validation, API request shape, `POST /api/public/coaching-application` durable persistence, attribution capture, consent handling, server-confirmed receipt and query-preserving permanent `/apply` redirect.
 
-### 5-Stage Form Structure & Backend Field Contract
-Support both `/api/public/coaching-application` and `/api/leads` on the server:
+No DNS, payment, public-price, CRM/database schema or application-routing changes are permitted as part of this release.
 
-- **Stage 01 — Goal**:
-  - `goals`: string array (e.g. `Lose body fat`, `Build muscle`, `Get stronger`, `Improve conditioning`, `Prepare for an event`, `Improve general health and fitness`).
-  - `goal_detail`: optional string for specific detail or nuances.
-- **Stage 02 — Training Now**:
-  - `current_training`: string (what the applicant is doing right now).
-  - `training_days`: string (`1–2 days`, `3 days`, `4 days`, `5+ days`, `Variable`).
-  - `training_environment`: string (`Commercial gym`, `Home setup / dumbbells`, `Bodyweight / outdoors`, `Mix of gym and travel`).
-  - `training_history`: string / select (context of prior structured training).
-- **Stage 03 — Friction**:
-  - `barrier`: required string (what has been the main obstacle or friction).
-  - `previous_attempts`: optional string (what was tried previously and why it stalled).
-- **Stage 04 — Coaching Fit**:
-  - `coaching_value`: optional string (what they value most in a coach: direct technique feedback, weekly accountability, structured planning).
-  - `why_now`: required string (why starting coaching right now matters).
-- **Stage 05 — Contact & Consent**:
-  - `name`: required string.
-  - `email`: required valid email string.
-  - `phone`: optional string (WhatsApp/mobile for timely coordination).
-  - `timezone`: required string (country / time zone).
-  - `age`: optional string.
-  - `privacy_ack`: required boolean (privacy notice & health training acknowledgement).
-  - Explicit warning: no sensitive medical/injury records submitted through the public form.
+## Design direction
 
-### Submission & Receipt Contract
-- Client POSTs JSON payload containing both legacy keys (`countryTimeZone`, `availableDays`, `biggestObstacle`, `preferredStartDate`) and explicit 5-stage keys (`goals`, `goal_detail`, `current_training`, `training_days`, `training_environment`, `training_history`, `barrier`, `previous_attempts`, `coaching_value`, `why_now`, `name`, `email`, `phone`, `timezone`, `age`, `privacy_ack`, `attribution`).
-- Server verifies database connectivity and required fields, inserts into `coaching_leads` (storing rich fields in `attribution_json`), and returns `201 { ok: true, leadId }`.
-- Success state displays only after confirmed server persistence.
-- Confirmation states: "Received. Aian will personally review your application and respond within one business day." No false claim of an automated email receipt.
-- Query-preserving permanent 301 redirect: `/apply` → `/online/register`.
-- No changes to DNS, payments, or public pricing.
+- **Design movement:** restrained editorial intake — contemporary private-coaching hospitality rather than a SaaS form or campaign landing page.
+- **Brand essence:** a considered private-coaching application for people who value capable, sustainable training; **assured, practical, selective**.
+- **Layout paradigm:** at desktop, a content-driven 1200–1280px two-column composition. The left brand panel frames the decision; the right panel contains the compact working form. At tablet/mobile, it becomes one column with a short brand introduction followed immediately by the form.
+- **Colour philosophy:** warm cream surfaces create calm and legibility; dark forest establishes editorial weight; charcoal carries interface copy and rules; muted oxblood reserves emphasis for progress and action. Use no smoke-blue, black/graphite-only, generic beige, bright red branding, stock, synthetic or composited imagery.
+- **Typography system:** supplied BASELN serif wordmark only; one dominant serif display line in the left panel; compact serif stage titles and clean sans/mono interface labels on the right.
+- **Signature elements:** thin five-part progress rule; full-card answer controls; quiet legal and return-home utility row.
+- **Interaction:** every answer card is fully clickable with visible hover, focus, selected, disabled and accessible error states. Selection is communicated by the complete card treatment, not just an icon.
+- **Animation:** only brief, reduced-motion-safe stage transitions; no hero, parallax or decorative motion.
 
----
+## Required composition
 
-## 2. Implementation Steps
+### Shell
 
-1. **Server API (`server/server.mjs`)**:
-   - Add alias endpoint `POST /api/public/coaching-application` with the same robust database insertion and validation logic as `POST /api/leads`.
-   - Update validation to accept all 5-stage fields (`goals`, `goal_detail`, `current_training`, `training_days`, `training_environment`, `training_history`, `barrier`, `previous_attempts`, `coaching_value`, `why_now`, `name`, `email`, `phone`, `timezone`, `privacy_ack`).
-   - Store full 5-stage metadata durably in `attribution_json`.
-2. **Client Application Form (`src/pages/ApplyPage.tsx`)**:
-   - Refactor into the 5-stage progressive layout.
-   - Maintain the compact, above-the-fold layout with the `01 / 05` progress indicator and in-flow navigation.
-   - Keep inputs keyboard-accessible with visible labels and clear validation states.
-3. **Build & Automated Verification**:
-   - Run unit/integration tests with `pnpm run build` and a local Node server script.
-   - Verify server POST persistence and valid response codes.
-4. **Git Checkpoint & Production Deployment**:
-   - Push commit to `origin/main` to trigger platform auto-publish for `https://baseln-swpjc9hq.manus.space`.
-   - Verify live endpoints: `/online/register`, `/_app/ready`, and test submission.
+- Remove the regular promotional header, Apply CTA/floating CTA and standard promotional footer from `/online/register` only.
+- Retain the supplied BASELN wordmark, a visible return-home action, browser navigation, legal links and accessible skip navigation.
+- Do not create a standalone campaign site: the route remains part of the existing website and retains its current server/API contract.
+
+### Desktop
+
+- Use a broad `max-w-[1280px]` two-column editorial composition with content-driven height and no empty billboard area.
+- Left panel copy exactly:
+  - `BASELN / APPLICATION`
+  - `GOOD TRAINING STARTS HERE.`
+  - `Tell us where you want to go. We’ll work out the best way to get you there.`
+  - `STRENGTH. CONDITIONING. BODY COMPOSITION.`
+- Do not introduce an image unless it is a confirmed real, approved BASELN asset; use the dark forest colour field by default.
+- Right panel presents the dynamic `01 / 05 — [STAGE]` label, `2–3 MIN`, segmented progress, stage prompt, answer group and a full-width primary action as one connected working group.
+
+### Mobile/tablet
+
+- One column, 20–24px side padding, short intro and immediate form access.
+- No fixed height, overflow traps or excess vacant space.
+- Maintain large touch targets and simple content-driven vertical rhythm (20–28px).
+
+## Functional invariants
+
+1. Five stages and all current question names/options remain unchanged.
+2. Existing state transitions, validation, accessibility labels, consent, attribution, durable same-origin API request and server-confirmed receipt remain unchanged.
+3. `/apply` continues to 301 to `/online/register` with the complete query string preserved.
+4. Public application remains price-free and checkout-free.
+5. The lead owner response commitment remains one business day.
+
+## Project structure
+
+- `src/pages/ApplyPage.tsx` — five-stage form state, existing submission contract and redesigned route-specific interface.
+- `src/App.tsx` — route-aware application shell that removes regular promotional chrome only for `/online/register`.
+- `server/server.mjs` — unchanged durable lead and redirect contract.
+- `TODO.md` — implementation outcomes and completion evidence.

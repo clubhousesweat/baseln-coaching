@@ -122,6 +122,8 @@ export const App: React.FC = () => {
     if (window.location.pathname !== path) window.history.pushState({}, '', path);
   };
 
+  const isApplicationRoute = currentPath === CANONICAL_APPLICATION_PATH;
+
   return (
     <div className="min-h-[100dvh] w-full bg-charcoal-950 text-paper-200 flex flex-col font-sans selection:bg-smoke-500 selection:text-charcoal-950">
       <a
@@ -130,8 +132,12 @@ export const App: React.FC = () => {
       >
         Skip to main content
       </a>
-      <Header currentPath={currentPath} onNavigate={handleNavigate} />
-      <main id="main-content" className="flex-1 w-full bg-charcoal-900 focus:outline-none" tabIndex={-1}>
+      {!isApplicationRoute && <Header currentPath={currentPath} onNavigate={handleNavigate} />}
+      <main
+        id="main-content"
+        className={isApplicationRoute ? 'flex-1 w-full focus:outline-none' : 'flex-1 w-full bg-charcoal-900 focus:outline-none'}
+        tabIndex={-1}
+      >
         {currentPath === '/' && <HomePage onNavigate={handleNavigate} />}
         {currentPath === '/coaching' && <CoachingPage onNavigate={handleNavigate} />}
         {currentPath === '/about' && <AboutPage onNavigate={handleNavigate} />}
@@ -148,7 +154,7 @@ export const App: React.FC = () => {
         {currentPath === '/refund-policy' && <LegalPage type="refund-policy" onNavigate={handleNavigate} />}
         {currentPath === '/training-disclaimer' && <LegalPage type="training-disclaimer" onNavigate={handleNavigate} />}
       </main>
-      <Footer onNavigate={handleNavigate} />
+      {!isApplicationRoute && <Footer onNavigate={handleNavigate} />}
     </div>
   );
 };
