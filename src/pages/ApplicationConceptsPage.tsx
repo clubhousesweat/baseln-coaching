@@ -1,0 +1,3 @@
+import React from 'react';
+import { PageRoute } from '../types';
+export const ApplicationConceptsPage: React.FC<{ onNavigate: (path: PageRoute) => void }> = ({onNavigate}) => <div className="pt-24 px-3 sm:px-8 pb-10 max-w-[1280px] mx-auto"><h1 className="text-3xl py-6">Application design directions</h1><p className="text-paper-300 mb-6">Three concepts for review. These previews do not submit applications.</p><iframe title="Desktop and mobile application design concepts" src="/application-concepts.html" className="w-full min-h-[1100px] border-0" /><button onClick={()=>onNavigate('/')} className="py-4 text-smoke-300">Return to BASELN</button></div>;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { CheckCircle2, AlertCircle, ArrowLeft, ArrowRight, Check, Shield } from 'lucide-react';
 import { PageRoute } from '../types';
 import { trackEvent, getAttribution, AttributionData } from '../utils/analytics';
@@ -75,6 +75,8 @@ const TRAINING_HISTORY_OPTIONS = [
 ];
 
 export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
+  const submissionKey = useRef(crypto.randomUUID());
+  const submissionBusy = useRef(false);
   const [stage, setStage] = useState<number>(1);
   const [attribution, setAttribution] = useState<AttributionData | null>(null);
 
@@ -210,6 +212,7 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (submissionBusy.current) return;
     setErrorMsg('');
 
     if (!name.trim()) {
@@ -263,25 +266,28 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
       marketingOptIn: false,
     };
 
+    submissionBusy.current = true;
     setIsSubmitting(true);
 
     try {
       // POST to /api/public/coaching-application (or /api/leads fallback)
       const response = await fetch('/api/public/coaching-application', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'Idempotency-Key': submissionKey.current },
         body: JSON.stringify(payload),
       });
 
       const result = await response.json().catch(() => ({}));
-      if (!response.ok || (result.ok !== true && !result.leadId)) {
+      if (!response.ok || result.ok !== true || !Number.isSafeInteger(result.leadId) || result.leadId <= 0) {
         const message = typeof result.error === 'string' ? result.error : 'We could not securely receive your application. Please try again.';
         throw new Error(message);
       }
 
       const leadId = result.leadId;
+      let receiptStored = false;
       try {
         sessionStorage.setItem('baseln_last_lead_receipt', JSON.stringify({ leadId, receivedAt: new Date().toISOString() }));
+        receiptStored = true;
       } catch {
         // storage optional
       }
@@ -300,10 +306,12 @@ export const ApplyPage: React.FC<ApplyPageProps> = ({ onNavigate }) => {
       });
 
       setSubmitted(true);
+      if (receiptStored) onNavigate('/application-received');
       window.scrollTo({ top: 40, behavior: 'smooth' });
     } catch (err) {
       setErrorMsg(err instanceof Error ? err.message : 'We could not submit your application right now. Please try again.');
     } finally {
+      submissionBusy.current = false;
       setIsSubmitting(false);
     }
   };

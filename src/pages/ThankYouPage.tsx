@@ -1,80 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { CheckCircle2, ArrowRight } from 'lucide-react';
 import { PageRoute } from '../types';
 
-interface ThankYouPageProps {
-  onNavigate: (path: PageRoute) => void;
-}
-
-export const ThankYouPage: React.FC<ThankYouPageProps> = ({ onNavigate }) => {
-  const [leadReceipt, setLeadReceipt] = useState<{ leadId?: number; receivedAt?: string } | null>(null);
-
-  useEffect(() => {
-    try {
-      const cached = sessionStorage.getItem('baseln_last_lead_receipt');
-      if (cached) {
-        setLeadReceipt(JSON.parse(cached));
-      }
-    } catch {
-      // optional receipt data
-    }
-  }, []);
-
-  return (
-    <div className="pt-24 min-h-[90vh] bg-charcoal-950 pb-20">
-      <div className="max-w-[800px] mx-auto px-5 sm:px-8 py-12">
-        <div className="mb-9">
-          <span className="text-xs font-mono uppercase tracking-widest text-smoke-400 block mb-2">BASELN / ENQUIRY CONFIRMATION</span>
-          <h1 className="font-serif text-3xl sm:text-5xl font-light text-white leading-[1.04] uppercase mb-4">
-            <span className="block">ENQUIRY</span>
-            <span className="block text-smoke-300 italic font-normal">CONFIRMED.</span>
-          </h1>
-          <p className="text-sm sm:text-base text-paper-300 font-light leading-relaxed max-w-2xl">
-            Your private coaching enquiry has been recorded in the BASELN intake queue.
-          </p>
-        </div>
-
-        <div className="p-8 sm:p-12 bg-charcoal-900 border border-smoke-500/30 rounded-sm space-y-6 shadow-2xl animate-in fade-in duration-300">
-          <div className="w-12 h-12 rounded-full bg-smoke-500/20 flex items-center justify-center text-smoke-300">
-            <CheckCircle2 size={28} />
-          </div>
-
-          <div className="space-y-2">
-            <h2 className="font-serif text-2xl sm:text-3xl text-white">Enquiry received.</h2>
-            {leadReceipt?.leadId && (
-              <span className="inline-block text-xs font-mono text-smoke-400 bg-smoke-500/10 px-2.5 py-1 rounded border border-smoke-500/20">
-                Reference ID #{leadReceipt.leadId}
-              </span>
-            )}
-          </div>
-
-          <div className="p-5 bg-charcoal-850 border border-white/5 rounded-sm">
-            <p className="text-sm text-paper-200 font-light leading-relaxed">
-              “Received. Aian will review your brief and contact you about the next step.”
-            </p>
-          </div>
-
-          <p className="text-xs sm:text-sm text-paper-400 font-light leading-relaxed">
-            Aian reviews every enquiry personally within one business day. If BASELN is a fit, he will explain the next appropriate step and what coaching could look like before you decide whether to start.
-          </p>
-
-          <div className="pt-4 border-t border-white/10 flex flex-wrap items-center gap-4">
-            <button
-              onClick={() => onNavigate('/')}
-              className="text-xs uppercase tracking-widest font-semibold bg-white/10 hover:bg-white/15 text-white px-5 py-3 rounded-sm transition-colors"
-            >
-              Return home
-            </button>
-            <button
-              onClick={() => onNavigate('/coaching')}
-              className="text-xs uppercase tracking-widest font-semibold text-smoke-400 hover:text-white inline-flex items-center gap-1.5"
-            >
-              <span>Explore coaching inclusions</span>
-              <ArrowRight size={14} />
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+export const ThankYouPage: React.FC<{ onNavigate: (path: PageRoute) => void }> = ({ onNavigate }) => {
+  const [receipt, setReceipt] = useState<{leadId:number}|null>(null);
+  const [loaded, setLoaded] = useState(false);
+  useEffect(()=>{
+    try { const value=JSON.parse(sessionStorage.getItem('baseln_last_lead_receipt')||'null'); if(Number.isSafeInteger(value?.leadId)&&value.leadId>0) setReceipt(value); } catch {}
+    setLoaded(true);
+  },[]);
+  return <div className="pt-24 pb-20 px-5"><div className="max-w-[720px] mx-auto py-14">
+    <p className="font-mono text-xs tracking-widest text-smoke-300">BASELN / APPLICATION</p>
+    <h1 className="font-serif text-4xl sm:text-5xl mt-5">{!loaded ? 'Your application.' : receipt ? 'GOOD. WE’VE GOT IT.' : 'Application receipt.'}</h1>
+    {loaded && (receipt ? <>
+      <p className="text-sm text-smoke-300 mt-5">Reference #{receipt.leadId}</p>
+      <p className="text-lg text-paper-200 leading-relaxed mt-6">Thanks for applying for private coaching with BASELN. Aian will personally review your application and respond within one business day.</p>
+      <ol className="mt-8 space-y-5 border-y border-white/10 py-7 text-paper-300"><li><strong className="text-paper-100">01 / Personal review.</strong> Your goals, training and coaching priorities are reviewed.</li><li><strong className="text-paper-100">02 / A conversation.</strong> Suitable applicants receive an invitation to a 15–20-minute consultation.</li><li><strong className="text-paper-100">03 / Getting started.</strong> If you decide to enrol, your detailed private assessment follows payment and acceptance of the coaching terms.</li></ol>
+      <p className="mt-6 text-paper-300">There is nothing else you need to complete now. This application does not commit you to coaching.</p>
+    </> : <p className="mt-6 text-paper-300 leading-relaxed">No application receipt is available in this browser session. If you have already applied, contact Aian before submitting again.</p>)}
+    <p className="mt-7"><a href="mailto:aian@baseln.co" className="text-smoke-300 underline">aian@baseln.co</a></p>
+    <button onClick={()=>onNavigate(receipt?'/':'/online/register')} className="mt-8 bg-smoke-400 text-charcoal-950 px-6 py-4 text-sm uppercase tracking-widest">{receipt?'Return to BASELN':'View application'}</button>
+  </div></div>;
 };

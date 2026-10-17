@@ -1,3 +1,5 @@
+import { createHash } from 'node:crypto';
+import { initialiseWorkflow, recordApplicationWorkflow, mountWorkflow, processOutbox, sendTransactionalEmail } from './workflow.mjs';
 import express from 'express';
 import mysql from 'mysql2/promise';
 import path from 'node:path';
@@ -41,6 +43,9 @@ const publicMetadata = {
     description: 'Apply for private online coaching with BASELN. Five short stages to understand your goals, training schedule and starting point.',
     noindex: true,
   },
+  '/application-received': { title: 'Application received | BASELN', description: 'Next steps after applying for BASELN coaching.', noindex: true },
+  '/onboarding': { title: 'Private starting assessment | BASELN', description: 'Private client assessment.', noindex: true },
+  '/application-concepts': { title: 'Application design review | BASELN', description: 'Application design concepts.', noindex: true },
   '/online/thank-you': {
     title: 'Application Received | BASELN Online Coaching',
     description: 'Confirmation receipt for your BASELN private online coaching application.',
@@ -88,6 +93,20 @@ const legacyRedirects = {
 const app = express();
 app.disable('x-powered-by');
 app.use(express.json({ limit: '64kb' }));
+const proxyHops = Number(process.env.TRUST_PROXY_HOPS || 0);
+if (Number.isInteger(proxyHops) && proxyHops > 0 && proxyHops <= 3) app.set('trust proxy', proxyHops);
+app.use((_req, res, next) => { res.set('Referrer-Policy', 'no-referrer'); res.set('X-Content-Type-Options', 'nosniff'); next(); });
+const apiLimits = new Map();
+app.use('/api', (req, res, next) => {
+  const key = `${req.ip}:${req.path}`;
+  const now = Date.now(); const entry = apiLimits.get(key);
+  const limit = req.path.startsWith('/session') ? 10 : 60;
+  const count = entry && entry.until > now ? entry.count + 1 : 1;
+  if (apiLimits.size > 10000) apiLimits.delete(apiLimits.keys().next().value);
+  apiLimits.set(key, { count, until: entry && entry.until > now ? entry.until : now + 900000 });
+  if (count > limit) { res.set('Retry-After', '900'); return res.status(429).json({ error: 'Please wait before trying again.' }); }
+  next();
+});
 
 let databasePool = null;
 let databaseReady = false;
@@ -220,6 +239,11 @@ const initialiseDatabase = async () => {
       INDEX coaching_leads_stage_idx (lead_stage)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
   `);
+  await initialiseWorkflow(databasePool);
+  await databasePool.query(`CREATE TABLE IF NOT EXISTS application_submissions (
+    request_key VARCHAR(64) PRIMARY KEY, payload_hash VARCHAR(64) NOT NULL, lead_id BIGINT UNSIGNED NOT NULL,
+    FOREIGN KEY (lead_id) REFERENCES coaching_leads(id) ON DELETE CASCADE
+  ) ENGINE=InnoDB`);
   databaseReady = true;
 };
 
@@ -257,23 +281,6 @@ const renderedPageShell = (routePath) => {
     .replace(/<meta name="twitter:description" content="[^"]*"\s*\/>/, `<meta name="twitter:description" content="${description}" />`)
     .replace(/<meta name="twitter:image" content="[^"]*"\s*\/>/, `<meta name="twitter:image" content="${canonicalOgImage}" />`)
     .replace('</head>', `  ${robots}\n  </head>`);
-};
-
-const sendOwnerNotification = async ({ leadId, email, objective }) => {
-  if (!process.env.MANUS_API_URL || !process.env.MANUS_API_KEY) return;
-  const response = await fetch(`${process.env.MANUS_API_URL}/webdevtoken.v1.WebDevService/SendNotification`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${process.env.MANUS_API_KEY}`,
-      'Content-Type': 'application/json',
-      'connect-protocol-version': '1',
-    },
-    body: JSON.stringify({
-      title: `New BASELN 5-stage coaching application #${leadId}`,
-      content: `A new coaching application has been received and is due for personal review within one business day. Applicant: ${email}. Primary goals: ${objective}. Review the durable BASELN lead queue for the complete application. Operational inbox: Outlook.`,
-    }),
-  });
-  if (!response.ok) throw new Error(`Owner notification returned ${response.status}.`);
 };
 
 const appendQuery = (request, destination) => {
@@ -322,12 +329,17 @@ for (const [legacyPath, destination] of Object.entries(legacyRedirects)) {
   app.get(legacyPath, (request, response) => response.redirect(301, appendQuery(request, destination)));
 }
 
+mountWorkflow(app, () => databaseReady ? databasePool : null);
+
 // Handler for both /api/leads and /api/public/coaching-application
 const handleCoachingApplication = async (request, response) => {
   if (!databaseReady || !databasePool) {
     return response.status(503).json({ ok: false, error: 'The application service is not ready. Please try again shortly.' });
   }
 
+  if (request.body?.website) return response.status(400).json({ ok: false, error: 'Please submit the form directly.' });
+  const requestKey = request.get('Idempotency-Key');
+  if (requestKey && !/^[a-zA-Z0-9-]{16,64}$/.test(requestKey)) return response.status(400).json({ error: 'Invalid submission reference.' });
   const errors = [];
   const payload = request.body && typeof request.body === 'object' ? request.body : {};
 
@@ -365,6 +377,11 @@ const handleCoachingApplication = async (request, response) => {
 
   if (!/^\S+@\S+\.\S+$/.test(email || '')) errors.push('valid email address');
 
+  if (Array.isArray(payload.goals)) {
+    for (const [key, label] of [['current_training', 'current training'], ['training_days', 'training availability'], ['training_environment', 'training environment'], ['why_now', 'preferred start']]) {
+      if (!optionalText(payload[key], 2000)) errors.push(label);
+    }
+  }
   if (errors.length) {
     return response.status(400).json({ ok: false, error: `Please provide: ${[...new Set(errors)].join(', ')}.` });
   }
@@ -416,8 +433,23 @@ const handleCoachingApplication = async (request, response) => {
     attribution.last_touch_at,
   ];
 
+  const payloadHash = createHash('sha256').update(JSON.stringify({
+    fullName, email: email.toLowerCase(), timezone, mainObjective, trainingDays, currentTraining,
+    trainingEnvironment, trainingHistory, barrier, previousAttempts, coachingValue, whyNow,
+    goalDetail: payload.goal_detail || null, phone: payload.phone || null, age: payload.age || null,
+  })).digest('hex');
+  const connection = await databasePool.getConnection();
   try {
-    const [result] = await databasePool.execute(
+    await connection.beginTransaction();
+    if (requestKey) {
+      const [existing] = await connection.execute('SELECT * FROM application_submissions WHERE request_key=?', [requestKey]);
+      if (existing.length) {
+        await connection.rollback();
+        if (existing[0].payload_hash !== payloadHash) return response.status(409).json({ error: 'This submission reference has already been used. Contact Aian before submitting again.' });
+        return response.status(201).json({ ok: true, leadId: Number(existing[0].lead_id), duplicate: true });
+      }
+    }
+    const [result] = await connection.execute(
       `INSERT INTO coaching_leads (
         full_name, email, country_time_zone, phone, main_objective, biggest_obstacle,
         available_days, preferred_start_date, referral_source, privacy_consent,
@@ -430,15 +462,21 @@ const handleCoachingApplication = async (request, response) => {
     );
 
     const leadId = Number(result.insertId);
-    sendOwnerNotification({ leadId, email: email.toLowerCase(), objective: mainObjective }).catch((error) => {
-      console.error(`Owner notification failed for lead ${leadId}:`, error.message);
-    });
+    await recordApplicationWorkflow(connection, leadId);
+    if (requestKey) await connection.execute('INSERT INTO application_submissions (request_key,payload_hash,lead_id) VALUES (?,?,?)', [requestKey, payloadHash, leadId]);
+    await connection.commit();
     console.info(`BASELN coaching application lead ${leadId} stored successfully.`);
     return response.status(201).json({ ok: true, leadId });
   } catch (error) {
-    console.error('BASELN lead submission failed:', error.message);
+    await connection.rollback();
+    if (requestKey && error.code === 'ER_DUP_ENTRY') {
+      const [existing] = await databasePool.execute('SELECT * FROM application_submissions WHERE request_key=?', [requestKey]);
+      if (existing[0]?.payload_hash === payloadHash) return response.status(201).json({ ok: true, leadId: Number(existing[0].lead_id), duplicate: true });
+      return response.status(409).json({ error: 'This submission reference is already in use.' });
+    }
+    console.error('BASELN lead submission failed:', error.code || 'storage_error');
     return response.status(500).json({ ok: false, error: 'We could not securely receive your enquiry. Please try again, or email aian@baseln.co.' });
-  }
+  } finally { connection.release(); }
 };
 
 app.post('/api/leads', handleCoachingApplication);
@@ -452,9 +490,19 @@ app.use((request, response, next) => {
   return next();
 });
 
+app.use((error, _request, response, _next) => {
+  console.error('BASELN request failed:', error.code || error.type || 'request_error');
+  response.status(error.status === 413 ? 413 : 500).json({ ok: false, error: error.status === 413 ? 'This request is too large.' : 'The service could not complete this request. Please try again.' });
+});
+
 const start = async () => {
   await initialiseDatabase();
   siteShell = await readFile(publicIndexPath, 'utf8');
+  if (process.env.RESEND_API_KEY && process.env.TRANSACTIONAL_FROM && databaseReady) {
+    const deliver = () => processOutbox(databasePool, sendTransactionalEmail, process.env.PUBLIC_ORIGIN || publicOrigin).catch(() => console.error('Application email worker failed.'));
+    const timer = setInterval(deliver, 30000); timer.unref();
+    void deliver();
+  }
   app.listen(port, '0.0.0.0', () => {
     console.info(`BASELN coaching server listening on ${port}.`);
   });

@@ -58,8 +58,8 @@ console.log('=== Test 2: Five-stage form and accessible controls ===');
 
 console.log('=== Test 3: Route-specific application chrome ===');
 mustContain(appSource, 'const isApplicationRoute = currentPath === CANONICAL_APPLICATION_PATH;', 'Application route must be distinguished from ordinary site routes.');
-mustContain(appSource, '{!isApplicationRoute && <Header', 'Regular promotional header must be removed for the application route.');
-mustContain(appSource, '{!isApplicationRoute && <Footer', 'Regular promotional footer must be removed for the application route.');
+mustContain(appSource, '{!isApplicationRoute && !isPrivateAssessment && <Header', 'Regular promotional header must be removed for the application route.');
+mustContain(appSource, '{!isApplicationRoute && !isPrivateAssessment && <Footer', 'Regular promotional footer must be removed for the application route.');
 
 console.log('=== Test 4: Durable application contract ===');
 [
@@ -77,7 +77,7 @@ console.log('=== Test 4: Durable application contract ===');
   "response.redirect(301, appendQuery(request, '/online/register'))",
   'goalsArray',
   'hasConsent',
-  'sendOwnerNotification',
+  'recordApplicationWorkflow',
   'return response.status(201).json({ ok: true, leadId });',
 ].forEach((phrase) => mustContain(serverSource, phrase, `Missing server delivery contract: ${phrase}`));
 

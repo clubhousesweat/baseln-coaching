@@ -7,6 +7,8 @@ import { AboutPage } from './pages/AboutPage';
 import { FieldNotesPage } from './pages/FieldNotesPage';
 import { ApplyPage } from './pages/ApplyPage';
 import { TrainingRoomPage } from './pages/TrainingRoomPage';
+import { OnboardingPage } from './pages/OnboardingPage';
+import { ApplicationConceptsPage } from './pages/ApplicationConceptsPage';
 import { ThankYouPage } from './pages/ThankYouPage';
 import { MemberLoginPage } from './pages/MemberLoginPage';
 import { CoachPortalPage } from './pages/CoachPortalPage';
@@ -34,6 +36,9 @@ const validPaths: PageRoute[] = [
   '/field-notes',
   CANONICAL_APPLICATION_PATH,
   '/online/thank-you',
+  '/application-received',
+  '/onboarding',
+  '/application-concepts',
   '/training-room',
   '/member-login',
   '/app',
@@ -123,6 +128,7 @@ export const App: React.FC = () => {
   };
 
   const isApplicationRoute = currentPath === CANONICAL_APPLICATION_PATH;
+  const isPrivateAssessment = currentPath === '/onboarding';
 
   return (
     <div className="min-h-[100dvh] w-full bg-charcoal-950 text-paper-200 flex flex-col font-sans selection:bg-smoke-500 selection:text-charcoal-950">
@@ -132,7 +138,7 @@ export const App: React.FC = () => {
       >
         Skip to main content
       </a>
-      {!isApplicationRoute && <Header currentPath={currentPath} onNavigate={handleNavigate} />}
+      {!isApplicationRoute && !isPrivateAssessment && <Header currentPath={currentPath} onNavigate={handleNavigate} />}
       <main
         id="main-content"
         className={isApplicationRoute ? 'flex-1 w-full focus:outline-none' : 'flex-1 w-full bg-charcoal-900 focus:outline-none'}
@@ -143,10 +149,12 @@ export const App: React.FC = () => {
         {currentPath === '/about' && <AboutPage onNavigate={handleNavigate} />}
         {currentPath === '/field-notes' && <FieldNotesPage onNavigate={handleNavigate} />}
         {currentPath === CANONICAL_APPLICATION_PATH && <ApplyPage onNavigate={handleNavigate} />}
-        {currentPath === '/online/thank-you' && <ThankYouPage onNavigate={handleNavigate} />}
+        {(currentPath === '/online/thank-you' || currentPath === '/application-received') && <ThankYouPage onNavigate={handleNavigate} />}
         {currentPath === '/training-room' && <TrainingRoomPage onNavigate={handleNavigate} />}
         {currentPath === '/member-login' && <MemberLoginPage onNavigate={handleNavigate} />}
         {currentPath === '/app' && <MemberLoginPage onNavigate={handleNavigate} />}
+        {currentPath === '/onboarding' && <OnboardingPage onNavigate={handleNavigate} />}
+        {currentPath === '/application-concepts' && <ApplicationConceptsPage onNavigate={handleNavigate} />}
         {currentPath === '/coach' && <CoachPortalPage onNavigate={handleNavigate} />}
         {currentPath === '/contact' && <ContactPage onNavigate={handleNavigate} />}
         {currentPath === '/privacy' && <LegalPage type="privacy" onNavigate={handleNavigate} />}
@@ -154,7 +162,7 @@ export const App: React.FC = () => {
         {currentPath === '/refund-policy' && <LegalPage type="refund-policy" onNavigate={handleNavigate} />}
         {currentPath === '/training-disclaimer' && <LegalPage type="training-disclaimer" onNavigate={handleNavigate} />}
       </main>
-      {!isApplicationRoute && <Footer onNavigate={handleNavigate} />}
+      {!isApplicationRoute && !isPrivateAssessment && <Footer onNavigate={handleNavigate} />}
     </div>
   );
 };
