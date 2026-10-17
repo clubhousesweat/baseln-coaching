@@ -10,19 +10,19 @@ const serverSource = readFileSync(path.join(projectRoot, 'server/server.mjs'), '
 
 const mustContain = (source, phrase, message) => assert.ok(source.includes(phrase), message);
 
-console.log('=== Test 1: Editorial application composition ===');
+console.log('=== Test 1: Selected Contemporary Premium Coaching composition ===');
 [
   'BASELN / APPLICATION',
-  'GOOD TRAINING STARTS HERE.',
-  'Tell us where you want to go. We’ll work out the best way to get you there.',
-  'STRENGTH. CONDITIONING. BODY COMPOSITION.',
-  '2–3 MIN',
-  'max-w-[1280px]',
-  'lg:grid-cols-[minmax(360px,0.86fr)_minmax(0,1.14fr)]',
+  'START WITH A CONVERSATION.',
+  'Tell us what you’re working towards. We’ll take it from there.',
+  '/media/baseln-front-squat-coaching.png',
+  '2–3 MINUTES · NO COMMITMENT',
+  'max-w-[720px]',
+  'id="application-stage"',
   'bg-[#0B0C0E]',
   'bg-[#07080A]',
   'bg-[#C7D5D7]',
-  'bg-[#8AA3B6]',
+  'bg-[#A4B8C8]/10',
   'text-[#F9F9F8]',
 ].forEach((phrase) => mustContain(applySource, phrase, `Missing editorial composition token: ${phrase}`));
 [

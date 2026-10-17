@@ -57,7 +57,7 @@ Use HTTPS for authenticated pages; session cookies are always Secure. No secret 
 - Modern Heritage Training Club
 - Contemporary Premium Coaching
 
-The latest shared-chat brief asks for a selected direction before rebuilding the final application presentation. These previews submit nothing. The current application styling is retained while the underlying process is implemented.
+Contemporary Premium Coaching was selected. The actual five-stage application now uses that direction: photographic masthead, compact introduction, centred 720px form area and understated row selections. These comparison previews submit nothing.
 
 ## Not deployed / launch dependencies
 
