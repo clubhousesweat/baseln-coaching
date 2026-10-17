@@ -16,22 +16,14 @@ const baselineFields = [
 ];
 
 const baseSixIncludes = [
-  'Detailed starting assessment',
-  'Individual training prescription',
-  'Strength programming',
-  'Conditioning programming',
-  'Body-composition strategy',
-  'Nutrition coaching',
-  'Direct access to Aian',
-  'Training technique feedback',
-  'Video analysis',
-  'Progress monitoring',
-  'Regular coaching review',
-  'Programme adjustments',
-  'Lifestyle and habit guidance',
-  'Event/sport integration where relevant',
-  'Private Training Room access',
-  'Six-week progress review',
+  'Detailed assessment and personal priorities',
+  'Tailored strength and conditioning',
+  'Nutrition and body-composition guidance',
+  'Weekly progress reviews and adjustments',
+  'Technique feedback and video analysis',
+  'Direct communication with Aian',
+  'Practical habits, recovery and accountability',
+  'Progress review and ongoing coaching priorities',
 ];
 
 export const CoachingPage: React.FC<CoachingPageProps> = ({ onNavigate }) => {
@@ -56,7 +48,7 @@ export const CoachingPage: React.FC<CoachingPageProps> = ({ onNavigate }) => {
     },
     {
       q: 'What happens after the first six weeks?',
-      a: 'You review the work together: what was completed, what the relevant measures show and what needs attention next. If ongoing coaching is right, the same private relationship carries forward with a clearer understanding of what works for you.',
+      a: 'BASELN / 6 is the starting phase of ongoing private coaching. At six weeks, you review your progress with Aian and agree the next priorities. Your programming, feedback and support continue under the coaching terms agreed before you start.',
     },
     {
       q: 'What does coaching cost?',
@@ -104,9 +96,7 @@ export const CoachingPage: React.FC<CoachingPageProps> = ({ onNavigate }) => {
             </div>
             <div className="lg:col-span-8">
               <div className="max-w-2xl text-base sm:text-lg text-paper-200 font-light leading-relaxed space-y-4">
-                <p>Before your first training week, Aian establishes your starting point properly.</p>
-                <p>Not just your age, weight and how many days you can train.</p>
-                <p>We look at what you want to achieve, what you’ve done before, how you’re currently training, what your week realistically allows, where you train, how you eat, how you recover and anything likely to influence the result.</p>
+                <p>Before training begins, you complete a detailed assessment and speak with Aian. Your goals, training history, equipment and routine shape the starting programme and nutrition guidance.</p>
               </div>
               <div className="mt-10 border-t border-white/15 grid grid-cols-1 sm:grid-cols-2">
                 {baselineFields.map((field, index) => (
@@ -116,9 +106,7 @@ export const CoachingPage: React.FC<CoachingPageProps> = ({ onNavigate }) => {
                   </div>
                 ))}
               </div>
-              <p className="mt-9 max-w-2xl font-serif text-xl sm:text-2xl text-paper-100 leading-relaxed">
-                We don’t collect information to make onboarding look impressive. <span className="text-smoke-300 italic">We collect what helps us coach you better.</span>
-              </p>
+
             </div>
           </div>
         </div>
@@ -129,8 +117,8 @@ export const CoachingPage: React.FC<CoachingPageProps> = ({ onNavigate }) => {
         <div className="relative max-w-[1080px] mx-auto px-5 sm:px-8">
           <span className="text-xs font-mono uppercase tracking-[0.2em] text-charcoal-950/65 block mb-4">BASELN / 6</span>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-9 lg:gap-x-14 items-end">
-            <div className="lg:col-span-7"><h2 className="font-serif text-4xl sm:text-5xl md:text-[60px] font-light leading-[0.95]">SIX WEEKS OF ACTUAL COACHING.</h2></div>
-            <p className="lg:col-span-5 text-base sm:text-lg text-charcoal-950/75 leading-relaxed">A clear starting point, direct responsibility for the work, and a review of what changed before the next decision is made.</p>
+            <div className="lg:col-span-7"><h2 className="font-serif text-4xl sm:text-5xl md:text-[60px] font-light leading-[0.95]">YOUR FIRST SIX WEEKS.</h2></div>
+            <p className="lg:col-span-5 text-base sm:text-lg text-charcoal-950/75 leading-relaxed">The beginning of ongoing private coaching. Establish your starting point, put the work into practice and adjust as you progress.</p>
           </div>
           <div className="mt-10 sm:mt-14 grid grid-cols-1 sm:grid-cols-2 gap-x-14 border-t border-charcoal-950/20 pt-6 sm:pt-8">
             {baseSixIncludes.map((item, index) => (
@@ -151,7 +139,7 @@ export const CoachingPage: React.FC<CoachingPageProps> = ({ onNavigate }) => {
             <div className="space-y-5 text-base sm:text-lg text-paper-200 font-light leading-relaxed">
               <p>Your coaching begins with a personal assessment and conversation with Aian, followed by training and nutrition guidance tailored to your goals.</p>
               <p>Throughout your first six weeks, you work directly with him for accountability, technique feedback and practical support. Aian reviews how you’re progressing and adjusts your training and nutrition where needed.</p>
-              <p>At six weeks, you review your progress together and agree the next priorities. If you continue, the same direct coaching and support carry through into your next block.</p>
+              <p>At six weeks, you review your progress together and set the next priorities for your ongoing coaching. It is a review point, with programming and support continuing under your agreed coaching terms.</p>
             </div>
           </div>
         </div>

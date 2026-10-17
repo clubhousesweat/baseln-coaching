@@ -1,8 +1,9 @@
 import assert from 'node:assert';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const projectRoot = path.resolve('/home/ubuntu/baseln');
+const projectRoot = path.dirname(fileURLToPath(import.meta.url));
 const applySource = readFileSync(path.join(projectRoot, 'src/pages/ApplyPage.tsx'), 'utf8');
 const appSource = readFileSync(path.join(projectRoot, 'src/App.tsx'), 'utf8');
 const serverSource = readFileSync(path.join(projectRoot, 'server/server.mjs'), 'utf8');

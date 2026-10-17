@@ -30,3 +30,19 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #323946;
 }
+
+@layer base {
+  button:focus-visible, a:focus-visible {
+    outline: 2px solid #8AA3B6;
+    outline-offset: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

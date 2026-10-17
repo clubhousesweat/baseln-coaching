@@ -53,17 +53,17 @@ const publicMetadata = {
   },
   '/member-login': {
     title: 'Client Portal Sign In | BASELN',
-    description: 'Secure client authentication portal for active BASELN coaching clients.',
+    description: 'Client access information and support from Aian McLennan.',
     noindex: true,
   },
   '/app': {
     title: 'Client Portal Sign In | BASELN',
-    description: 'Secure client authentication portal for active BASELN coaching clients.',
+    description: 'Client access information and support from Aian McLennan.',
     noindex: true,
   },
   '/coach': {
     title: 'Coach Portal | BASELN Operations',
-    description: 'Protected operational portal for BASELN coaching staff.',
+    description: 'Coach access information for BASELN operations.',
     noindex: true,
   },
   '/contact': {

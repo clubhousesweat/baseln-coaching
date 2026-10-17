@@ -22,7 +22,7 @@ const inclusionGroups = [
   {
     marker: '03',
     title: 'COACHING & SUPPORT',
-    items: ['Direct access to Aian', 'Accountability', 'Progress reviews', 'One on One Interactions', 'Training Room and community'],
+    items: ['Direct access to Aian', 'Weekly progress reviews', 'Technique video feedback', 'Accountability and habit support'],
   },
 ];
 
@@ -95,42 +95,20 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
               <span className="text-xs font-mono uppercase tracking-widest text-smoke-400 block mb-4">WHAT’S INCLUDED</span>
               <h2 className="font-serif text-4xl sm:text-5xl md:text-[62px] font-light text-white leading-[0.98]"><span className="block">PRIVATE COACHING.</span><span className="block italic text-smoke-300">The full experience.</span></h2>
             </div>
-            <p className="max-w-[290px] pb-1 text-sm sm:text-base text-paper-300 font-light leading-relaxed lg:text-right">The work is built around your programme, your actual week and a coach who stays involved.</p>
+            <p className="max-w-[290px] pb-1 text-sm sm:text-base text-paper-300 font-light leading-relaxed lg:text-right">Training, nutrition and ongoing feedback, coordinated by Aian around your goals.</p>
           </header>
 
-          <div className="relative mt-10 sm:mt-14 lg:hidden">
-            <div className="absolute left-[19px] top-0 bottom-10 border-l border-smoke-400/50" aria-hidden="true" />
-            <div className="relative pl-10"><InclusionZone group={inclusionGroups[0]} /></div>
-            <figure className="relative ml-10 mt-8 h-44 sm:h-56 overflow-hidden rounded-sm border border-white/10"><img src="/media/baseln-front-squat-coaching.png" alt="Aian coaching a front squat" className="w-full h-full object-cover object-[50%_39%] grayscale contrast-110" /></figure>
-            <div className="relative mt-10 pl-10"><InclusionZone group={inclusionGroups[1]} /></div>
-            <figure className="relative ml-10 mt-8 h-44 sm:h-56 overflow-hidden rounded-sm border border-white/10"><img src="/media/baseln-row-coaching.png" alt="Coaching and strength training in progress" className="w-full h-full object-cover object-[50%_54%] grayscale contrast-110" /></figure>
-            <div className="relative mt-10 pl-10"><InclusionZone group={inclusionGroups[2]} /></div>
-            <button onClick={exploreCoaching} className="relative ml-10 inline-flex items-center gap-2 mt-11 text-xs sm:text-sm uppercase tracking-widest font-semibold text-smoke-400 hover:text-white transition-colors"><span>Explore private coaching</span><ArrowRight size={16} /></button>
+          <div className="mt-10 sm:mt-14 grid grid-cols-1 md:grid-cols-3 border-y border-white/10">
+            {inclusionGroups.map((group, index) => (
+              <div key={group.marker} className={`py-7 sm:py-9 min-w-0 ${index > 0 ? 'border-t md:border-t-0 md:border-l border-white/10 md:pl-7' : ''} ${index < 2 ? 'md:pr-7' : ''}`}>
+                <InclusionZone group={group} />
+              </div>
+            ))}
           </div>
-
-          <div className="hidden lg:block relative mt-14 h-[750px] xl:h-[770px] border-y border-white/10">
-            <div className="absolute left-[13%] top-[8%] h-[73%] border-l border-smoke-400/30 -rotate-[23deg] origin-top" aria-hidden="true" />
-            <div className="absolute left-[37%] top-[31%] h-[53%] border-l border-smoke-400/40 rotate-[42deg] origin-top" aria-hidden="true" />
-            <span className="absolute left-[16%] top-[23%] h-2.5 w-2.5 rounded-full bg-smoke-400 shadow-[0_0_0_7px_rgba(151,180,200,0.10)]" aria-hidden="true" />
-            <span className="absolute right-[29%] top-[34%] h-2.5 w-2.5 rounded-full bg-smoke-400 shadow-[0_0_0_7px_rgba(151,180,200,0.10)]" aria-hidden="true" />
-            <span className="absolute left-[49%] bottom-[21%] h-2.5 w-2.5 rounded-full bg-smoke-400 shadow-[0_0_0_7px_rgba(151,180,200,0.10)]" aria-hidden="true" />
-
-            <InclusionZone group={inclusionGroups[0]} className="absolute left-0 top-14 w-[27%] z-10 transition-transform duration-500 hover:-translate-y-2" />
-            <figure className="group absolute left-[31%] top-0 z-20 h-[400px] w-[25%] overflow-hidden border border-white/10 bg-charcoal-950 shadow-2xl transition-transform duration-500 hover:-translate-y-3 hover:rotate-[1deg]" style={{ clipPath: 'polygon(6% 0, 100% 0, 94% 100%, 0 94%)' }}>
-              <img src="/media/baseln-front-squat-coaching.png" alt="Aian coaching a front squat" className="w-full h-full object-cover object-[50%_37%] grayscale contrast-110 transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0" />
-            </figure>
-
-            <InclusionZone group={inclusionGroups[1]} className="absolute right-0 top-[13%] w-[31%] z-10 transition-transform duration-500 hover:-translate-y-2" />
-            <figure className="group absolute right-[4%] top-[49%] z-20 h-[205px] w-[38%] overflow-hidden border border-white/10 bg-charcoal-950 shadow-2xl transition-transform duration-500 hover:-translate-y-3 hover:-rotate-[1deg]" style={{ clipPath: 'polygon(0 0, 96% 6%, 100% 100%, 5% 94%)' }}>
-              <img src="/media/baseln-gym-floor.png" alt="BASELN training floor in use" className="w-full h-full object-cover object-center grayscale contrast-110 transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0" />
-            </figure>
-
-            <figure className="group absolute left-[5%] bottom-0 z-10 h-[245px] w-[31%] overflow-hidden border border-white/10 bg-charcoal-950 transition-transform duration-500 hover:-translate-y-3 hover:rotate-[1deg]" style={{ clipPath: 'polygon(0 7%, 94% 0, 100% 94%, 5% 100%)' }}>
-              <img src="/media/baseln-row-coaching.png" alt="Aian providing hands-on coaching during a training session" className="w-full h-full object-cover object-[48%_55%] grayscale contrast-110 transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0" />
-            </figure>
-            <InclusionZone group={inclusionGroups[2]} className="absolute left-[43%] bottom-8 w-[43%] z-20 transition-transform duration-500 hover:-translate-y-2" />
-            <button onClick={exploreCoaching} className="absolute right-0 bottom-3 inline-flex items-center gap-2 text-xs sm:text-sm uppercase tracking-widest font-semibold text-smoke-400 hover:text-white transition-colors"><span>Explore private coaching</span><ArrowRight size={16} /></button>
-          </div>
+          <figure className="mt-7 sm:mt-9 h-52 sm:h-72 lg:h-80 overflow-hidden bg-charcoal-950">
+            <img src="/media/baseln-front-squat-coaching.png" alt="Aian coaching a front squat" loading="lazy" className="w-full h-full object-cover object-[50%_39%] grayscale contrast-110" />
+          </figure>
+          <button onClick={exploreCoaching} className="inline-flex items-center gap-3 mt-7 py-3 text-xs sm:text-sm uppercase tracking-widest font-semibold text-smoke-300 hover:text-white transition-colors"><span>Explore private coaching</span><ArrowRight size={16} /></button>
         </div>
       </section>
 

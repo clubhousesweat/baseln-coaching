@@ -2,8 +2,9 @@ import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const projectRoot = path.resolve('/home/ubuntu/baseln');
+const projectRoot = path.dirname(fileURLToPath(import.meta.url));
 const port = 3187;
 const baseUrl = `http://127.0.0.1:${port}`;
 
