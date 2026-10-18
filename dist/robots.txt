@@ -2,10 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /apply
 Disallow: /online/register
-Disallow: /online/thank-you
-Disallow: /member-login
-Disallow: /app
-Disallow: /coach
 Disallow: /api/
 
 Sitemap: https://baseln.co/sitemap.xml

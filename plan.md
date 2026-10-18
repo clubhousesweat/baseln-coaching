@@ -1,62 +1,67 @@
-# Implementation Plan — BASELN Editorial Application Redesign
+# BASELN — Private Coaching 5-Stage Application & Coordinated Brand Styling Plan
 
-**Authoritative project:** `wdp_6fb3ad35e165bbfb677ea4f2` in `/home/ubuntu/baseln`
-**Authoritative origin:** `https://baseln-swpjc9hq.manus.space`
-**Required public domain:** `https://baseln.co` after this exact project is deployed and bound.
+## 1. Product Requirements & Source Directives
 
-## Scope
+The user provided the definitive specification for the BASELN Private Coaching Application in `Pasted_content_68.txt`:
+1. **Core Purpose:** A premium, mobile-first coaching application (not a lengthy fitness questionnaire), taking ~2–3 minutes to turn interested visitors into qualified coaching enquiries. Detailed training, nutrition, injury and lifestyle assessments take place during onboarding, not before.
+2. **Unified Destination:** The exact same application serves both the website (`/online/register`) and Instagram bio/Story/Reel conversion (`/apply` 301 query-preserving redirect to `/online/register`).
+3. **Five-Stage Structure:**
+   - **Stage 01 / 05 — Your Goals (`APPLICATION / 01—05`):**
+     - Header: "YOUR GOALS. OUR STARTING POINT."
+     - Subhead: "A few quick questions to understand what you’re working towards and how we can help."
+     - Question: "What would you like to achieve?"
+     - Guidance: "Select everything that applies. You don’t need to have just one goal."
+     - Multi-select options:
+       - Lose body fat
+       - Build muscle
+       - Get stronger
+       - Improve conditioning (and "Improve fitness and conditioning")
+       - Prepare for an event (and "Train for an event")
+       - Improve general health and fitness
+   - **Stage 02 / 05 — Training Background & Experience:**
+     - Training context, current frequency, and realistic weekly schedule (e.g. 1–2 days, 3 days, 4 days, 5+ days).
+   - **Stage 03 / 05 — The Primary Challenge:**
+     - The main obstacle or what needs the coach's attention (e.g. routine consistency, technique, nutrition structure, accountability).
+   - **Stage 04 / 05 — Timelines & Logistics:**
+     - Preferred start timeline, time zone / country, and preferred contact method (email, phone/WhatsApp).
+   - **Stage 05 / 05 — Contact & Confirmation:**
+     - Full name, email address, optional phone/WhatsApp number, explicit privacy/health consent acknowledgement (`marketingOptIn: false`), and referral source fallback if ambiguous.
+4. **Post-Submission Experience:**
+   - Client is redirected to the polished confirmation page (`/online/thank-you` or in-page receipt) with clear expectation: personal review by Aian within one business day, next step explanation, and subsequent consultation invitation.
+5. **Form Styling & Brand Coordination:**
+   - User directive: "change the colour on the forms to coordinate with our website colours please".
+   - Coordinated brand colors:
+     - Background: Deep Charcoal (`#07080A` charcoal-950 and `#0B0C0E` charcoal-900 / `#111317` charcoal-850)
+     - Accents: Smoke-Blue (`#7C93A6` smoke-500, `#8AA3B6` smoke-400, `#A4B8C8` smoke-300)
+     - Typography: Clean Warm Off-White (`#F4F4F2` paper-200, `#E4E5E2` paper-300, `#C8CCC9` paper-400)
+     - Selection state: Pill/card tiles with subtle border transitions (`border-smoke-500/40`, active smoke-500 background `bg-smoke-500/15`, smoke-blue checkmark, warm-white text)
+     - No harsh generic blue, purple or rainbow gradients.
+6. **Social Media Coordination:**
+   - Active flagship Instagram profile is `@baseln.fit` (formerly `@baseln_retreats`).
+   - Profile link points to clean `https://baseln.co` or tracked `/online/register`.
+   - All social UTM attribution, first-touch, and last-touch non-direct assists must be preserved through the 5 stages and submitted to `POST /api/leads`.
 
-Replace the existing visual layer of `/online/register` with a quiet, in-site **five-stage editorial application**. This is a front-end redesign only. It must preserve the current five stages, question names, browser validation, API request shape, `POST /api/public/coaching-application` durable persistence, attribution capture, consent handling, server-confirmed receipt and query-preserving permanent `/apply` redirect.
+---
 
-No DNS, payment, public-price, CRM/database schema or application-routing changes are permitted as part of this release.
+## 2. Architecture & Data Flow
 
-## Design direction
+- **Frontend Client (`src/pages/ApplyPage.tsx`):**
+  - Stateful 5-stage progressive flow with clear back/continue controls, stage progress indicator (`APPLICATION / 01—05`), keyboard navigation, accessible labels (`<label htmlFor>`), and live error handling.
+  - Interactive multi-select goal pill buttons coordinating with smoke-blue and charcoal.
+  - Submits the consolidated payload to `/api/leads`.
+  - On 201 receipt, stores reference in `sessionStorage` and renders receipt or transitions to `/online/thank-you`.
+- **Backend API (`server/server.mjs`):**
+  - Accepts both consolidated multi-goal arrays and legacy fields.
+  - Saves all 5-stage fields, attribution JSON, UTM parameters, and consent flags into MySQL `coaching_leads`.
+  - Dispatches owner notification to Outlook (`aian@baseln.co`).
+- **Social Bio & Tracking:**
+  - Tracked route `https://baseln.co/apply?cta=instagram-profile&utm_source=instagram&utm_medium=organic_social&utm_campaign=baseln_instagram_takeover_2026q4&utm_content=takeover_profile_link` 301 redirects to `/online/register` with complete query preservation.
 
-- **Design movement:** restrained editorial intake — contemporary private-coaching hospitality rather than a SaaS form or campaign landing page.
-- **Brand essence:** a considered private-coaching application for people who value capable, sustainable training; **assured, practical, selective**.
-- **Layout paradigm:** at desktop, a content-driven 1200–1280px two-column composition. The left brand panel frames the decision; the right panel contains the compact working form. At tablet/mobile, it becomes one column with a short brand introduction followed immediately by the form.
-- **Colour philosophy:** use the existing BASELN dark system only: canvas `#07080a`; charcoal panel/surface `#0b0c0e` and `#111317`; primary paper `#f9f9f8`/`#f4f4f2`; secondary paper `#c8ccc9`; smoke-blue `#a4b8c8`, `#8aa3b6` and `#7c93a6` for selected/focus/progress; and `#C7D5D7` with charcoal text for the primary action. Rules remain low-opacity white. No cream, forest green, oxblood, stock, synthetic or composited imagery.
-- **Typography system:** supplied BASELN serif wordmark only; one dominant serif display line in the left panel; compact serif stage titles and clean sans/mono interface labels on the right.
-- **Signature elements:** thin five-part progress rule; full-card answer controls; quiet legal and return-home utility row.
-- **Interaction:** every answer card is fully clickable with visible hover, focus, selected, disabled and accessible error states. Selection is communicated by the complete card treatment, not just an icon.
-- **Animation:** only brief, reduced-motion-safe stage transitions; no hero, parallax or decorative motion.
+---
 
-## Required composition
+## 3. Verification & Acceptance Spec
 
-### Shell
-
-- Remove the regular promotional header, Apply CTA/floating CTA and standard promotional footer from `/online/register` only.
-- Retain the supplied BASELN wordmark, a visible return-home action, browser navigation, legal links and accessible skip navigation.
-- Do not create a standalone campaign site: the route remains part of the existing website and retains its current server/API contract.
-
-### Desktop
-
-- Use a broad `max-w-[1280px]` two-column editorial composition with content-driven height and no empty billboard area.
-- Left panel copy exactly:
-  - `BASELN / APPLICATION`
-  - `GOOD TRAINING STARTS HERE.`
-- `Tell us where you want to go. We’ll work out the best way to get you there.`
-- `STRENGTH. CONDITIONING. BODY COMPOSITION.`
-- Do not introduce an image unless it is a confirmed real, approved BASELN asset; use the BASELN charcoal colour field by default.
-- Right panel presents the dynamic `01 / 05 — [STAGE]` label, `2–3 MIN`, segmented progress, stage prompt, answer group and a full-width primary action as one connected working group.
-
-### Mobile/tablet
-
-- One column, 20–24px side padding, short intro and immediate form access.
-- No fixed height, overflow traps or excess vacant space.
-- Maintain large touch targets and simple content-driven vertical rhythm (20–28px).
-
-## Functional invariants
-
-1. Five stages and all current question names/options remain unchanged.
-2. Existing state transitions, validation, accessibility labels, consent, attribution, durable same-origin API request and server-confirmed receipt remain unchanged.
-3. `/apply` continues to 301 to `/online/register` with the complete query string preserved.
-4. Public application remains price-free and checkout-free.
-5. The lead owner response commitment remains one business day.
-
-## Project structure
-
-- `src/pages/ApplyPage.tsx` — five-stage form state, existing submission contract and redesigned route-specific interface.
-- `src/App.tsx` — route-aware application shell that removes regular promotional chrome only for `/online/register`.
-- `server/server.mjs` — unchanged durable lead and redirect contract.
-- `TODO.md` — implementation outcomes and completion evidence.
+- Build check (`tsc && vite build`) passes cleanly.
+- Unit/integration test verifies 5-stage form validation, stage transitions, multi-goal selection, and payload assembly.
+- Local server test confirms `POST /api/leads` stores new multi-goal payload with 201 and durable lead ID.
+- Live check on `https://baseln.co` after deployment confirms new 5-stage application is active, styling coordinates with smoke-blue/charcoal, and all routes remain functional.

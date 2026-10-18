@@ -8,8 +8,6 @@
     "dev": "vite --port 3000 --host 0.0.0.0",
     "dev:api": "PORT=3001 node server/server.mjs",
     "build": "tsc && vite build",
-    "test:application": "node test_e2e_5stage.mjs",
-    "test:social": "node test_social_metadata.mjs",
     "preview": "vite preview --port 3000 --host 0.0.0.0",
     "start": "node server/server.mjs"
   },

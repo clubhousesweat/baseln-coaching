@@ -1,13 +1,17 @@
-# BASELN Editorial Application Redesign — Release Outcomes
+# BASELN Release & Application Tasks
 
-- [x] **Route-specific editorial shell.** On `/online/register` only, the regular promotional header, standard footer, floating/redundant Apply CTA and full navigation are removed; supplied BASELN wordmark, visible return-home action, browser navigation, legal access, skip navigation and keyboard accessibility are retained. No other route is altered.
-
-- [x] **Responsive two-column application composition.** Desktop renders a broad `1200–1280px` two-column editorial composition with a dark-forest brand panel and compact right-stage form, content-driven height and no vacant billboard area. The specified left-panel copy is present. Mobile renders as one column with 20–24px side padding, short intro, large touch targets and no overflow in the visual review.
-
-- [x] **Five-stage form presentation without functional regression.** All existing stages, question names, options, validation messages, field labels, consent, attribution, accessible errors, browser interactions and receipt behaviour are preserved. The right panel includes stage label, `2–3 MIN`, segmented progress, compact stage heading, answer group and full-width Continue/Submit action. Cards expose hover, selected, focus, disabled and error states, with card-level selected treatment verified by source regression tests.
-
-- [x] **Authoritative BASELN palette correction.** The approved split layout, spacing, question flow, wordmark and legal links are retained. All cream, forest-green and oxblood declarations have been removed. Canvas/surfaces, paper typography, low-opacity rules, smoke-blue selected/focus/progress treatment and `#C7D5D7` charcoal-text actions follow the existing BASELN system; desktop and 390px mobile captures are clear.
-
-- [x] **Preserve the durable application contract.** The current same-origin `POST /api/public/coaching-application` path, lead persistence, CRM/database schema, attribution/consent capture, retry/failure messaging, server-confirmed receipt, `/apply` query-preserving 301 redirect, domain binding, payments and public pricing are unchanged; source regression checks pass.
-
-- [ ] **Release validation and authoritative deployment.** Verify TypeScript and production build; verify mobile and desktop layout; run one marked non-contact end-to-end application test confirming HTTP 201/durable lead ID and receipt; verify `/apply` query preservation. Save the released change on canonical `main`, publish the exact `wdp_6fb3…` project and bind that project—not any superseded resource—to `https://baseln.co`, then verify the direct public application URL.
+- [x] **Durable lead delivery via managed server and database.** The `/online/register` application form submits contact, training objective, availability, consent and first/last-touch attribution fields to `POST /api/leads`. Browser acknowledgement requires a confirmed HTTP 201 receipt with server-generated lead ID.
+- [x] **Owner-visible application queue.** Submitted applications are stored in the managed database (`coaching_leads` table) with full UTM first-touch and assist records, landing route, referrer, CTA and timestamp. Compact owner notification is sent to Outlook (`aian@baseln.co`).
+- [x] **Approved canonical intake and legacy routing.** `/online/register` is the canonical application route across all site navigation. `/apply` returns a query-preserving 301 redirect to `/online/register`. Legacy site paths redirect cleanly.
+- [x] **Container deployment contract and health readiness.** Production Dockerfile runs `node server/server.mjs`. Live probe responds at `/_app/live` and database readiness at `/_app/ready` and `/_app/health`.
+- [x] **FastSpring and public payment hold.** Zero public checkout, Buy now, FastSpring, or price references exist on public routes.
+- [x] **Published production verification and branded domain cutover.** Branded domain `https://baseln.co` is live and serving the production container.
+- [ ] **Five-Stage Mobile-First Application.** Implement the exact 5-stage application specified in `Pasted_content_68.txt`:
+  - Stage 1: Goals ("Lose body fat", "Build muscle", "Get stronger", "Improve conditioning", "Prepare for an event", "Improve general health and fitness") with multi-select capability.
+  - Stage 2: Training background and weekly frequency ("1–2 days", "3 days", "4 days", "5+ days", "Variable").
+  - Stage 3: Biggest obstacle / challenge so far.
+  - Stage 4: Timeline and logistics (start date, country/time zone).
+  - Stage 5: Contact details (name, email, phone/WhatsApp, privacy/health consent, referral fallback).
+  - Form color coordination: strict use of BASELN smoke-blue (`#7C93A6`, `#8AA3B6`), charcoal (`#07080A`, `#0B0C0E`), and paper off-white (`#F4F4F2`).
+- [ ] **Lead API & Attribution Integration.** Validate and persist the 5-stage application fields in `server/server.mjs`, preserving attribution and sending owner notification.
+- [ ] **Verification, Build & Production Publication.** Test TypeScript build, verify end-to-end flow, push checkpoint, publish to `https://baseln.co`, and verify live edge.
